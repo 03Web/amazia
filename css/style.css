@@ -545,56 +545,83 @@ footer {
   font-size: 1.2em;
 }
 /* ========================================= */
-/* CSS TAMBAHAN UNTUK MENU MOBILE RESPONSIVE */
+/* CSS BARU & BENAR UNTUK MENU RESPONSIVE  */
 /* ========================================= */
 
+/* 1. Kontainer untuk Header */
+/* Menggunakan flexbox untuk penataan yang lebih baik */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  width: 100%;
+}
+
+/* 2. Tombol Menu (Hamburger) */
 .menu-toggle {
-  display: none; /* Sembunyikan tombol di tampilan desktop */
+  display: none; /* Sembunyikan di desktop */
   background: none;
   border: none;
   color: white;
-  font-size: 1.5em; /* Sesuaikan ukuran ikon */
+  font-size: 1.8em;
   cursor: pointer;
+  z-index: 1001; /* Pastikan di atas segalanya */
 }
 
-/* Penyesuaian untuk layar lebih kecil (Responsive) */
+/* 3. ATURAN UNTUK LAYAR KECIL (MOBILE) */
 @media (max-width: 768px) {
-  header {
-    flex-direction: row; /* Ubah dari column ke row */
-    flex-wrap: wrap; /* Izinkan item untuk turun ke baris baru */
-    justify-content: space-between; /* Posisikan logo dan tombol menu */
-    padding: 20px;
+  .header-container {
+    padding: 20px; /* Padding lebih kecil di mobile */
   }
 
+  /* Tampilkan tombol menu di mobile */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Sembunyikan social media di header mobile agar rapi */
+  .social-media {
+    display: none;
+  }
+
+  /* Logika Menu Geser (Slide-in) */
   header nav {
-    display: none; /* Sembunyikan navigasi secara default */
-    width: 100%; /* Buat navigasi memenuhi lebar header */
-    flex-direction: column;
-    align-items: center; /* Tengahkan item menu */
-    margin-top: 15px;
-  }
+    /* Posisikan menu di luar layar ke kanan */
+    position: fixed;
+    top: 0;
+    right: -100%; /* Mulai dari luar layar sebelah kanan */
+    width: 280px; /* Lebar menu */
+    height: 100vh; /* Tinggi penuh */
+    background-color: #1a1a1a; /* Warna latar sedikit beda */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.25);
 
-  /* Style untuk menampilkan menu ketika aktif */
-  header nav.active {
+    /* Atur agar item di dalamnya tersusun vertikal */
     display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Animasi yang halus */
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1000;
   }
 
+  /* Kelas .active ini akan ditambahkan oleh JavaScript */
+  header nav.active {
+    right: 0; /* Pindahkan menu ke dalam layar */
+  }
+
+  /* Atur daftar link di dalam menu mobile */
   header nav ul {
-    flex-direction: column; /* Tampilkan link secara vertikal */
-    margin-top: 0;
-    margin-bottom: 0;
+    flex-direction: column;
+    text-align: center;
   }
 
   header nav ul li {
-    margin: 10px 0; /* Beri jarak vertikal antar link */
-    margin-left: 0;
+    margin: 20px 0; /* Beri jarak vertikal yang lebih besar */
   }
 
-  .social-media {
-    display: none; /* Sembunyikan ikon sosial media di header mobile agar lebih rapi */
-  }
-
-  .menu-toggle {
-    display: block; /* Tampilkan tombol hamburger di mobile */
+  header nav ul li a {
+    font-size: 1.5em; /* Perbesar font di menu mobile */
   }
 }

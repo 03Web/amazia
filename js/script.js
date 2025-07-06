@@ -77,14 +77,28 @@ tsParticles.load("particles-js", {
   },
   retina_detect: true,
 });
-// Fungsionalitas untuk Tombol Menu Mobile
+/* ========================================= */
+/* SCRIPT BARU & BENAR UNTUK MENU RESPONSIVE */
+/* ========================================= */
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.getElementById("menu-toggle");
   const nav = document.querySelector("header nav");
 
+  // Cek apakah elemen ada untuk menghindari error
   if (menuToggle && nav) {
     menuToggle.addEventListener("click", function () {
+      // Toggle kelas 'active' pada navigasi
       nav.classList.toggle("active");
+
+      // Ganti ikon hamburger menjadi 'X' saat menu terbuka
+      const icon = menuToggle.querySelector("i");
+      if (nav.classList.contains("active")) {
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-times");
+      } else {
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+      }
     });
   }
 });
