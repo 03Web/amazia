@@ -107,25 +107,94 @@ footer {
   border-top: 1px solid #333;
 }
 
-/* Penyesuaian untuk layar lebih kecil (Responsive) */
+/* ========================================= */
+/* CSS UNTUK TAMPILAN MOBILE (RESPONSIVE)    */
+/* ========================================= */
+
 @media (max-width: 768px) {
-  header {
+  /* Mengatur ulang layout header */
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px; /* Atur padding kiri-kanan */
+  }
+
+  /* Mengurangi ukuran font logo agar tidak turun baris */
+  header .logo h1 {
+    font-size: 1.2em;
+  }
+
+  /* Sembunyikan navigasi utama di mobile */
+  #navbar {
+    display: flex;
+    position: absolute;
+    top: 80px; /* Sesuaikan dengan tinggi header Anda */
+    left: 0;
+    width: 100%;
+    background-color: #000;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
   }
 
-  header nav ul {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  /* Tampilkan navigasi ketika menu aktif */
+  #navbar.active {
+    height: calc(100vh - 80px); /* Tinggi menu mobile saat terbuka */
+    padding: 20px 0;
   }
 
-  header nav ul li {
-    margin: 0 10px;
+  #navbar ul {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
   }
 
+  #navbar ul li {
+    margin: 20px 0;
+  }
+
+  /* Sembunyikan ikon sosial media di header mobile */
+  .social-media {
+    display: none;
+  }
+
+  /* Tampilkan tombol hamburger */
+  .menu-toggle {
+    display: block; /* Tampilkan tombol hamburger */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+
+  /* Atasi padding yang berlebih di main content */
   main {
     padding: 20px;
   }
+
+  .container {
+    padding-top: 20px;
+  }
+
+  /* Membuat layout kegiatan menjadi vertikal */
+  .kegiatan-item {
+    flex-direction: column;
+  }
+
+  /* Membuat layout info kontak menjadi vertikal */
+  .info-umum {
+    flex-direction: column;
+  }
+}
+
+/* Sembunyikan tombol hamburger di layar besar */
+.menu-toggle {
+  display: none;
 }
 /* ========================================= */
 /* TAMBAHAN CSS UNTUK HALAMAN ABOUT          */
@@ -537,44 +606,4 @@ footer {
 .wa-button i {
   margin-right: 10px;
   font-size: 1.2em;
-}
-/* Desain Responsif (Mobile & Tablet) */
-@media (max-width: 768px) {
-  .logo {
-    font-size: 1.2rem;
-  }
-
-  #navbar {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: var(--primary-color);
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease-in-out;
-  }
-
-  #navbar.active {
-    height: calc(100vh - 80px); /* Tinggi menu mobile */
-  }
-
-  .nav-menu {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
-  .nav-item {
-    margin: 20px 0;
-  }
-
-  .social-media {
-    display: none; /* Sembunyikan ikon sosial di header mobile */
-  }
-
-  .menu-toggle {
-    display: block; /* Tampilkan tombol hamburger */
-  }
 }
