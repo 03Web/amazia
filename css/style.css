@@ -538,3 +538,43 @@ footer {
   margin-right: 10px;
   font-size: 1.2em;
 }
+/* Desain Responsif (Mobile & Tablet) */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  #navbar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+  }
+
+  #navbar.active {
+    height: calc(100vh - 80px); /* Tinggi menu mobile */
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .nav-item {
+    margin: 20px 0;
+  }
+
+  .social-media {
+    display: none; /* Sembunyikan ikon sosial di header mobile */
+  }
+
+  .menu-toggle {
+    display: block; /* Tampilkan tombol hamburger */
+  }
+}
