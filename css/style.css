@@ -8,12 +8,16 @@
   box-sizing: border-box;
 }
 
+/* Ganti kode body yang ada dengan ini */
 body {
   background-color: #000000;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
-  font-style: italic; /* Style italic untuk semua teks */
+  font-style: italic;
   line-height: 1.6;
+  display: flex; /* Tambahkan ini */
+  flex-direction: column; /* Tambahkan ini */
+  min-height: 100vh; /* Tambahkan ini */
 }
 
 /* Styling untuk container animasi partikel */
@@ -74,6 +78,7 @@ header nav ul li a.active {
 
 main {
   padding: 40px 50px;
+  flex: 1; /* Tambahkan ini */
 }
 
 .container {
@@ -98,10 +103,11 @@ main {
   font-size: 1.2em;
 }
 
+/* Ganti kode footer yang ada dengan ini */
 footer {
   text-align: center;
   padding: 20px;
-  position: absolute;
+  /* position: absolute; <-- HAPUS BARIS INI */
   bottom: 0;
   width: 100%;
   border-top: 1px solid #333;
@@ -537,4 +543,58 @@ footer {
 .wa-button i {
   margin-right: 10px;
   font-size: 1.2em;
+}
+/* ========================================= */
+/* CSS TAMBAHAN UNTUK MENU MOBILE RESPONSIVE */
+/* ========================================= */
+
+.menu-toggle {
+  display: none; /* Sembunyikan tombol di tampilan desktop */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em; /* Sesuaikan ukuran ikon */
+  cursor: pointer;
+}
+
+/* Penyesuaian untuk layar lebih kecil (Responsive) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: row; /* Ubah dari column ke row */
+    flex-wrap: wrap; /* Izinkan item untuk turun ke baris baru */
+    justify-content: space-between; /* Posisikan logo dan tombol menu */
+    padding: 20px;
+  }
+
+  header nav {
+    display: none; /* Sembunyikan navigasi secara default */
+    width: 100%; /* Buat navigasi memenuhi lebar header */
+    flex-direction: column;
+    align-items: center; /* Tengahkan item menu */
+    margin-top: 15px;
+  }
+
+  /* Style untuk menampilkan menu ketika aktif */
+  header nav.active {
+    display: flex;
+  }
+
+  header nav ul {
+    flex-direction: column; /* Tampilkan link secara vertikal */
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  header nav ul li {
+    margin: 10px 0; /* Beri jarak vertikal antar link */
+    margin-left: 0;
+  }
+
+  .social-media {
+    display: none; /* Sembunyikan ikon sosial media di header mobile agar lebih rapi */
+  }
+
+  .menu-toggle {
+    display: block; /* Tampilkan tombol hamburger di mobile */
+  }
 }

@@ -77,3 +77,14 @@ tsParticles.load("particles-js", {
   },
   retina_detect: true,
 });
+// Fungsionalitas untuk Tombol Menu Mobile
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menu-toggle");
+  const nav = document.querySelector("header nav");
+
+  if (menuToggle && nav) {
+    menuToggle.addEventListener("click", function () {
+      nav.classList.toggle("active");
+    });
+  }
+});
