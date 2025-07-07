@@ -102,3 +102,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+/* ========================================= */
+/* SCRIPT BARU UNTUK ANIMASI ON-SCROLL       */
+/* ========================================= */
+document.addEventListener("DOMContentLoaded", function () {
+  // Opsi untuk Intersection Observer
+  // threshold: 0.1 berarti callback akan berjalan saat 10% elemen terlihat
+  const observerOptions = {
+    threshold: 0.1,
+  };
+
+  // Callback function yang akan dijalankan saat elemen diamati
+  const observerCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      // Jika elemen masuk ke dalam viewport
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        // Setelah animasi berjalan, kita tidak perlu mengamatinya lagi
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  // Buat observer baru
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Pilih semua elemen yang ingin diberi animasi
+  // Anda bisa menambahkan lebih banyak selector di sini
+  const elementsToAnimate = document.querySelectorAll(
+    ".container h2, .container p, .container h3, .visi-misi-container, .struktur-container, .gallery-grid, .kegiatan-item, .info-item, .kontak-grid"
+  );
+
+  // Tambahkan kelas .animate-on-scroll dan mulai amati setiap elemen
+  elementsToAnimate.forEach((el) => {
+    el.classList.add("animate-on-scroll");
+    observer.observe(el);
+  });
+});

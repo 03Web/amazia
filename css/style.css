@@ -221,6 +221,15 @@ footer {
   /* Anda bisa mengganti ini dengan tag <img> saat sudah punya foto */
 }
 
+.foto-pengurus {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Membuat foto menjadi lingkaran */
+  margin: 0 auto 20px auto; /* Posisi tengah dan jarak bawah */
+  object-fit: cover; /* Memastikan gambar pas tanpa distorsi */
+  border: 2px solid #333; /* Opsional: menambah bingkai tipis */
+}
+
 .pengurus-card h4 {
   font-size: 1.2em;
   margin-bottom: 5px;
@@ -624,4 +633,25 @@ footer {
   header nav ul li a {
     font-size: 1.5em; /* Perbesar font di menu mobile */
   }
+}
+/* ========================================= */
+/* CSS UNTUK ANIMASI SLIDE-UP DINAMIS        */
+/* ========================================= */
+
+/* Kelas ini akan kita targetkan dengan JavaScript.
+  Secara default, elemen akan transparan dan sedikit bergeser ke bawah.
+  Transisi ditambahkan agar perubahan (saat kelas .visible ditambahkan) berjalan mulus.
+*/
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px); /* Mulai dari 30px di bawah posisi asli */
+  transition: opacity 0.5s ease-out, transform 0.6s ease-out;
+}
+
+/* Kelas .visible ini akan ditambahkan oleh JavaScript saat elemen masuk ke layar.
+  Ini akan mengembalikan elemen ke posisi dan opasitas normal, memicu transisi.
+*/
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
