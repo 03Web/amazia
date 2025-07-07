@@ -139,3 +139,48 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(el);
   });
 });
+/* ========================================= */
+/* SCRIPT BARU UNTUK FITUR SORTING           */
+/* ========================================= */
+document.addEventListener("DOMContentLoaded", function () {
+  // Fungsi umum untuk mengurutkan item
+  function sortItems(containerSelector, itemSelector, sorterId) {
+    const sorter = document.getElementById(sorterId);
+    const container = document.querySelector(containerSelector);
+
+    // Cek apakah elemen ada di halaman ini
+    if (!sorter || !container) {
+      return;
+    }
+
+    sorter.addEventListener("change", function () {
+      const sortOrder = this.value;
+      const items = Array.from(container.querySelectorAll(itemSelector));
+
+      items.sort(function (a, b) {
+        const dateA = new Date(a.getAttribute("data-tanggal"));
+        const dateB = new Date(b.getAttribute("data-tanggal"));
+
+        if (sortOrder === "terbaru") {
+          return dateB - dateA; // Urutkan dari tanggal terbaru ke terlama
+        } else {
+          return dateA - dateB; // Urutkan dari tanggal terlama ke terbaru
+        }
+      });
+
+      // Hapus item yang ada dari kontainer
+      container.innerHTML = "";
+
+      // Tambahkan kembali item yang sudah diurutkan
+      items.forEach(function (item) {
+        container.appendChild(item);
+      });
+    });
+  }
+
+  // Terapkan fungsi sorting pada halaman Kegiatan
+  sortItems(".kegiatan-list", ".kegiatan-item", "kegiatan-sorter");
+
+  // Terapkan fungsi sorting pada halaman Galeri (untuk video)
+  sortItems("#video-grid", ".video-item", "video-sorter");
+});

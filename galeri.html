@@ -43,13 +43,13 @@
           </ul>
         </nav>
         <div class="social-media">
-          <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
           <a
             href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
             target="_blank"
-            ><i class="fab fa-youtube"></i
+            ><i class="fab fa-instagram"></i
           ></a>
+          <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
         <button id="menu-toggle" class="menu-toggle" aria-label="Buka Menu">
           <i class="fas fa-bars"></i>
@@ -117,31 +117,54 @@
 
         <hr class="separator" />
 
-        <h3>Dokumentasi Video</h3>
-        <div class="gallery-grid">
-          <div class="gallery-item video-item">
-            <iframe
-              src="https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-          <div class="gallery-item video-item">
-            <iframe
-              src="https://www.youtube.com/embed/jNQXAC9IVRw"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-      </div>
+      <h3>Dokumentasi Video</h3>
+
+<div class="sort-container">
+  <label for="video-sorter">Urutkan berdasarkan:</label>
+  <select id="video-sorter" class="sorter">
+    <option value="terbaru">Terbaru ke Lama</option>
+    <option value="terlama">Lama ke Terbaru</option>
+  </select>
+</div>
+
+<div class="gallery-grid" id="video-grid">
+  <div class="gallery-item video-item" data-tanggal="2024-05-10">
+    <iframe
+      src="https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="gallery-item video-item" data-tanggal="2024-04-20">
+    <iframe
+      src="https://www.youtube.com/embed/jNQXAC9IVRw"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
     </main>
 
     <footer>
+      <div class="footer-social-media">
+        <a
+          href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
+          target="_blank"
+          aria-label="Instagram"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="TikTok"
+          ><i class="fab fa-tiktok"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="YouTube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+      </div>
       <p>&copy; 2025 Karang Taruna Banjarsari. All Rights Reserved.</p>
     </footer>
 

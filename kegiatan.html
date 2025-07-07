@@ -38,7 +38,11 @@
           </ul>
         </nav>
         <div class="social-media">
-          <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a
+            href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
+            target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
           <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
           <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
@@ -50,63 +54,83 @@
 
     <main>
       <div class="container">
-        <h2>Daftar Kegiatan</h2>
-        <p style="margin-bottom: 40px">
-          Jelajahi berbagai kegiatan positif dan berdampak yang telah kami
-          selenggarakan.
-        </p>
+       <h2>Daftar Kegiatan</h2>
+<p style="margin-bottom: 20px">
+  Jelajahi berbagai kegiatan positif dan berdampak yang telah kami
+  selenggarakan.
+</p>
 
-        <div class="kegiatan-list">
-          <article class="kegiatan-item">
-            <div class="kegiatan-foto">
-              <img
-                src="https://via.placeholder.com/400x300.png?text=Foto+Lomba+17-an"
-                alt="Lomba 17 Agustus"
-              />
-            </div>
-            <div class="kegiatan-konten">
-              <h3>Semarak Kemerdekaan: Lomba 17 Agustus di Desa Banjarsari</h3>
-              <p class="kegiatan-meta">
-                <i class="fas fa-calendar-alt"></i> 17 Agustus 2024
-              </p>
-              <p>
-                Dalam rangka memeriahkan HUT RI ke-79, Karang Taruna Banjarsari
-                sukses menggelar berbagai macam perlombaan untuk anak-anak
-                hingga orang dewasa...
-              </p>
-              <a href="kegiatan-17agustus.html" class="kegiatan-tombol"
-                >Baca Selengkapnya</a
-              >
-            </div>
-          </article>
-          <article class="kegiatan-item">
-            <div class="kegiatan-foto">
-              <img
-                src="https://via.placeholder.com/400x300.png?text=Foto+Bakti+Sosial"
-                alt="Bakti Sosial"
-              />
-            </div>
-            <div class="kegiatan-konten">
-              <h3>Bakti Sosial dan Santunan Anak Yatim Piatu</h3>
-              <p class="kegiatan-meta">
-                <i class="fas fa-calendar-alt"></i> 22 Juni 2024
-              </p>
-              <p>
-                Sebagai bentuk kepedulian terhadap sesama, kami menyelenggarakan
-                kegiatan bakti sosial yang diisi dengan pembagian sembako dan
-                santunan kepada anak yatim...
-              </p>
-              <a href="#" class="kegiatan-tombol">Baca Selengkapnya</a>
-            </div>
-          </article>
-        </div>
-      </div>
+<div class="sort-container">
+  <label for="kegiatan-sorter">Urutkan berdasarkan:</label>
+  <select id="kegiatan-sorter" class="sorter">
+    <option value="terbaru">Terbaru ke Lama</option>
+    <option value="terlama">Lama ke Terbaru</option>
+  </select>
+</div>
+
+<div class="kegiatan-list">
+  <article class="kegiatan-item" data-tanggal="2024-08-17">
+    <div class="kegiatan-foto">
+      <img
+        src="https://via.placeholder.com/400x300.png?text=Foto+Lomba+17-an"
+        alt="Lomba 17 Agustus"
+      />
+    </div>
+    <div class="kegiatan-konten">
+      <h3>Semarak Kemerdekaan: Lomba 17 Agustus di Desa Banjarsari</h3>
+      <p class="kegiatan-meta">
+        <i class="fas fa-calendar-alt"></i> 17 Agustus 2024
+      </p>
+      <p>
+        Dalam rangka memeriahkan HUT RI ke-79, Karang Taruna Banjarsari
+        sukses menggelar berbagai macam perlombaan untuk anak-anak
+        hingga orang dewasa...
+      </p>
+      <a href="kegiatan-17agustus.html" class="kegiatan-tombol"
+        >Baca Selengkapnya</a
+      >
+    </div>
+  </article>
+
+  <article class="kegiatan-item" data-tanggal="2024-06-22">
+    <div class="kegiatan-foto">
+      <img
+        src="https://via.placeholder.com/400x300.png?text=Foto+Bakti+Sosial"
+        alt="Bakti Sosial"
+      />
+    </div>
+    <div class="kegiatan-konten">
+      <h3>Bakti Sosial dan Santunan Anak Yatim Piatu</h3>
+      <p class="kegiatan-meta">
+        <i class="fas fa-calendar-alt"></i> 22 Juni 2024
+      </p>
+      <p>
+        Sebagai bentuk kepedulian terhadap sesama, kami menyelenggarakan
+        kegiatan bakti sosial yang diisi dengan pembagian sembako dan
+        santunan kepada anak yatim...
+      </p>
+      <a href="#" class="kegiatan-tombol">Baca Selengkapnya</a>
+    </div>
+  </article>
+</div>
     </main>
-
     <footer>
-      <p>© 2025 Karang Taruna Banjarsari. All Rights Reserved.</p>
+      <div class="footer-social-media">
+        <a
+          href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
+          target="_blank"
+          aria-label="Instagram"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="TikTok"
+          ><i class="fab fa-tiktok"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="YouTube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+      </div>
+      <p>&copy; 2025 Karang Taruna Banjarsari. All Rights Reserved.</p>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="js/script.js"></script>
   </body>

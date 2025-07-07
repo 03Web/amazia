@@ -655,3 +655,47 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+/* ========================================= */
+/* CSS UNTUK SOSIAL MEDIA DI FOOTER          */
+/* ========================================= */
+.footer-social-media {
+  margin-bottom: 15px; /* Memberi jarak ke teks copyright */
+}
+
+/* Mengatur ikon-ikon sosial media di footer */
+.footer-social-media a {
+  color: #ffffff;
+  font-size: 1.6em; /* Sedikit lebih besar agar mudah di-tap */
+  margin: 0 15px; /* Jarak antar ikon */
+  transition: color 0.3s ease;
+}
+
+.footer-social-media a:hover {
+  color: #00aaff; /* Efek hover yang sama seperti di header */
+}
+/* ========================================= */
+/* CSS UNTUK FITUR SORTING                   */
+/* ========================================= */
+.sort-container {
+  text-align: left;
+  margin-bottom: 25px;
+  margin-top: 30px;
+  font-style: normal;
+}
+
+select.sorter {
+  background-color: #111;
+  color: #ffffff;
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+select.sorter:focus {
+  outline: none;
+  border-color: #00aaff;
+}
