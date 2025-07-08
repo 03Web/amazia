@@ -27,7 +27,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-main);
-  font-style: italic;
+  /* font-style: italic; <-- INI DIHAPUS agar tidak semua tulisan jadi miring */
   line-height: 1.6;
   display: flex;
   flex-direction: column;
@@ -204,7 +204,6 @@ header {
 
 /* ========================================= */
 /* KODE CSS UNTUK HALAMAN LAINNYA            */
-/* (Salin sisa CSS dari file asli Anda ke sini) */
 /* ========================================= */
 
 /* CSS Sorting */
@@ -242,3 +241,5 @@ select.sorter:focus {
 }
 
 /* Tambahkan sisa CSS Anda yang lain di bawah sini (untuk galeri, kegiatan, about, dll.) */
+
+/* KARAKTER '}' YANG SALAH DI AKHIR FILE TELAH DIHAPUS */
