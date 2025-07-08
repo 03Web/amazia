@@ -11,20 +11,51 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
     />
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div id="particles-js"></div>
 
-    <header id="main-header"></header>
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <h1>Karang Taruna Banjarsari</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="galeri.html" class="active">Foto & Video</a></li>
+            <li><a href="kegiatan.html">Kegiatan</a></li>
+            <li><a href="informasi.html">Informasi Terkini</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+          </ul>
+        </nav>
+        <div class="social-media">
+          <a
+            href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
+            target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Buka Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
 
     <main>
       <div class="container">
@@ -37,101 +68,139 @@
         <hr class="separator" />
 
         <h3>Dokumentasi Foto</h3>
-        <div class="album-grid">
-          <div class="album-item">
-            <a
-              href="./foto/foto-karang-taruna/halal1.png"
-              data-lightbox="album-kumpul"
-              data-title="Halal bihalal bersama warga"
-              class="album-cover"
-            >
-              <img
-                src="./foto/foto-karang-taruna/halal2_girl.png"
-                alt="Cover Album Kegiatan Kumpul-kumpul"
-              />
-              <div class="album-info">
-                <h4>Foto Kumpul-kumpul</h4>
-                <p>Lihat semua foto »</p>
-              </div>
-            </a>
-            <a
-              href="./foto/foto-karang-taruna/angkringan.jpeg"
-              data-lightbox="album-kumpul"
-              data-title="Diskusi santai di angkringan"
-            ></a>
-            <a
-              href="./foto/foto-karang-taruna/wisata.jpeg"
-              data-lightbox="album-kumpul"
-              data-title="Wisata bersama anggota"
-            ></a>
-          </div>
-          <div class="album-item">
-            <a
-              href="./foto/foto-karang-taruna/tari.jpeg"
-              data-lightbox="album-tari"
-              data-title="Penampilan tari tradisional"
-              class="album-cover"
-            >
-              <img
-                src="./foto/foto-karang-taruna/tari.jpeg"
-                alt="Cover Album Kesenian Tari"
-              />
-              <div class="album-info">
-                <h4>Kesenian Tari</h4>
-                <p>Lihat semua foto »</p>
-              </div>
-            </a>
-            <a
-              href="./foto/foto-karang-taruna/hold tari.JPG"
-              data-lightbox="album-tari"
-              data-title="Persiapan sebelum tampil"
-            ></a>
-            <a
-              href="./foto/foto-karang-taruna/teri topeng ireng.JPG"
-              data-lightbox="album-tari"
-              data-title="Tari Topeng Ireng"
-            ></a>
-          </div>
+        <div class="album-item">
+          <a
+            href="./foto/foto-karang-taruna/halal1.png"
+            data-lightbox="album-17agustus"
+            data-title="halal-bihalal"
+            class="album-cover"
+          >
+            <img
+              src="./foto/foto-karang-taruna/halal2_girl.png"
+              alt="Album Lomba 17 Agustus"
+            />
+            <div class="album-info">
+              <h4>foto kumpul-kumpul</h4>
+              <p>10++ Foto</p>
+            </div>
+          </a>
+
+          <a
+            href="./foto/foto-karang-taruna/angkringan.jpeg"
+            data-lightbox="album-17agustus"
+            data-title="angkringan"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/wisata.jpeg"
+            data-lightbox="album-17agustus"
+            data-title="angkringan"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/17_agurstus_girl.png"
+            data-lightbox="album-17agustus"
+            data-title="foto memperingati ulang tahun endonesa"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/17agustus_men.png"
+            data-lightbox="album-17agustus"
+            data-title="foto biasa"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/halal2_girl.png"
+            data-lightbox="album-17agustus"
+            data-title="halal-bihalal"
+          ></a>
         </div>
 
-        <hr class="separator" />
-
-        <h3>Dokumentasi Video</h3>
-        <div class="sort-container">
-          <label for="video-sorter">Urutkan berdasarkan:</label>
-          <select id="video-sorter" class="sorter">
-            <option value="terbaru">Terbaru ke Lama</option>
-            <option value="terlama">Lama ke Terbaru</option>
-          </select>
+        <div class="album-item">
+          <a
+            href="./foto/foto-karang-taruna/tari.jpeg"
+            data-lightbox="album-tari"
+            data-title="album-tari"
+            class="album-cover"
+          >
+            <img src="./foto/foto-karang-taruna/tari.jpeg" alt="album tari" />
+            <div class="album-info">
+              <h4>tari</h4>
+              <p>10++ Foto</p>
+            </div>
+          </a>
+          <a
+            href="./foto/foto-karang-taruna/tari.JPG"
+            data-lightbox="album-tari"
+            data-title="album-tari"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/hold tari.JPG"
+            data-lightbox="album-tari"
+            data-title="album-tari"
+          ></a>
+          <a
+            href="./foto/foto-karang-taruna/teri topeng ireng.JPG"
+            data-lightbox="album-tari"
+            data-title="tari"
+          ></a>
         </div>
-        <div class="gallery-grid" id="video-grid">
-          <div class="gallery-item video-item" data-tanggal="2024-05-10">
-            <iframe
-              src="https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd"
-              title="Video Kegiatan Karang Taruna Mei 2024"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-          <div class="gallery-item video-item" data-tanggal="2024-04-20">
-            <iframe
-              src="https://www.youtube.com/embed/jNQXAC9IVRw"
-              title="Video Kegiatan Karang Taruna April 2024"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
+      </div>
+
+      <hr class="separator" />
+
+      <h3>Dokumentasi Video</h3>
+
+      <div class="sort-container">
+        <label for="video-sorter">Urutkan berdasarkan:</label>
+        <select id="video-sorter" class="sorter">
+          <option value="terbaru">Terbaru ke Lama</option>
+          <option value="terlama">Lama ke Terbaru</option>
+        </select>
+      </div>
+
+      <div class="gallery-grid" id="video-grid">
+        <div class="gallery-item video-item" data-tanggal="2024-05-10">
+          <iframe
+            src="https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="gallery-item video-item" data-tanggal="2024-04-20">
+          <iframe
+            src="https://www.youtube.com/embed/jNQXAC9IVRw"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </main>
 
-    <footer id="main-footer"></footer>
+    <footer>
+      <div class="footer-social-media">
+        <a
+          href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
+          target="_blank"
+          aria-label="Instagram"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="TikTok"
+          ><i class="fab fa-tiktok"></i
+        ></a>
+        <a href="#" target="_blank" aria-label="YouTube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+      </div>
+      <p>&copy; 2025 Karang Taruna Banjarsari. All Rights Reserved.</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
     <script src="js/script.js"></script>
   </body>
 </html>
