@@ -66,13 +66,11 @@ footer {
   font-size: 3em;
   margin-bottom: 10px;
 }
-
 .container h3 {
   font-size: 2em;
   margin-bottom: 20px;
   color: var(--text-muted-color);
 }
-
 .container p {
   font-size: 1.2em;
 }
@@ -104,28 +102,23 @@ header {
   text-decoration: none;
   color: var(--text-color);
 }
-
 .logo h1 {
   font-size: 1.8em;
   font-weight: 700;
 }
-
 .main-nav ul {
   list-style: none;
   display: flex;
 }
-
 .main-nav ul li {
   margin-left: 30px;
 }
-
 .main-nav ul li a {
   text-decoration: none;
   color: var(--text-color);
   font-size: 1.1em;
   transition: color 0.3s ease;
 }
-
 .main-nav ul li a:hover,
 .main-nav ul li a.active {
   color: var(--primary-color);
@@ -137,7 +130,6 @@ header {
   margin-left: 20px;
   transition: color 0.3s ease;
 }
-
 .social-media a:hover {
   color: var(--primary-color);
 }
@@ -159,15 +151,12 @@ header {
   .header-container {
     padding: 20px;
   }
-
   .menu-toggle {
     display: block;
   }
-
   .social-media {
     display: none;
   }
-
   .main-nav {
     position: fixed;
     top: 0;
@@ -182,20 +171,16 @@ header {
     transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     z-index: 1000;
   }
-
   .main-nav.active {
     right: 0;
   }
-
   .main-nav ul {
     flex-direction: column;
     text-align: center;
   }
-
   .main-nav ul li {
     margin: 20px 0;
   }
-
   .main-nav ul li a {
     font-size: 1.5em;
   }
@@ -207,97 +192,53 @@ header {
 .footer-social-media {
   margin-bottom: 15px;
 }
-
 .footer-social-media a {
   color: var(--text-color);
   font-size: 1.6em;
   margin: 0 15px;
   transition: color 0.3s ease;
 }
-
 .footer-social-media a:hover {
   color: var(--primary-color);
 }
 
 /* ========================================= */
-/* HALAMAN ABOUT                             */
+/* KODE CSS UNTUK HALAMAN LAINNYA            */
+/* (Salin sisa CSS dari file asli Anda ke sini) */
 /* ========================================= */
-.visi-misi-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+
+/* CSS Sorting */
+.sort-container {
   text-align: left;
+  margin-bottom: 25px;
+  margin-top: 30px;
+  font-style: normal;
 }
-
-.visi,
-.misi {
-  flex: 1;
-}
-
-.visi-misi-container h3 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  font-size: 1.8em;
-}
-
-.misi ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.misi ul li {
-  padding-left: 1.5em;
-  text-indent: -1.5em;
-  margin-bottom: 10px;
-}
-
-.misi ul li::before {
-  content: "✓";
-  color: var(--primary-color);
-  margin-right: 10px;
-}
-
-.struktur-organisasi h3 {
-  color: var(--primary-color);
-}
-
-.struktur-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-}
-
-.pengurus-card {
+select.sorter {
   background-color: var(--card-bg-color);
+  color: var(--text-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-family: var(--font-main);
+  font-size: 1em;
+  margin-left: 10px;
+  cursor: pointer;
+}
+select.sorter:focus {
+  outline: none;
+  border-color: var(--primary-color);
 }
 
-.pengurus-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 170, 255, 0.1);
+/* CSS Animasi Scroll */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.foto-pengurus {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin: 0 auto 20px auto;
-  object-fit: cover;
-  border: 2px solid var(--border-color);
-}
-
-.pengurus-card h4 {
-  font-size: 1.2em;
-  margin-bottom: 5px;
-}
-
-.pengurus-card p {
-  color: var(--text-muted-color);
-}
-
-/* Sisipkan CSS untuk halaman lain (Galeri, Kegiatan, dll.) di sini... */
-/* ... */
+/* Tambahkan sisa CSS Anda yang lain di bawah sini (untuk galeri, kegiatan, about, dll.) */

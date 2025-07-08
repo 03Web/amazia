@@ -1,5 +1,7 @@
 // Menunggu seluruh halaman dimuat sebelum menjalankan script
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Website script initialized."); // Pesan untuk debugging
+
   /**
    * =============================================
    * FUNGSI UTAMA UNTUK INISIALISASI
@@ -25,15 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadComponent = (selector, url, callback) => {
     fetch(url)
       .then((response) => {
-        if (!response.ok)
-          throw new Error("Network response was not ok " + response.statusText);
+        if (!response.ok) throw new Error("Component not found: " + url);
         return response.text();
       })
       .then((data) => {
         const element = document.querySelector(selector);
         if (element) {
           element.innerHTML = data;
-          if (callback) callback(); // Jalankan callback jika ada
+          if (callback) callback(); // Jalankan fungsi callback jika ada
         }
       })
       .catch((error) => console.error("Error loading component:", error));
@@ -66,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("particles-js")
     ) {
       tsParticles.load("particles-js", {
-        // ... (konfigurasi partikel Anda, salin dari file asli)
         particles: {
           number: { value: 80, density: { enable: true, value_area: 800 } },
           color: { value: "#ffffff" },
@@ -123,10 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
       initSorter("#video-grid", ".video-item", "video-sorter");
     }
 
-    // Jalankan animasi scroll HANYA jika ada elemen yang perlu dianimasikan
-    if (document.querySelector(".animate-on-scroll")) {
-      initScrollAnimation();
-    }
+    // Jalankan animasi scroll
+    initScrollAnimation();
   };
 
   // Fungsi untuk Sorting (Kegiatan & Video)
@@ -144,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
       });
 
-      // Kosongkan container dan isi kembali dengan item yang sudah diurutkan
       container.innerHTML = "";
       items.forEach((item) => container.appendChild(item));
     });
@@ -156,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ".container h2, .container p, .container h3, .visi-misi-container, .struktur-container, .gallery-grid, .kegiatan-item, .info-item, .kontak-grid"
     );
 
-    // Tambahkan class awal untuk persiapan animasi
     elementsToAnimate.forEach((el) => el.classList.add("animate-on-scroll"));
 
     const observer = new IntersectionObserver(
@@ -171,7 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
       { threshold: 0.1 }
     );
 
-    elementsToAnimate.forEach((el) => observer.observe(el));
+    elementsToAnimate.forEach((el) => {
+      if (el) observer.observe(el);
+    });
   };
 
   /**
