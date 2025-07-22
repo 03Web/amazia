@@ -41,7 +41,7 @@
         text-align: left;
       }
 
-      /* === PERBAIKAN CSS SLIDESHOW DIMULAI DI SINI === */
+      /* === CSS SLIDESHOW === */
 
       .slideshow-container {
         max-width: 800px;
@@ -53,25 +53,22 @@
       }
 
       .slideshow-slider {
-        /* Gunakan Grid untuk menumpuk gambar dengan cerdas */
         display: grid;
       }
 
       .slide-image {
-        /* Tempatkan semua gambar di area grid yang sama (1,1) */
         grid-area: 1 / 1 / 2 / 2;
 
-        width: 100%;
-        height: auto; /* Biarkan tinggi menyesuaikan agar tidak terpotong */
+        /* ATURAN UKURAN GAMBAR YANG BARU */
+        width: auto;
+        max-width: 100%;
+        margin: auto; /* Membuat gambar berada di tengah jika lebih kecil dari kontainer */
+        max-height: 500px; /* Batasi tinggi maksimum gambar menjadi 500px */
 
-        /* Sembunyikan semua gambar secara default */
         opacity: 0;
-
-        /* Atur transisi untuk efek fade yang halus */
         transition: opacity 0.8s ease-in-out;
       }
 
-      /* Kelas ini akan ditambahkan oleh JavaScript untuk menampilkan gambar */
       .slide-image.active-slide {
         opacity: 1;
       }
