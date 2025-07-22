@@ -17,7 +17,42 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Wadah utama untuk slideshow */
+      .slideshow-container {
+        max-width: 800px; /* Atur lebar maksimum slideshow */
+        position: relative;
+        margin: auto;
+        overflow: hidden; /* Sembunyikan gambar yang berada di luar wadah */
+        border-radius: 8px; /* Opsional: membuat sudut sedikit melengkung */
+      }
+
+      /* Wadah yang bergerak (slider) */
+      .slideshow-slider {
+        display: flex;
+        /* Transisi untuk animasi geser yang mulus */
+        transition: transform 0.5s ease-in-out;
+      }
+
+      /* Pengaturan untuk setiap gambar di dalam slideshow */
+      .slide-image {
+        min-width: 100%;
+        width: 100%;
+        height: auto; /* Menjaga rasio aspek gambar */
+        object-fit: cover; /* Memaksa gambar mengisi wadah tanpa distorsi */
+        max-height: 450px; /* Atur tinggi maksimum gambar agar tidak terlalu besar */
+      }
+
+      /* Membuat semua tulisan di dalam container artikel menjadi tengah */
+      .artikel-container {
+        text-align: center;
+      }
+      .artikel-konten p {
+        text-align: justify; /* Pengecualian: buat paragraf tetap rata kiri-kanan agar mudah dibaca */
+      }
+    </style>
   </head>
   <body>
     <div id="particles-js"></div>
@@ -54,12 +89,25 @@
           <i class="fas fa-calendar-alt"></i> 17 Agustus 2024
         </p>
 
-        <img
-          src="https://via.placeholder.com/800x400.png?text=Foto+Utama+17-an"
-          alt="Lomba 17 Agustus"
-          class="artikel-gambar-utama"
-        />
-
+        <div class="slideshow-container">
+          <div class="slideshow-slider">
+            <img
+              src="../foto/foto-karang-taruna/17agustus_men.png"
+              alt="Lomba 17 Agustus"
+              class="slide-image"
+            />
+            <img
+              src="../foto/foto-karang-taruna/17_agurstus_girl.png"
+              alt="Anak-anak Lomba Balap Karung"
+              class="slide-image"
+            />
+            <img
+              src="../foto/foto-karang-taruna/bal-balan.jpeg"
+              alt="Suasana Lomba Panjat Pinang"
+              class="slide-image"
+            />
+          </div>
+        </div>
         <div class="artikel-konten">
           <p>
             Dalam rangka memeriahkan Hari Ulang Tahun Republik Indonesia yang
@@ -85,7 +133,7 @@
           </p>
         </div>
 
-        <a href="kegiatan.html" class="tombol-kembali">
+        <a href="../kegiatan.html" class="tombol-kembali">
           <i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan
         </a>
       </div>
@@ -110,6 +158,25 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".slideshow-slider");
+        const slides = document.querySelectorAll(".slide-image");
+        let currentIndex = 0;
+
+        function nextSlide() {
+          // Pindah ke slide berikutnya
+          currentIndex = (currentIndex + 1) % slides.length;
+
+          // Geser slider ke kiri berdasarkan index slide saat ini
+          slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Atur interval untuk memanggil fungsi nextSlide setiap 3 detik (3000 milidetik)
+        setInterval(nextSlide, 3000);
+      });
+    </script>
   </body>
 </html>

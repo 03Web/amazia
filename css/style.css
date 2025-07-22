@@ -8,16 +8,35 @@
   box-sizing: border-box;
 }
 
-/* Ganti kode body yang ada dengan ini */
 body {
   background-color: #000000;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
-  font-style: italic;
+  /* Hapus font-style: italic; dari sini agar tidak semua teks miring */
   line-height: 1.6;
-  display: flex; /* Tambahkan ini */
-  flex-direction: column; /* Tambahkan ini */
-  min-height: 100vh; /* Tambahkan ini */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Tambahkan ini untuk mempertahankan gaya italic di tempat yang diinginkan */
+.container p,
+.kegiatan-konten p {
+  font-style: italic;
+}
+
+.logo-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 60px 0; /* Sesuaikan margin */
+  padding: 20px 0;
+}
+
+.logo-image img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
 }
 
 /* Styling untuk container animasi partikel */
@@ -770,7 +789,8 @@ select.sorter:focus {
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px); /* Mulai dari 30px di bawah posisi asli */
-  transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.6s ease-out,
+    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .animate-on-scroll.visible {
