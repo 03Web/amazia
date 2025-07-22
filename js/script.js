@@ -1,186 +1,272 @@
-tsParticles.load("particles-js", {
-  particles: {
-    number: {
-      value: 80, // GANTI ANGKA INI untuk menambah/mengurangi jumlah bintang
-      density: {
-        enable: true,
-        value_area: 800,
-      },
-    },
-    color: {
-      value: "#ffffff", // Warna partikel
-    },
-    shape: {
-      type: "circle", // Bentuk partikel
-    },
-    opacity: {
-      value: 0.5,
-      random: true,
-      anim: {
-        enable: true,
-        speed: 1,
-        opacity_min: 0.1,
-        sync: false,
-      },
-    },
-    size: {
-      value: 2, // Ukuran partikel
-      random: true,
-      anim: {
-        enable: false,
-      },
-    },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: "#ffffff", // Warna garis antar partikel
-      opacity: 0.4,
-      width: 1,
-    },
-    move: {
-      enable: true,
-      speed: 1, // GANTI ANGKA INI untuk kecepatan gerak partikel
-      direction: "none",
-      random: false,
-      straight: false,
-      out_mode: "out",
-      bounce: false,
-      attract: {
-        enable: false,
-        rotateX: 600,
-        rotateY: 1200,
-      },
-    },
-  },
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onhover: {
-        enable: true,
-        mode: "repulse", // Partikel akan menjauh saat kursor mendekat
-      },
-      onclick: {
-        enable: true,
-        mode: "push", // Menambah partikel baru saat diklik
-      },
-      resize: true,
-    },
-    modes: {
-      repulse: {
-        distance: 100,
-        duration: 0.4,
-      },
-      push: {
-        particles_nb: 4,
-      },
-    },
-  },
-  retina_detect: true,
+document.addEventListener("DOMContentLoaded", () => {
+  // Inisialisasi Partikel Latar Belakang
+  initParticles();
+
+  // Inisialisasi Menu Mobile
+  initMobileMenu();
+
+  // Inisialisasi Animasi Saat Scroll
+  initScrollAnimations();
+
+  // Memuat konten dinamis berdasarkan halaman yang aktif
+  loadDynamicContent();
 });
-/* ========================================= */
-/* SCRIPT BARU & BENAR UNTUK MENU RESPONSIVE */
-/* ========================================= */
-document.addEventListener("DOMContentLoaded", function () {
+
+/**
+ * Inisialisasi animasi partikel dari library tsParticles.
+ */
+function initParticles() {
+  if (document.getElementById("particles-js")) {
+    tsParticles.load("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false },
+        },
+        size: { value: 2, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true,
+        },
+        modes: {
+          repulse: { distance: 100, duration: 0.4 },
+          push: { particles_nb: 4 },
+        },
+      },
+      retina_detect: true,
+    });
+  }
+}
+
+/**
+ * Mengatur fungsionalitas menu mobile (hamburger).
+ */
+function initMobileMenu() {
   const menuToggle = document.getElementById("menu-toggle");
   const nav = document.querySelector("header nav");
 
-  // Cek apakah elemen ada untuk menghindari error
   if (menuToggle && nav) {
-    menuToggle.addEventListener("click", function () {
-      // Toggle kelas 'active' pada navigasi
+    menuToggle.addEventListener("click", () => {
       nav.classList.toggle("active");
-
-      // Ganti ikon hamburger menjadi 'X' saat menu terbuka
       const icon = menuToggle.querySelector("i");
-      if (nav.classList.contains("active")) {
-        icon.classList.remove("fa-bars");
-        icon.classList.add("fa-times");
-      } else {
-        icon.classList.remove("fa-times");
-        icon.classList.add("fa-bars");
-      }
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-times");
     });
   }
-});
-/* ========================================= */
-/* SCRIPT BARU UNTUK ANIMASI ON-SCROLL       */
-/* ========================================= */
-document.addEventListener("DOMContentLoaded", function () {
-  // Opsi untuk Intersection Observer
-  // threshold: 0.1 berarti callback akan berjalan saat 10% elemen terlihat
-  const observerOptions = {
-    threshold: 0.1,
-  };
+}
 
-  // Callback function yang akan dijalankan saat elemen diamati
-  const observerCallback = (entries, observer) => {
-    entries.forEach((entry) => {
-      // Jika elemen masuk ke dalam viewport
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        // Setelah animasi berjalan, kita tidak perlu mengamatinya lagi
-        observer.unobserve(entry.target);
-      }
-    });
-  };
-
-  // Buat observer baru
-  const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-  // Pilih semua elemen yang ingin diberi animasi
-  // Anda bisa menambahkan lebih banyak selector di sini
-  const elementsToAnimate = document.querySelectorAll(
-    ".container h2, .container p, .container h3, .visi-misi-container, .struktur-container, .gallery-grid, .kegiatan-item, .info-item, .kontak-grid"
-  );
-
-  // Tambahkan kelas .animate-on-scroll dan mulai amati setiap elemen
-  elementsToAnimate.forEach((el) => {
-    el.classList.add("animate-on-scroll");
-    observer.observe(el);
-  });
-});
-/* ========================================= */
-/* SCRIPT BARU UNTUK FITUR SORTING           */
-/* ========================================= */
-document.addEventListener("DOMContentLoaded", function () {
-  // Fungsi umum untuk mengurutkan item
-  function sortItems(containerSelector, itemSelector, sorterId) {
-    const sorter = document.getElementById(sorterId);
-    const container = document.querySelector(containerSelector);
-
-    // Cek apakah elemen ada di halaman ini
-    if (!sorter || !container) {
-      return;
-    }
-
-    sorter.addEventListener("change", function () {
-      const sortOrder = this.value;
-      const items = Array.from(container.querySelectorAll(itemSelector));
-
-      items.sort(function (a, b) {
-        const dateA = new Date(a.getAttribute("data-tanggal"));
-        const dateB = new Date(b.getAttribute("data-tanggal"));
-
-        if (sortOrder === "terbaru") {
-          return dateB - dateA; // Urutkan dari tanggal terbaru ke terlama
-        } else {
-          return dateA - dateB; // Urutkan dari tanggal terlama ke terbaru
+/**
+ * Menambahkan animasi 'fade-up' pada elemen saat terlihat di layar.
+ */
+function initScrollAnimations() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
         }
       });
+    },
+    { threshold: 0.1 }
+  );
 
-      // Hapus item yang ada dari kontainer
-      container.innerHTML = "";
+  document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+    observer.observe(el);
+  });
+}
 
-      // Tambahkan kembali item yang sudah diurutkan
-      items.forEach(function (item) {
-        container.appendChild(item);
-      });
-    });
+/**
+ * Memuat konten dari file JSON sesuai halaman.
+ */
+function loadDynamicContent() {
+  const path = window.location.pathname;
+
+  if (path.includes("galeri.html")) {
+    loadGaleri();
+  } else if (path.includes("kegiatan.html") && !path.includes("kegiatan-")) {
+    loadKegiatan();
+  } else if (path.includes("informasi.html")) {
+    loadInformasi();
+  }
+}
+
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Gagal memuat data:", error);
+    return null;
+  }
+}
+
+async function loadGaleri() {
+  const data = await fetchData("data/galeri.json");
+  if (!data) return;
+
+  // Load Album Foto
+  const albumContainer = document.getElementById("album-grid");
+  if (albumContainer) {
+    albumContainer.innerHTML = data.albumFoto
+      .map(
+        (album) => `
+            <div class="album-item animate-on-scroll">
+                <a href="${album.foto[0].src}" data-lightbox="${
+          album.id
+        }" data-title="${album.foto[0].title}" class="album-cover">
+                    <img src="${album.cover}" alt="${album.judul}">
+                    <div class="album-info">
+                        <h4>${album.judul}</h4>
+                        <p>${album.deskripsi}</p>
+                    </div>
+                </a>
+                ${album.foto
+                  .slice(1)
+                  .map(
+                    (foto) =>
+                      `<a href="${foto.src}" data-lightbox="${album.id}" data-title="${foto.title}"></a>`
+                  )
+                  .join("")}
+            </div>
+        `
+      )
+      .join("");
   }
 
-  // Terapkan fungsi sorting pada halaman Kegiatan
-  sortItems(".kegiatan-list", ".kegiatan-item", "kegiatan-sorter");
+  // Load Video
+  const videoContainer = document.getElementById("video-grid");
+  if (videoContainer) {
+    videoContainer.innerHTML = data.dokumentasiVideo
+      .map(
+        (video) => `
+            <div class="gallery-item video-item animate-on-scroll" data-tanggal="${video.tanggal}">
+                <iframe src="${video.src}" title="${video.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        `
+      )
+      .join("");
+    initSorters("#video-grid", ".video-item", "video-sorter");
+  }
+}
 
-  // Terapkan fungsi sorting pada halaman Galeri (untuk video)
-  sortItems("#video-grid", ".video-item", "video-sorter");
-});
+async function loadKegiatan() {
+  const data = await fetchData("data/kegiatan.json");
+  if (!data) return;
+
+  const kegiatanContainer = document.getElementById("kegiatan-list");
+  if (kegiatanContainer) {
+    kegiatanContainer.innerHTML = data
+      .map(
+        (item) => `
+            <article class="kegiatan-item animate-on-scroll" data-tanggal="${
+              item.tanggal
+            }">
+                <div class="kegiatan-foto">
+                    <img src="${item.gambar}" alt="${item.judul}">
+                </div>
+                <div class="kegiatan-konten">
+                    <h3>${item.judul}</h3>
+                    <p class="kegiatan-meta">
+                        <i class="fas fa-calendar-alt"></i> ${new Date(
+                          item.tanggal
+                        ).toLocaleDateString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                    </p>
+                    <p>${item.deskripsi}</p>
+                    <a href="${
+                      item.link
+                    }" class="kegiatan-tombol">Baca Selengkapnya</a>
+                </div>
+            </article>
+        `
+      )
+      .join("");
+    initSorters("#kegiatan-list", ".kegiatan-item", "kegiatan-sorter");
+  }
+}
+
+async function loadInformasi() {
+  const data = await fetchData("data/informasi.json");
+  if (!data) return;
+
+  const infoContainer = document.getElementById("info-list");
+  if (infoContainer) {
+    infoContainer.innerHTML = data
+      .map(
+        (info) => `
+            <div class="info-item animate-on-scroll">
+                <div class="info-header">
+                    <h3>${info.judul}</h3>
+                    <span class="info-tag ${info.tag_class}">${info.tag}</span>
+                </div>
+                <p class="info-meta">
+                    <i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
+                      info.tanggal
+                    ).toLocaleDateString("id-ID", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                </p>
+                <div class="info-body">
+                    ${info.konten}
+                </div>
+            </div>
+        `
+      )
+      .join("");
+  }
+}
+
+/**
+ * Inisialisasi fungsi sorting untuk elemen.
+ */
+function initSorters(containerSelector, itemSelector, sorterId) {
+  const sorter = document.getElementById(sorterId);
+  const container = document.querySelector(containerSelector);
+
+  if (!sorter || !container) return;
+
+  sorter.addEventListener("change", function () {
+    const sortOrder = this.value;
+    const items = Array.from(container.querySelectorAll(itemSelector));
+
+    items.sort((a, b) => {
+      const dateA = new Date(a.getAttribute("data-tanggal"));
+      const dateB = new Date(b.getAttribute("data-tanggal"));
+      return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
+    });
+
+    items.forEach((item) => container.appendChild(item));
+  });
+}

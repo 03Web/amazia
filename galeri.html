@@ -59,125 +59,32 @@
 
     <main>
       <div class="container">
-        <h2>Galeri Kami</h2>
-        <p style="margin-bottom: 40px">
+        <h2 class="animate-on-scroll">Galeri Kami</h2>
+        <p style="margin-bottom: 40px" class="animate-on-scroll">
           Dokumentasi visual dari berbagai kegiatan dan momen berharga Karang
           Taruna Banjarsari.
         </p>
 
-        <hr class="separator" />
+        <hr class="separator animate-on-scroll" />
 
-        <h3>Dokumentasi Foto</h3>
-        <div class="album-item">
-          <a
-            href="./foto/foto-karang-taruna/halal1.png"
-            data-lightbox="album-17agustus"
-            data-title="halal-bihalal"
-            class="album-cover"
-          >
-            <img
-              src="./foto/foto-karang-taruna/halal2_girl.png"
-              alt="Album Lomba 17 Agustus"
-            />
-            <div class="album-info">
-              <h4>foto kumpul-kumpul</h4>
-              <p>10++ Foto</p>
-            </div>
-          </a>
+        <h3 class="animate-on-scroll">Dokumentasi Foto</h3>
+        <div class="album-grid" id="album-grid"></div>
 
-          <a
-            href="./foto/foto-karang-taruna/angkringan.jpeg"
-            data-lightbox="album-17agustus"
-            data-title="angkringan"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/wisata.jpeg"
-            data-lightbox="album-17agustus"
-            data-title="angkringan"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/17_agurstus_girl.png"
-            data-lightbox="album-17agustus"
-            data-title="foto memperingati ulang tahun endonesa"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/17agustus_men.png"
-            data-lightbox="album-17agustus"
-            data-title="foto biasa"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/halal2_girl.png"
-            data-lightbox="album-17agustus"
-            data-title="halal-bihalal"
-          ></a>
+        <hr class="separator animate-on-scroll" />
+
+        <h3 class="animate-on-scroll">Dokumentasi Video</h3>
+
+        <div class="sort-container animate-on-scroll">
+          <label for="video-sorter">Urutkan berdasarkan:</label>
+          <select id="video-sorter" class="sorter">
+            <option value="terbaru">Terbaru ke Lama</option>
+            <option value="terlama">Lama ke Terbaru</option>
+          </select>
         </div>
 
-        <div class="album-item">
-          <a
-            href="./foto/foto-karang-taruna/tari.jpeg"
-            data-lightbox="album-tari"
-            data-title="album-tari"
-            class="album-cover"
-          >
-            <img src="./foto/foto-karang-taruna/tari.jpeg" alt="album tari" />
-            <div class="album-info">
-              <h4>tari</h4>
-              <p>10++ Foto</p>
-            </div>
-          </a>
-          <a
-            href="./foto/foto-karang-taruna/tari.JPG"
-            data-lightbox="album-tari"
-            data-title="album-tari"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/hold tari.JPG"
-            data-lightbox="album-tari"
-            data-title="album-tari"
-          ></a>
-          <a
-            href="./foto/foto-karang-taruna/teri topeng ireng.JPG"
-            data-lightbox="album-tari"
-            data-title="tari"
-          ></a>
-        </div>
-      </div>
-
-      <hr class="separator" />
-
-      <h3>Dokumentasi Video</h3>
-
-      <div class="sort-container">
-        <label for="video-sorter">Urutkan berdasarkan:</label>
-        <select id="video-sorter" class="sorter">
-          <option value="terbaru">Terbaru ke Lama</option>
-          <option value="terlama">Lama ke Terbaru</option>
-        </select>
-      </div>
-
-      <div class="gallery-grid" id="video-grid">
-        <div class="gallery-item video-item" data-tanggal="2024-05-10">
-          <iframe
-            src="https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <div class="gallery-item video-item" data-tanggal="2024-04-20">
-          <iframe
-            src="https://www.youtube.com/embed/jNQXAC9IVRw"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <div class="gallery-grid" id="video-grid"></div>
       </div>
     </main>
-
     <footer>
       <div class="footer-social-media">
         <a
