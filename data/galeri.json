@@ -2,56 +2,44 @@
   "albumFoto": [
     {
       "id": "album-1",
-      "cover": "/foto/foto-karang-taruna/halal1.png",
+      "cover": "foto/foto-karang-taruna/halal1.png",
       "judul": "Foto Kumpul-kumpul",
       "deskripsi": "10++ Foto",
       "foto": [
         {
-          "src": "/foto/foto-karang-taruna/halal1.png",
+          "src": "foto/foto-karang-taruna/halal1.png",
           "title": "Halal Bihalal"
         },
         {
-          "src": "/foto/foto-karang-taruna/angkringan.jpeg",
+          "src": "foto/foto-karang-taruna/angkringan.jpeg",
           "title": "Angkringan"
         },
+        { "src": "foto/foto-karang-taruna/wisata.jpeg", "title": "Wisata" },
         {
-          "src": "/foto/foto-karang-taruna/wisata.jpeg",
-          "title": "Wisata"
-        },
-        {
-          "src": "/foto/foto-karang-taruna/17_agurstus_girl.png",
+          "src": "foto/foto-karang-taruna/17_agurstus_girl.png",
           "title": "Peringatan 17 Agustus"
         },
         {
-          "src": "/foto/foto-karang-taruna/17agustus_men.png",
+          "src": "foto/foto-karang-taruna/17agustus_men.png",
           "title": "Foto Biasa"
         },
         {
-          "src": "/foto/foto-karang-taruna/halal2_girl.png",
+          "src": "foto/foto-karang-taruna/halal2_girl.png",
           "title": "Halal Bihalal"
         }
       ]
     },
     {
       "id": "album-2",
-      "cover": "/foto/foto-karang-taruna/tari.jpeg",
+      "cover": "foto/foto-karang-taruna/tari.jpeg",
       "judul": "Tari",
       "deskripsi": "10++ Foto",
       "foto": [
+        { "src": "foto/foto-karang-taruna/tari.jpeg", "title": "Tari" },
+        { "src": "foto/foto-karang-taruna/tari.JPG", "title": "Tari" },
+        { "src": "foto/foto-karang-taruna/hold tari.JPG", "title": "Tari" },
         {
-          "src": "/foto/foto-karang-taruna/tari.jpeg",
-          "title": "Tari"
-        },
-        {
-          "src": "/foto/foto-karang-taruna/tari.JPG",
-          "title": "Tari"
-        },
-        {
-          "src": "/foto/foto-karang-taruna/hold tari.JPG",
-          "title": "Tari"
-        },
-        {
-          "src": "/foto/foto-karang-taruna/teri topeng ireng.JPG",
+          "src": "foto/foto-karang-taruna/teri topeng ireng.JPG",
           "title": "Tari Topeng Ireng"
         }
       ]
