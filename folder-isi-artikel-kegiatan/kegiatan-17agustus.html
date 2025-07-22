@@ -6,51 +6,35 @@
     <title>
       Semarak Kemerdekaan: Lomba 17 Agustus - Karang Taruna Banjarsari
     </title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/style.css" />
-
     <style>
-      /* Wadah utama untuk slideshow */
       .slideshow-container {
-        max-width: 800px; /* Atur lebar maksimum slideshow */
+        max-width: 800px;
         position: relative;
         margin: auto;
-        overflow: hidden; /* Sembunyikan gambar yang berada di luar wadah */
-        border-radius: 8px; /* Opsional: membuat sudut sedikit melengkung */
+        overflow: hidden;
+        border-radius: 8px;
       }
-
-      /* Wadah yang bergerak (slider) */
       .slideshow-slider {
         display: flex;
-        /* Transisi untuk animasi geser yang mulus */
         transition: transform 0.5s ease-in-out;
       }
-
-      /* Pengaturan untuk setiap gambar di dalam slideshow */
       .slide-image {
         min-width: 100%;
         width: 100%;
-        height: auto; /* Menjaga rasio aspek gambar */
-        object-fit: cover; /* Memaksa gambar mengisi wadah tanpa distorsi */
-        max-height: 450px; /* Atur tinggi maksimum gambar agar tidak terlalu besar */
+        height: auto;
+        object-fit: cover;
+        max-height: 450px;
       }
-
-      /* Membuat semua tulisan di dalam container artikel menjadi tengah */
       .artikel-container {
         text-align: center;
       }
       .artikel-konten p {
-        text-align: justify; /* Pengecualian: buat paragraf tetap rata kiri-kanan agar mudah dibaca */
+        text-align: justify;
       }
     </style>
   </head>
@@ -84,11 +68,9 @@
     <main>
       <div class="artikel-container">
         <h2>Semarak Kemerdekaan: Lomba 17 Agustus di Desa Banjarsari</h2>
-
         <p class="kegiatan-meta">
           <i class="fas fa-calendar-alt"></i> 17 Agustus 2024
         </p>
-
         <div class="slideshow-container">
           <div class="slideshow-slider">
             <img
@@ -132,7 +114,6 @@
             royong di antara warga.
           </p>
         </div>
-
         <a href="../kegiatan.html" class="tombol-kembali">
           <i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan
         </a>
@@ -159,23 +140,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="../js/script.js"></script>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const slider = document.querySelector(".slideshow-slider");
-        const slides = document.querySelectorAll(".slide-image");
         let currentIndex = 0;
-
-        function nextSlide() {
-          // Pindah ke slide berikutnya
-          currentIndex = (currentIndex + 1) % slides.length;
-
-          // Geser slider ke kiri berdasarkan index slide saat ini
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % slider.children.length;
           slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
-        // Atur interval untuk memanggil fungsi nextSlide setiap 3 detik (3000 milidetik)
-        setInterval(nextSlide, 3000);
+        }, 3000);
       });
     </script>
   </body>
