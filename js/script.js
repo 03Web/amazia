@@ -2,44 +2,30 @@
  * @file script.js
  * @description Script utama untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Anda (atau Partner Coding)
- * @version 2.0.0
+ * @version 3.1.0 (Versi dengan Slideshow Dinamis)
  */
 
-// Menjalankan semua fungsi inisialisasi setelah konten halaman (DOM) selesai dimuat.
 document.addEventListener("DOMContentLoaded", () => {
-  // Muat komponen header dan footer secara dinamis
   loadComponent("layout/header.html", "main-header", initHeaderFeatures);
   loadComponent("layout/footer.html", "main-footer");
 
-  // Inisialisasi partikel latar belakang jika elemennya ada
   if (document.getElementById("particles-js")) {
     initParticles();
   }
 
-  // Inisialisasi animasi saat scroll
   initScrollAnimations();
-
-  // Jalankan fungsi spesifik untuk halaman tertentu
   initPageSpecificScripts();
 });
 
-/**
- * Memuat komponen HTML (seperti header/footer) dari file eksternal ke dalam elemen target.
- * @param {string} url - Path menuju file komponen (e.g., "layout/header.html").
- * @param {string} elementId - ID dari elemen target tempat komponen akan disisipkan.
- * @param {function} [callback] - Fungsi opsional yang akan dijalankan setelah komponen berhasil dimuat.
- */
 async function loadComponent(url, elementId, callback) {
   const element = document.getElementById(elementId);
-  if (!element) return; // Keluar jika elemen target tidak ditemukan
+  if (!element) return;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Gagal memuat komponen: ${url}`);
     const content = await response.text();
     element.innerHTML = content;
-
-    // Jalankan callback jika ada
     if (callback) callback();
   } catch (error) {
     console.error(error);
@@ -47,30 +33,23 @@ async function loadComponent(url, elementId, callback) {
   }
 }
 
-/**
- * Menjalankan fungsi yang relevan untuk halaman yang sedang aktif.
- * Ini adalah pendekatan yang lebih bersih daripada menggunakan if/else berdasarkan URL.
- */
 function initPageSpecificScripts() {
-  // Jika ada elemen #kegiatan-list, kita tahu ini halaman kegiatan.
+  const path = window.location.pathname.split("/").pop();
+
   if (document.getElementById("kegiatan-list")) {
     initKegiatanPage();
   }
-  // Jika ada elemen #album-grid, kita tahu ini halaman galeri.
   if (document.getElementById("album-grid")) {
     initGaleriPage();
   }
-  // Jika ada elemen #info-list, kita tahu ini halaman informasi.
   if (document.getElementById("info-list")) {
     initInformasiPage();
   }
+  if (path === "artikel.html") {
+    initArtikelPage();
+  }
 }
 
-/**
- * Mengambil data dari file JSON.
- * @param {string} url - Path menuju file JSON.
- * @returns {Promise<Array|null>} - Mengembalikan data dalam bentuk array atau null jika gagal.
- */
 async function fetchData(url) {
   try {
     const response = await fetch(url);
@@ -84,9 +63,42 @@ async function fetchData(url) {
 
 // --- FUNGSI SPESIFIK HALAMAN ---
 
-/**
- * Inisialisasi untuk halaman Kegiatan.
- */
+async function initArtikelPage() {
+  const container = document.getElementById("artikel-dinamis-container");
+  if (!container) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (!slug) {
+    container.innerHTML =
+      "<p style='text-align: center;'>Artikel tidak valid atau tidak ditemukan.</p>";
+    return;
+  }
+
+  const contentUrl = `konten-kegiatan/${slug}.html`;
+
+  try {
+    const response = await fetch(contentUrl);
+    if (!response.ok)
+      throw new Error(`File konten tidak ditemukan: ${contentUrl}`);
+    const content = await response.text();
+
+    container.innerHTML = content;
+
+    // Panggil fungsi untuk mengaktifkan slideshow
+    initSlideshow();
+
+    const judulArtikel = container.querySelector("h2")?.textContent;
+    if (judulArtikel) {
+      document.title = `${judulArtikel} - Karang Taruna Banjarsari`;
+    }
+  } catch (error) {
+    console.error("Gagal memuat artikel:", error);
+    container.innerHTML = `<p style="color: red; text-align: center;">Maaf, terjadi kesalahan saat memuat artikel. Silakan coba lagi.</p>`;
+  }
+}
+
 async function initKegiatanPage() {
   const container = document.getElementById("kegiatan-list");
   const data = await fetchData("data/kegiatan.json");
@@ -128,21 +140,17 @@ async function initKegiatanPage() {
         `
       )
       .join("");
-    initScrollAnimations(); // Re-inisialisasi animasi untuk item baru
+    initScrollAnimations();
   };
 
-  render(data); // Render data awal
+  render(data);
   initSorter(data, render, "kegiatan-sorter");
 }
 
-/**
- * Inisialisasi untuk halaman Galeri.
- */
 async function initGaleriPage() {
   const data = await fetchData("data/galeri.json");
   if (!data) return;
 
-  // Load Album Foto
   const albumContainer = document.getElementById("album-grid");
   if (albumContainer && data.albumFoto) {
     albumContainer.innerHTML = data.albumFoto
@@ -173,7 +181,6 @@ async function initGaleriPage() {
       .join("");
   }
 
-  // Load Video
   const videoContainer = document.getElementById("video-grid");
   if (videoContainer && data.dokumentasiVideo) {
     const renderVideos = (items) => {
@@ -193,9 +200,6 @@ async function initGaleriPage() {
   }
 }
 
-/**
- * Inisialisasi untuk halaman Informasi.
- */
 async function initInformasiPage() {
   const container = document.getElementById("info-list");
   const data = await fetchData("data/informasi.json");
@@ -234,30 +238,45 @@ async function initInformasiPage() {
 
 // --- FUNGSI UTILITAS / HELPERS ---
 
-/**
- * Inisialisasi semua fitur di header (menu mobile, link aktif).
- */
+function initSlideshow() {
+  const slideshowContainers = document.querySelectorAll(".slideshow-container");
+
+  slideshowContainers.forEach((container) => {
+    const slider = container.querySelector(".slideshow-slider");
+    if (slider) {
+      const slides = slider.children;
+      if (slides.length > 1) {
+        let currentIndex = 0;
+        if (slider.dataset.intervalId) {
+          clearInterval(slider.dataset.intervalId);
+        }
+        const intervalId = setInterval(() => {
+          currentIndex = (currentIndex + 1) % slides.length;
+          slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 3000); // Ganti gambar setiap 3 detik
+        slider.dataset.intervalId = intervalId;
+      }
+    }
+  });
+}
+
 function initHeaderFeatures() {
   initMobileMenu();
   setActiveNavLink();
 }
 
-/**
- * Mengatur fungsionalitas menu mobile (hamburger).
- */
 function initMobileMenu() {
   const menuToggle = document.getElementById("menu-toggle");
   const nav = document.querySelector("header nav");
 
   if (menuToggle && nav) {
     menuToggle.addEventListener("click", (e) => {
-      e.stopPropagation(); // Mencegah klik menyebar ke document
+      e.stopPropagation();
       nav.classList.toggle("active");
       const icon = menuToggle.querySelector("i");
       icon.classList.toggle("fa-bars");
       icon.classList.toggle("fa-times");
     });
-    // Menutup menu jika klik di luar area menu
     document.addEventListener("click", (e) => {
       if (nav.classList.contains("active") && !nav.contains(e.target)) {
         nav.classList.remove("active");
@@ -268,23 +287,20 @@ function initMobileMenu() {
   }
 }
 
-/**
- * Menambahkan kelas 'active' pada link navigasi yang sesuai dengan halaman saat ini.
- */
 function setActiveNavLink() {
   const currentLocation = window.location.pathname.split("/").pop();
   const navLinks = document.querySelectorAll("header nav a");
   navLinks.forEach((link) => {
-    if (link.getAttribute("href") === currentLocation) {
+    const linkPath = link.getAttribute("href");
+    if (
+      linkPath === currentLocation ||
+      (currentLocation === "artikel.html" && linkPath === "kegiatan.html")
+    ) {
       link.classList.add("active");
     }
   });
 }
 
-/**
- * Menambahkan animasi 'fade-up' pada elemen saat terlihat di layar.
- * Dibuat agar bisa dipanggil ulang untuk konten yang dimuat secara dinamis.
- */
 function initScrollAnimations() {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -305,12 +321,6 @@ function initScrollAnimations() {
     });
 }
 
-/**
- * Inisialisasi fungsi sorting untuk elemen.
- * @param {Array} originalData - Data asli dari JSON.
- * @param {function} renderFunction - Fungsi untuk me-render ulang item.
- * @param {string} sorterId - ID dari elemen <select>.
- */
 function initSorter(originalData, renderFunction, sorterId) {
   const sorter = document.getElementById(sorterId);
   if (!sorter) return;
@@ -326,9 +336,6 @@ function initSorter(originalData, renderFunction, sorterId) {
   });
 }
 
-/**
- * Inisialisasi animasi partikel dari library tsParticles.
- */
 function initParticles() {
   tsParticles.load("particles-js", {
     particles: {

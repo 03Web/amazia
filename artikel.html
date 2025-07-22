@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memuat Artikel... - Karang Taruna Banjarsari</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* Style khusus untuk halaman artikel bisa diletakkan di sini agar rapi */
+      .artikel-container {
+        max-width: 900px;
+        margin: auto;
+        padding: 2rem;
+        text-align: left;
+      }
+      .artikel-konten h3,
+      .artikel-konten h4 {
+        text-align: left;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: #d12a2a;
+      }
+      .artikel-konten p,
+      .artikel-konten li {
+        text-align: justify;
+        line-height: 1.6;
+      }
+      .artikel-konten ul {
+        list-style-position: inside;
+        padding-left: 0;
+      }
+      .artikel-konten blockquote {
+        border-left: 4px solid #ccc;
+        padding-left: 1rem;
+        margin: 1rem 0;
+        font-style: italic;
+        text-align: left;
+      }
+      /* Style untuk slideshow */
+      .slideshow-image {
+        max-width: 800px;
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+      }
+      .slideshow-slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide-image {
+        min-width: 100%;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        max-height: 450px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <header id="main-header"></header>
+
+    <main>
+      <div class="artikel-container" id="artikel-dinamis-container">
+        <h2 style="text-align: center">Memuat artikel...</h2>
+        <p style="text-align: center">Harap tunggu sebentar.</p>
+      </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
