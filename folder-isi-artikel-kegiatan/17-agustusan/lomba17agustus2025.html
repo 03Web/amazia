@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
     <style>
       .slideshow-container {
         max-width: 800px;
@@ -71,12 +71,12 @@
       </div>
       <nav>
         <ul>
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="../galeri.html">Foto & Video</a></li>
-          <li><a href="../kegiatan.html" class="active">Kegiatan</a></li>
-          <li><a href="../informasi.html">Informasi Terkini</a></li>
-          <li><a href="../kontak.html">Kontak</a></li>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../galeri.html">Foto & Video</a></li>
+          <li><a href="../../kegiatan.html" class="active">Kegiatan</a></li>
+          <li><a href="../../informasi.html">Informasi Terkini</a></li>
+          <li><a href="../../kontak.html">Kontak</a></li>
         </ul>
       </nav>
       <div class="social-media">
@@ -102,22 +102,22 @@
         <div class="slideshow-container">
           <div class="slideshow-slider">
             <img
-              src="/foto/17agustusan/PAMFLET LOMBA 17 AGUSTUS KARTAR  (Konten Instagram (4_5))_20250722_120450_0000.png"
+              src="../../foto/17agustusan/PAMFLET LOMBA 17 AGUSTUS KARTAR  (Konten Instagram (4_5))_20250722_120450_0000.png"
               alt="Pamflet Gebyar Merdeka 2025"
               class="slide-image"
             />
             <img
-              src="/foto/17agustusan/Roundown Lomba Agustus Hari Kedua_20250722_131824_0000.jpg"
+              src="../../foto/17agustusan/Roundown Lomba Agustus Hari Pertama_20250722_122304_0000.jpg"
               alt="Rundown Hari Pertama"
               class="slide-image"
             />
             <img
-              src="/foto/17agustusan/Roundown Lomba Agustus Hari Ketiga_20250722_132519_0000.jpg"
+              src="../../foto/17agustusan/Roundown Lomba Agustus Hari Kedua_20250722_131824_0000.jpg"
               alt="Rundown Hari Kedua"
               class="slide-image"
             />
             <img
-              src="/foto/17agustusan/Roundown Lomba Agustus Hari Pertama_20250722_122304_0000.jpg"
+              src="../../foto/17agustusan/Roundown Lomba Agustus Hari Ketiga_20250722_132519_0000.jpg"
               alt="Rundown Hari Ketiga"
               class="slide-image"
             />
@@ -260,45 +260,28 @@
             </p>
           </div>
         </div>
-        <a href="../kegiatan.html" class="tombol-kembali">
+        <a href="../../kegiatan.html" class="tombol-kembali">
           <i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan
         </a>
       </div>
     </main>
 
-    <footer>
-      <div class="footer-social-media">
-        <a
-          href="https://www.instagram.com/kartarbanjarr?utm_source=ig_web_button_share_sheet&igsh=dzA2aGwwMjdtYzZj"
-          target="_blank"
-          aria-label="Instagram"
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a href="#" target="_blank" aria-label="TikTok"
-          ><i class="fab fa-tiktok"></i
-        ></a>
-        <a href="#" target="_blank" aria-label="YouTube"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </div>
-      <p>&copy; 2025 Karang Taruna Banjarsari. All Rights Reserved.</p>
-    </footer>
+    <footer></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../../js/script.js"></script>
     <script>
+      // script slideshow di sini tidak perlu diubah
       document.addEventListener("DOMContentLoaded", function () {
         const slider = document.querySelector(".slideshow-slider");
         if (slider) {
-          // Pengecekan jika slider ada di halaman
           const slides = slider.children;
           if (slides.length > 1) {
-            // Hanya jalankan slideshow jika ada lebih dari 1 gambar
             let currentIndex = 0;
             setInterval(() => {
               currentIndex = (currentIndex + 1) % slides.length;
               slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }, 4000); // Durasi slide diubah menjadi 4 detik
+            }, 4000);
           }
         }
       });
