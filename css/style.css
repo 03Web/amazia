@@ -49,10 +49,10 @@ header#main-header {
 }
 
 .logo img {
-  width: 40px; /* Logo diperkecil */
-  height: 40px;
+  width: 100x; /* Logo diperkecil */
+  height: 100px;
   margin-right: 15px;
-}
+} 
 
 .logo h1 {
   font-size: 1.6em; /* Judul diperkecil */
@@ -600,7 +600,7 @@ select.sorter:focus {
   }
 
   .header-container {
-    padding: 10px 20px;
+    padding: 1px 20px;
   }
 
   /* Sembunyikan social media di header mobile */
