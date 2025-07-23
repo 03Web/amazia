@@ -88,6 +88,9 @@ async function fetchData(url) {
 /**
  * Inisialisasi untuk halaman Artikel dinamis.
  */
+/**
+ * Inisialisasi untuk halaman Artikel dinamis.
+ */
 async function initArtikelPage() {
   const container = document.getElementById("artikel-dinamis-container");
   if (!container) return;
@@ -95,11 +98,18 @@ async function initArtikelPage() {
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
 
+  // Sembunyikan kolom komentar jika halaman artikel tidak valid
+  const disqusContainer =
+    document.querySelector("#disqus_thread").parentElement;
   if (!slug) {
     container.innerHTML =
       "<p style='text-align: center;'>Artikel tidak valid atau tidak ditemukan.</p>";
+    if (disqusContainer) disqusContainer.style.display = "none"; // Sembunyikan
     return;
   }
+
+  // Jika valid, pastikan kolom komentar terlihat
+  if (disqusContainer) disqusContainer.style.display = "block";
 
   const contentUrl = `konten-kegiatan/${slug}.html`;
 
@@ -118,6 +128,39 @@ async function initArtikelPage() {
     if (judulArtikel) {
       document.title = `${judulArtikel} - Karang Taruna Banjarsari`;
     }
+
+    // --- MULAI KODE INTEGRASI DISQUS ---
+
+    // 1. Definisikan konfigurasi Disqus
+    // Ini memberitahu Disqus halaman mana yang sedang dibuka,
+    // agar setiap artikel punya kolom komentar yang terpisah.
+    var disqus_config = function () {
+      this.page.url = window.location.href; // URL lengkap halaman ini
+      this.page.identifier = slug; // ID unik untuk artikel ini (misal: "gebyar-merdeka-2025")
+    };
+
+    // 2. Hapus script Disqus lama jika ada (untuk mencegah duplikasi)
+    const oldScript = document.getElementById("disqus-script");
+    if (oldScript) {
+      oldScript.remove();
+    }
+
+    // 3. Buat dan tambahkan script Disqus yang baru
+    (function () {
+      var d = document,
+        s = d.createElement("script");
+      s.id = "disqus-script"; // Beri ID agar mudah ditemukan dan dihapus
+
+      // =================================================================
+      //   !!! GANTI 'NAMA-SHORTNAME-ANDA' DENGAN SHORTNAME ANDA !!!
+      // =================================================================
+      s.src = "https://amazia03.github.io/Karang-Taruna-Banjarsari/";
+
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+
+    // --- AKHIR KODE INTEGRASI DISQUS ---
   } catch (error) {
     console.error("Gagal memuat artikel:", error);
     container.innerHTML = `<p style="color: red; text-align: center;">Maaf, terjadi kesalahan saat memuat artikel. Silakan coba lagi.</p>`;
