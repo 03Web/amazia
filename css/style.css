@@ -22,7 +22,6 @@ body {
 /* === GAYA HEADER (PROFESIONAL STYLE) === */
 /* ========================================= */
 
-/* PERBAIKAN FINAL: Aturan tegas untuk membuat header statis dan tidak ikut scroll */
 header#main-header {
   position: fixed;
   top: 0;
@@ -36,7 +35,7 @@ header#main-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 50px; /* Header lebih ramping */
+  padding: 8px 50px;
   background-color: #000;
   border-bottom: 1px solid #333;
 }
@@ -49,13 +48,13 @@ header#main-header {
 }
 
 .logo img {
-  width: 40px; /* Logo diperkecil */
-  height: 40px;
+  width: 60px;
+  height: 60px;
   margin-right: 15px;
 }
 
 .logo h1 {
-  font-size: 1.6em; /* Judul diperkecil */
+  font-size: 1.6em;
   font-weight: bold;
   margin: 0;
   color: #fff;
@@ -111,6 +110,12 @@ header nav ul li a span {
 /* ========================================= */
 /* ===         KONTEN UTAMA              === */
 /* ========================================= */
+
+main {
+  padding-top: 95px;
+  width: 100%; /* Memastikan 'main' mengambil lebar penuh */
+}
+
 .container p,
 .kegiatan-konten p {
   font-style: italic;
@@ -143,7 +148,6 @@ main .container {
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 50px;
 }
 
 .container h2 {
@@ -603,12 +607,10 @@ select.sorter:focus {
     padding: 10px 20px;
   }
 
-  /* Sembunyikan social media di header mobile */
   header .social-media {
     display: none;
   }
 
-  /* Navigasi bawah menempel */
   header nav {
     position: fixed;
     bottom: 0;
@@ -663,16 +665,21 @@ select.sorter:focus {
     color: #00aaff;
   }
 
+  /* --- PERBAIKAN KUNCI --- */
   main {
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
+
   .kegiatan-item,
   .info-umum {
     flex-direction: column;
   }
+
   .logo-image img {
     max-width: 200px;
   }
+
   .container h2 {
     font-size: 2.2em;
   }
