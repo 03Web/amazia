@@ -50,11 +50,13 @@ body {
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  border-bottom: 1px solid #333; /* Garis tipis pemisah */
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #000000;
+  border-bottom: 1px solid #333; /* Tetap pertahankan garis bawah */
 }
 
 header .logo h1 {
@@ -96,8 +98,11 @@ header nav ul li a.active {
 }
 
 main {
-  padding: 40px 50px;
-  flex: 1; /* Tambahkan ini */
+  padding-top: 20px; /* Beri sedikit jarak dari header */
+  padding-bottom: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+  flex: 1;
 }
 
 .container {
@@ -712,18 +717,26 @@ select.sorter:focus {
 /* =================================================================== */
 /* === KODE BARU UNTUK TAMPILAN MOBILE / RESPONSIVE (NAVIGASI BAWAH) === */
 /* =================================================================== */
+/* ... (kode CSS Anda yang sudah ada) ... */
+
 @media (max-width: 768px) {
   /* Beri ruang di bawah agar konten tidak tertutup navigasi bawah */
   body {
     padding-bottom: 70px; /* Sesuaikan dengan tinggi nav + sedikit margin */
   }
 
+  /* ✅ PERBAIKAN: Buat header terpusat dan sembunyikan elemen yang tidak perlu */
   .header-container {
     padding: 15px 20px; /* Padding header di mobile */
+    justify-content: center; /* MEMBUAT LOGO DI TENGAH */
   }
 
-  /* Sembunyikan tombol hamburger dan social media di header mobile */
-  .menu-toggle,
+  .header-container .logo h1 {
+    font-size: 1.2rem; /* Kecilkan ukuran font logo di mobile */
+  }
+
+  /* Sembunyikan navigasi desktop dan ikon sosial media di header mobile */
+  .header-container > nav,
   .social-media {
     display: none;
   }
@@ -743,15 +756,17 @@ select.sorter:focus {
     border-top: 1px solid #333;
     z-index: 1000; /* Pastikan selalu di atas */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+    display: block; /* PASTIKAN NAVIGASI BAWAH TETAP TAMPIL */
   }
 
-  /* 2. Atur daftar (<ul>) agar menyebar horizontal */
+  /* ... (sisa kode @media query Anda sudah benar) ... */
+
   header nav ul {
-    flex-direction: row; /* Pastikan horizontal */
-    margin-top: 0; /* Reset margin dari desktop */
-    margin-bottom: 0; /* Reset margin dari desktop */
+    flex-direction: row;
+    margin-top: 0;
+    margin-bottom: 0;
     display: flex;
-    justify-content: space-around; /* Menyebar item secara merata */
+    justify-content: space-around;
     align-items: center;
     list-style: none;
     padding: 0;
@@ -760,42 +775,38 @@ select.sorter:focus {
   }
 
   header nav ul li {
-    margin: 0; /* Reset margin dari desktop */
+    margin: 0;
   }
 
-  /* 3. Atur setiap item link (<a>) */
   header nav ul li a {
     display: flex;
-    flex-direction: column; /* Susun ikon dan teks secara vertikal */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #ccc;
     text-decoration: none;
-    font-size: 0.75em; /* Ukuran font teks lebih kecil */
+    font-size: 0.75em;
     padding: 5px;
     height: 100%;
     transition: color 0.3s ease;
   }
 
-  /* 4. Gaya untuk ikon di dalam link */
   header nav ul li a i {
-    font-size: 1.5em; /* Ukuran ikon lebih besar dari teks */
-    margin-bottom: 5px; /* Jarak antara ikon dan teks */
+    font-size: 1.5em;
+    margin-bottom: 5px;
   }
 
-  /* 5. Tampilan untuk link yang sedang aktif */
   header nav ul li a.active,
   header nav ul li a:hover {
-    color: #00aaff; /* Warna aksen untuk item aktif */
+    color: #00aaff;
   }
 
-  /* Penyesuaian lain untuk halaman spesifik di mobile */
   main {
     padding: 20px;
   }
 
   .kegiatan-item {
-    flex-direction: column; /* Ubah layout kegiatan menjadi vertikal */
+    flex-direction: column;
   }
 
   .info-umum {
