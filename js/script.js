@@ -2,7 +2,7 @@
  * @file script.js
  * @description Script utama untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Anda (atau Partner Coding)
- * @version 3.2.0 (Versi Final dengan Efek Fade)
+ * @version 3.2.1 (Versi dengan Bottom Navigation)
  */
 
 // Menjalankan semua fungsi inisialisasi setelah konten halaman (DOM) selesai dimuat.
@@ -315,35 +315,10 @@ function initSlideshow() {
 
 /**
  * Inisialisasi semua fitur di header (menu mobile, link aktif).
+ * FUNGSI initMobileMenu() TELAH DIHAPUS.
  */
 function initHeaderFeatures() {
-  initMobileMenu();
   setActiveNavLink();
-}
-
-/**
- * Mengatur fungsionalitas menu mobile (hamburger).
- */
-function initMobileMenu() {
-  const menuToggle = document.getElementById("menu-toggle");
-  const nav = document.querySelector("header nav");
-
-  if (menuToggle && nav) {
-    menuToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      nav.classList.toggle("active");
-      const icon = menuToggle.querySelector("i");
-      icon.classList.toggle("fa-bars");
-      icon.classList.toggle("fa-times");
-    });
-    document.addEventListener("click", (e) => {
-      if (nav.classList.contains("active") && !nav.contains(e.target)) {
-        nav.classList.remove("active");
-        menuToggle.querySelector("i").classList.remove("fa-times");
-        menuToggle.querySelector("i").classList.add("fa-bars");
-      }
-    });
-  }
 }
 
 /**
