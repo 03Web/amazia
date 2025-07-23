@@ -776,6 +776,11 @@ select.sorter:focus {
     height: 100%;
     transition: color 0.3s ease;
   }
+  header nav ul li {
+    margin: 0; /* Reset margin dari desktop */
+    flex: 1; /* <-- INI KUNCI PERBAIKANNYA */
+    text-align: center; /* Memastikan semuanya terpusat */
+  }
 
   /* 4. Gaya untuk ikon di dalam link */
   header nav ul li a i {
