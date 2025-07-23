@@ -24,8 +24,12 @@ body {
 
 /* PERBAIKAN FINAL: Aturan tegas untuk membuat header statis dan tidak ikut scroll */
 header#main-header {
-  position: static !important;
-  top: auto !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #000;
 }
 
 .header-container {
@@ -135,12 +139,7 @@ header nav ul li a span {
   z-index: -1;
 }
 
-main {
-  padding: 40px 50px;
-  flex: 1;
-}
-
-.container {
+main .container {
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
