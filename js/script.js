@@ -91,6 +91,9 @@ async function fetchData(url) {
 /**
  * Inisialisasi untuk halaman Artikel dinamis.
  */
+/**
+ * Inisialisasi untuk halaman Artikel dinamis.
+ */
 async function initArtikelPage() {
   const container = document.getElementById("artikel-dinamis-container");
   if (!container) return;
@@ -132,11 +135,9 @@ async function initArtikelPage() {
     // --- MULAI KODE INTEGRASI DISQUS ---
 
     // 1. Definisikan konfigurasi Disqus
-    // Ini memberitahu Disqus halaman mana yang sedang dibuka,
-    // agar setiap artikel punya kolom komentar yang terpisah.
     var disqus_config = function () {
       this.page.url = window.location.href; // URL lengkap halaman ini
-      this.page.identifier = slug; // ID unik untuk artikel ini (misal: "gebyar-merdeka-2025")
+      this.page.identifier = slug; // ID unik untuk artikel ini
     };
 
     // 2. Hapus script Disqus lama jika ada (untuk mencegah duplikasi)
@@ -149,12 +150,11 @@ async function initArtikelPage() {
     (function () {
       var d = document,
         s = d.createElement("script");
-      s.id = "disqus-script"; // Beri ID agar mudah ditemukan dan dihapus
+      s.id = "disqus-script";
 
-      // =================================================================
-      //   !!! GANTI 'NAMA-SHORTNAME-ANDA' DENGAN SHORTNAME ANDA !!!
-      // =================================================================
-      s.src = "https://amazia03.github.io/Karang-Taruna-Banjarsari/";
+      // KODE YANG SUDAH DIPERBAIKI ADA DI BARIS BERIKUTNYA
+      s.src =
+        "https://amazia03-github-io-karang-taruna-banjarsari.disqus.com/embed.js";
 
       s.setAttribute("data-timestamp", +new Date());
       (d.head || d.body).appendChild(s);
