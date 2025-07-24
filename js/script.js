@@ -85,15 +85,18 @@ async function fetchData(url) {
 
 async function initArtikelPage() {
   const container = document.getElementById("artikel-dinamis-container");
-  const disqusContainer = document.getElementById("disqus_thread");
-  const disqusWrapper = disqusContainer ? disqusContainer.parentElement : null;
+  const disqusWrapper = document.getElementById("disqus_thread")?.parentElement;
 
-  if (!container || !disqusWrapper) return;
+  // Pastikan elemen penting ada sebelum melanjutkan
+  if (!container || !disqusWrapper) {
+    console.error("Elemen kontainer artikel atau Disqus tidak ditemukan.");
+    return;
+  }
 
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
 
-  // Jika tidak ada slug (artikel tidak valid), sembunyikan semuanya.
+  // Jika tidak ada slug di URL, tampilkan pesan error dan sembunyikan komentar.
   if (!slug) {
     container.innerHTML =
       "<p style='text-align: center;'>Artikel tidak valid atau tidak ditemukan.</p>";
@@ -101,59 +104,58 @@ async function initArtikelPage() {
     return;
   }
 
-  // Tampilkan wrapper komentar karena slug-nya valid
+  // Jika slug ada, pastikan kolom komentar terlihat
   disqusWrapper.style.display = "block";
 
   try {
-    // 1. Muat konten artikel dari file HTML
-    const contentUrl = `konten-kegiatan/${slug}.html`;
-    const response = await fetch(contentUrl);
+    // 1. Ambil dan tampilkan konten artikel
+    const response = await fetch(`konten-kegiatan/${slug}.html`);
     if (!response.ok)
-      throw new Error(`File konten tidak ditemukan: ${contentUrl}`);
-    const content = await response.text();
+      throw new Error("File konten artikel tidak dapat ditemukan.");
 
+    const content = await response.text();
     container.innerHTML = content;
 
-    // 2. Setelah konten dimuat, aktifkan fitur tambahan
-    initSlideshow(); // Aktifkan slideshow jika ada di dalam konten
-    const judulArtikel = container.querySelector("h2")?.textContent;
+    // 2. Ambil judul dari konten yang baru dimuat untuk update judul halaman dan Disqus
+    const judulArtikel = container.querySelector("h2")?.textContent.trim();
     if (judulArtikel) {
       document.title = `${judulArtikel} - Karang Taruna Banjarsari`;
     }
 
-    // --- MULAI KODE INTEGRASI DISQUS YANG DIPERBARUI ---
+    // 3. Inisialisasi fitur lain seperti slideshow
+    initSlideshow();
 
-    // 3. Reset dan Muat Ulang Disqus dengan Konfigurasi Baru
-    // Ini adalah bagian terpenting. Kita akan mereset instance Disqus yang ada
-    // dan memuatnya kembali dengan identifier (slug) yang baru.
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: function () {
-          this.page.url = window.location.href;
-          this.page.identifier = slug;
-        },
-      });
-    } else {
-      // Jika DISQUS belum ada, lakukan pemuatan awal
-      var disqus_config = function () {
-        this.page.url = window.location.href; // URL lengkap halaman ini
-        this.page.identifier = slug; // ID unik untuk artikel ini
-      };
+    // --- FOKUS UTAMA: LOGIKA MEMUAT ULANG DISQUS SECARA PAKSA ---
 
-      (function () {
-        var d = document,
-          s = d.createElement("script");
-        s.src =
-          "https://amazia03-github-io-karang-taruna-banjarsari.disqus.com/embed.js"; // Pastikan shortname ini sudah benar
-        s.setAttribute("data-timestamp", +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
+    // A. Hapus skrip Disqus yang mungkin sudah ada dari pemuatan sebelumnya.
+    const oldScript = document.getElementById("disqus-script");
+    if (oldScript) {
+      oldScript.remove();
     }
-    // --- AKHIR KODE INTEGRASI DISQUS ---
+
+    // B. Kosongkan div Disqus untuk memastikan tidak ada sisa konten.
+    document.getElementById("disqus_thread").innerHTML = "";
+
+    // C. Definisikan konfigurasi Disqus pada scope global (window).
+    // Ini adalah cara paling andal untuk memastikan Disqus membacanya.
+    window.disqus_config = function () {
+      this.page.url = window.location.href; // URL halaman saat ini
+      this.page.identifier = slug; // ID unik untuk artikel ini
+      this.page.title = judulArtikel || slug; // Judul artikel untuk referensi Disqus
+    };
+
+    // D. Buat dan tambahkan kembali elemen skrip Disqus yang baru.
+    const newScript = document.createElement("script");
+    newScript.id = "disqus-script"; // Beri ID agar bisa ditemukan dan dihapus lagi nanti
+    newScript.src =
+      "https://amazia03-github-io-karang-taruna-banjarsari.disqus.com/embed.js";
+    newScript.setAttribute("data-timestamp", +new Date());
+
+    // Tambahkan skrip ke akhir body untuk dieksekusi.
+    document.body.appendChild(newScript);
   } catch (error) {
-    console.error("Gagal memuat artikel:", error);
-    container.innerHTML = `<p style="color: red; text-align: center;">Maaf, terjadi kesalahan saat memuat artikel. Silakan coba lagi.</p>`;
+    console.error("Gagal memuat artikel atau Disqus:", error);
+    container.innerHTML = `<p style="color: red; text-align: center;">Maaf, terjadi kesalahan saat memuat artikel.</p>`;
     disqusWrapper.style.display = "none";
   }
 }
