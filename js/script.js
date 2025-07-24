@@ -22,22 +22,89 @@ document.addEventListener("DOMContentLoaded", () => {
   // Jalankan fungsi spesifik untuk halaman tertentu
   initPageSpecificScripts();
 });
+async function initArtikelPage() {
+  const container = document.getElementById("artikel-dinamis-container");
+  if (!container) return;
 
+  try {
+    // 1. Ambil 'slug' dari URL (contoh: artikel.html?slug=gebyar-merdeka-2025)
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get("slug");
+
+    if (!slug) {
+      throw new Error("Slug artikel tidak ditemukan di URL.");
+    }
+
+    // 2. Buat path menuju file konten artikel
+    const artikelPath = `konten-kegiatan/${slug}.html`;
+
+    // 3. Fetch konten dari file tersebut
+    const response = await fetch(artikelPath);
+    if (!response.ok) {
+      throw new Error(`Gagal memuat konten artikel: ${response.statusText}`);
+    }
+    const artikelContent = await response.text();
+
+    // 4. Masukkan konten ke dalam kontainer dan perbarui judul halaman
+    container.innerHTML = artikelContent;
+
+    // Ambil judul dari H2 pertama di dalam konten yang baru dimuat
+    const pageTitle = container.querySelector("h2").textContent;
+    document.title = pageTitle + " - Karang Taruna Banjarsari";
+
+    // 5. Inisialisasi ulang fitur seperti slideshow yang mungkin ada di dalam konten
+    initSlideshow();
+    initScrollAnimations(); // Inisialisasi ulang animasi scroll untuk konten baru
+  } catch (error) {
+    console.error("Gagal memuat artikel:", error);
+    container.innerHTML = `
+            <div style="text-align: center;">
+                <h2>Gagal Memuat Artikel</h2>
+                <p>Maaf, konten yang Anda cari tidak dapat ditemukan atau terjadi kesalahan saat memuat.</p>
+                <p><i>${error.message}</i></p>
+                <a href="kegiatan.html" class="kegiatan-tombol" style="margin-top: 20px;">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan
+                </a>
+            </div>
+        `;
+  }
+}
 /**
  * Memuat komponen HTML (seperti header/footer) dari file eksternal ke dalam elemen target.
+ *
  * @param {string} url - Path menuju file komponen (e.g., "layout/header.html").
  * @param {string} elementId - ID dari elemen target tempat komponen akan disisipkan.
  * @param {function} [callback] - Fungsi opsional yang akan dijalankan setelah komponen berhasil dimuat.
  */
 async function loadComponent(url, elementId, callback) {
   const element = document.getElementById(elementId);
-  if (!element) return; // Keluar jika elemen target tidak ditemukan
+  if (!element) return;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Gagal memuat komponen: ${url}`);
     const content = await response.text();
-    element.innerHTML = content;
+
+    // Buat DOM sementara untuk mem-parsing konten
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, "text/html");
+
+    // Sisipkan HTML dari body dokumen sementara ke elemen target
+    element.innerHTML = doc.body.innerHTML;
+
+    // Temukan dan eksekusi semua skrip secara manual
+    const scripts = doc.head.querySelectorAll("script");
+    scripts.forEach((oldScript) => {
+      const newScript = document.createElement("script");
+      // Salin semua atribut dari skrip lama ke skrip baru
+      Array.from(oldScript.attributes).forEach((attr) => {
+        newScript.setAttribute(attr.name, attr.value);
+      });
+      // Salin konten skrip jika ada
+      newScript.textContent = oldScript.textContent;
+      // Tambahkan skrip baru ke head dokumen utama agar dieksekusi
+      document.head.appendChild(newScript);
+    });
 
     // Jalankan callback jika ada
     if (callback) callback();
