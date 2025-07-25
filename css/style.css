@@ -28,7 +28,9 @@ header#main-header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.8); /* Tambahkan sedikit transparansi */
+  backdrop-filter: blur(10px); /* Efek blur untuk browser modern */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .header-container {
@@ -36,7 +38,6 @@ header#main-header {
   align-items: center;
   justify-content: space-between;
   padding: 8px 50px;
-  background-color: #000;
   border-bottom: 1px solid #333;
 }
 
@@ -48,13 +49,18 @@ header#main-header {
 }
 
 .logo img {
-  width: 60px;
-  height: 60px;
+  width: 55px; /* Sedikit dikecilkan */
+  height: 55px;
   margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.1) rotate(-5deg);
 }
 
 .logo h1 {
-  font-size: 1.6em;
+  font-size: 1.5em; /* Sedikit dikecilkan */
   font-weight: bold;
   margin: 0;
   color: #fff;
@@ -78,12 +84,30 @@ header nav ul li a {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 5px 0;
+  position: relative;
   transition: color 0.3s ease;
+}
+
+header nav ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #00aaff;
+  transition: width 0.3s ease;
 }
 
 header nav ul li a:hover,
 header nav ul li a.active {
   color: #00aaff;
+}
+
+header nav ul li a:hover::after,
+header nav ul li a.active::after {
+  width: 100%;
 }
 
 header nav ul li a span {
@@ -100,11 +124,12 @@ header nav ul li a span {
   color: #ffffff;
   font-size: 1.5em;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-media a:hover {
   color: #00aaff;
+  transform: scale(1.1);
 }
 
 /* ========================================= */
@@ -112,8 +137,9 @@ header nav ul li a span {
 /* ========================================= */
 
 main {
-  padding-top: 95px;
-  width: 100%; /* Memastikan 'main' mengambil lebar penuh */
+  padding-top: 85px; /* Disesuaikan dengan header */
+  width: 100%;
+  flex-grow: 1; /* Memastikan main mengisi ruang */
 }
 
 .container p,
@@ -148,6 +174,7 @@ main .container {
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
+  padding: 0 20px; /* Padding untuk mobile */
 }
 
 .container h2 {
@@ -168,9 +195,9 @@ main .container {
 footer {
   text-align: center;
   padding: 20px;
-  bottom: 0;
   width: 100%;
   border-top: 1px solid #333;
+  margin-top: auto; /* Mendorong footer ke bawah */
 }
 .separator {
   border: none;
@@ -181,6 +208,7 @@ footer {
 }
 .visi-misi-container {
   display: flex;
+  flex-wrap: wrap; /* Agar responsif */
   justify-content: space-between;
   gap: 40px;
   text-align: left;
@@ -188,6 +216,7 @@ footer {
 .visi,
 .misi {
   flex: 1;
+  min-width: 300px; /* Agar tidak terlalu kecil di mobile */
 }
 .visi-misi-container h3 {
   color: #00aaff;
@@ -231,20 +260,13 @@ footer {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 170, 255, 0.1);
 }
-.foto-placeholder {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: #333;
-  margin: 0 auto 20px auto;
-}
 .foto-pengurus {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   margin: 0 auto 20px auto;
   object-fit: cover;
-  border: 2px solid #333;
+  border: 3px solid #333; /* Border lebih tebal */
 }
 .pengurus-card h4 {
   font-size: 1.2em;
@@ -305,6 +327,7 @@ footer {
   border-radius: 8px;
   padding: 20px;
   overflow: hidden;
+  text-align: left;
   transition: box-shadow 0.3s ease;
 }
 .kegiatan-item:hover {
@@ -313,6 +336,7 @@ footer {
 .kegiatan-foto {
   flex: 1;
   min-width: 250px;
+  max-width: 300px;
 }
 .kegiatan-foto img {
   width: 100%;
@@ -329,6 +353,7 @@ footer {
   font-size: 1.6em;
   margin-bottom: 10px;
   color: #00aaff;
+  text-align: left;
 }
 .kegiatan-meta {
   font-size: 0.9em;
@@ -346,16 +371,17 @@ footer {
   align-self: flex-start;
   background-color: #00aaff;
   color: #ffffff;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-style: normal;
   font-weight: bold;
   margin-top: 15px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .kegiatan-tombol:hover {
   background-color: #0088cc;
+  transform: translateY(-2px);
 }
 .info-list {
   display: flex;
@@ -491,12 +517,6 @@ footer {
 }
 .menu-toggle {
   display: none;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.8em;
-  cursor: pointer;
-  z-index: 1001;
 }
 .animate-on-scroll {
   opacity: 0;
@@ -561,7 +581,8 @@ select.sorter:focus {
 }
 .album-cover img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
@@ -594,33 +615,151 @@ select.sorter:focus {
 .album-item > a:not(.album-cover) {
   display: none;
 }
-
+/* ========================================= */
+/* === STYLE HALAMAN ARTIKEL KHUSUS      === */
+/* ========================================= */
+.artikel-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  text-align: left;
+  background-color: #111;
+  border-radius: 8px;
+}
+.artikel-header h2 {
+  font-size: 2.5em; /* Lebih besar */
+  text-align: left;
+  margin-bottom: 15px;
+}
+.artikel-meta-info {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-bottom: 25px;
+  font-style: normal;
+}
+.artikel-meta-info span {
+  margin-right: 20px;
+}
+.artikel-meta-info i {
+  margin-right: 8px;
+  color: #00aaff;
+}
+.artikel-konten h3,
+.artikel-konten h4 {
+  text-align: left;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #00aaff; /* Warna disamakan */
+}
+.artikel-konten p,
+.artikel-konten li {
+  text-align: justify;
+  line-height: 1.8; /* Lebih lega */
+  font-size: 1.1em; /* Sedikit lebih besar */
+  font-style: normal;
+}
+.artikel-konten ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  padding-left: 20px;
+}
+.artikel-konten blockquote {
+  border-left: 4px solid #00aaff;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  font-size: 1.1em;
+  color: #ccc;
+  text-align: left;
+}
+.artikel-konten blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+/* === CSS SLIDESHOW === */
+.slideshow-container {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+  border-radius: 8px;
+  overflow: hidden; /* Pastikan gambar tidak keluar dari radius */
+  margin-bottom: 2rem;
+  background-color: #000;
+}
+.slideshow-slider {
+  display: grid;
+}
+.slide-image {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+.slide-image.active-slide {
+  opacity: 1;
+}
+.tombol-kembali {
+  display: inline-block;
+  margin-top: 30px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-style: normal;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.tombol-kembali:hover {
+  background-color: #00aaff;
+}
+.tombol-kembali i {
+  margin-right: 8px;
+}
 /* =================================================================== */
 /* ===                KODE UNTUK TAMPILAN MOBILE                   === */
 /* =================================================================== */
 @media (max-width: 768px) {
   body {
-    padding-bottom: 80px;
+    padding-bottom: 65px; /* Memberi ruang untuk navigasi bawah */
+    padding-top: 0; /* Pastikan tidak ada padding atas yang aneh */
   }
 
+  /* Biarkan kontainer tetap ada, tapi jangan tampilkan isinya kecuali <nav> */
   .header-container {
-    padding: 10px 20px;
+    border-bottom: none; /* Hilangkan garis bawah di mobile */
+    padding: 0; /* Hapus padding */
   }
 
-  header .social-media {
+  /* Sembunyikan logo dan ikon sosial media di header atas */
+  .header-container .logo,
+  .header-container .social-media {
     display: none;
   }
 
+  main {
+    padding-top: 20px; /* Beri sedikit jarak dari atas layar */
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Ini adalah aturan untuk membuat NAVIGASI BAWAH */
   header nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 65px;
-    background-color: #1a1a1a;
+    background-color: rgba(26, 26, 26, 0.9);
     border-top: 1px solid #333;
     z-index: 1000;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   header nav ul {
@@ -665,15 +804,18 @@ select.sorter:focus {
     color: #00aaff;
   }
 
-  /* --- PERBAIKAN KUNCI --- */
-  main {
-    padding-left: 20px;
-    padding-right: 20px;
+  header nav ul li a::after {
+    display: none; /* Sembunyikan garis bawah di nav mobile */
   }
 
+  /* Penyesuaian lain untuk mobile */
   .kegiatan-item,
   .info-umum {
     flex-direction: column;
+  }
+
+  .kegiatan-foto {
+    max-width: 100%;
   }
 
   .logo-image img {
@@ -682,5 +824,9 @@ select.sorter:focus {
 
   .container h2 {
     font-size: 2.2em;
+  }
+
+  .artikel-header h2 {
+    font-size: 2em;
   }
 }
