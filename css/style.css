@@ -783,23 +783,33 @@ select.sorter:focus {
     -webkit-backdrop-filter: blur(10px);
   }
 
-  /* Styling untuk isi navigasi (tidak ada perubahan) */
+  /* ================================================= */
+  /* === PERBAIKAN UTAMA: BUAT NAVIGASI SCROLLABLE === */
+  /* ================================================= */
+
+  /* Jadikan <ul> sebagai container flexbox yang bisa scroll horizontal */
   nav ul {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: row; /* Atur item berjajar ke samping */
+    justify-content: flex-start; /* Mulai item dari kiri */
     align-items: center;
     list-style: none;
-    padding: 0;
+    padding: 0 5px; /* Beri sedikit padding di tepi */
     margin: 0;
     width: 100%;
     height: 100%;
-    gap: 0;
+    overflow-x: auto; /* KUNCI: Aktifkan scroll horizontal jika perlu */
+    white-space: nowrap; /* Pastikan semua item tetap dalam satu baris */
+    -webkit-overflow-scrolling: touch; /* Efek scroll mulus di iOS */
   }
+
+  /* Atur setiap item <li> agar lebarnya pas dengan kontennya */
   nav ul li {
-    flex: 1;
+    flex: 0 0 auto; /* Jangan paksa item meregang, biarkan lebarnya otomatis */
     text-align: center;
   }
+
+  /* Atur tampilan link <a> di dalamnya */
   nav ul li a {
     display: flex;
     flex-direction: column;
@@ -807,12 +817,17 @@ select.sorter:focus {
     justify-content: center;
     color: #ccc;
     text-decoration: none;
-    font-size: 0.75em;
-    padding: 5px;
+    font-size: 0.8em; /* Ukuran font yang nyaman dibaca */
+    padding: 5px 12px; /* Beri jarak antar item menu */
     width: 100%;
     height: 100%;
     transition: color 0.3s ease;
   }
+
+  /* ================================================= */
+  /* === AKHIR DARI PERBAIKAN                      === */
+  /* ================================================= */
+
   nav ul li a i {
     font-size: 1.5em;
     margin-bottom: 5px;
