@@ -722,55 +722,56 @@ select.sorter:focus {
 }
 
 @media (max-width: 768px) {
-  /* 1. Atur ulang posisi header dan main dari style desktop */
+  /* 1. Atur header atas agar tetap menempel (fixed) */
   header#main-header {
-    position: static; /* Membuat header atas tidak menempel */
-    background: none;
+    position: fixed; /* KUNCI: Ubah kembali menjadi fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000000; /* Beri warna latar belakang solid */
     backdrop-filter: none;
   }
 
-  main {
-    padding-top: 20px; /* Hapus padding atas sisa dari desktop */
-  }
-
-  /* 2. Atur padding body hanya di bawah */
+  /* 2. Atur padding untuk body agar konten tidak tertutup header & nav bawah */
   body {
-    padding-top: 0;
+    padding-top: 60px; /* Ruang untuk header atas (sesuai height .header-container) */
     padding-bottom: 65px; /* Ruang untuk navigasi bawah */
   }
 
-  /* 3. Atur baris header atas (logo) */
+  /* 3. Atur container header atas untuk logo */
   .header-container {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Pusatkan logo */
     align-items: center;
-    height: 60px;
-    background-color: #000000;
+    height: 60px; /* Beri tinggi yang pasti untuk header atas */
+    padding: 0 20px; /* Beri sedikit padding */
     border-bottom: 1px solid #333;
   }
 
-  /* Sembunyikan navigasi dari dalam container ini agar tidak mengganggu flexbox */
-  /* Navigasi akan diposisikan ulang secara terpisah di bawah */
-  .header-container nav {
-    display: none;
-  }
-
-  .header-container .logo {
-    display: flex;
-    align-items: center;
-  }
-  .header-container .logo h1 {
-    display: none;
-  }
+  /* Sembunyikan elemen yang tidak perlu dari header atas */
+  .header-container .logo h1,
+  .header-container nav,
   .header-container .social-media {
     display: none;
   }
 
+  /* Pastikan logo dan gambarnya terlihat */
+  .header-container .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    width: 100px; /* Sesuaikan ukuran logo untuk mobile */
+    height: 100px;
+    margin-right: 0; /* Hapus margin kanan */
+  }
+
   /* 4. Atur <nav> menjadi bar navigasi bawah yang menempel */
-  /* Ini menargetkan 'nav' secara umum dan memaksanya ke bawah */
   nav {
-    position: fixed !important; /* !important untuk memaksa penerapan */
-    display: block !important; /* Pastikan nav terlihat */
+    position: fixed !important;
+    display: block !important;
     bottom: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -783,33 +784,27 @@ select.sorter:focus {
     -webkit-backdrop-filter: blur(10px);
   }
 
-  /* ================================================= */
-  /* === PERBAIKAN UTAMA: BUAT NAVIGASI SCROLLABLE === */
-  /* ================================================= */
-
-  /* Jadikan <ul> sebagai container flexbox yang bisa scroll horizontal */
+  /* 5. Buat navigasi bisa di-scroll secara horizontal */
   nav ul {
     display: flex;
-    flex-direction: row; /* Atur item berjajar ke samping */
-    justify-content: flex-start; /* Mulai item dari kiri */
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
     list-style: none;
-    padding: 0 5px; /* Beri sedikit padding di tepi */
+    padding: 0 5px;
     margin: 0;
     width: 100%;
     height: 100%;
-    overflow-x: auto; /* KUNCI: Aktifkan scroll horizontal jika perlu */
-    white-space: nowrap; /* Pastikan semua item tetap dalam satu baris */
-    -webkit-overflow-scrolling: touch; /* Efek scroll mulus di iOS */
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Atur setiap item <li> agar lebarnya pas dengan kontennya */
   nav ul li {
-    flex: 0 0 auto; /* Jangan paksa item meregang, biarkan lebarnya otomatis */
+    flex: 0 0 auto;
     text-align: center;
   }
 
-  /* Atur tampilan link <a> di dalamnya */
   nav ul li a {
     display: flex;
     flex-direction: column;
@@ -817,33 +812,35 @@ select.sorter:focus {
     justify-content: center;
     color: #ccc;
     text-decoration: none;
-    font-size: 0.8em; /* Ukuran font yang nyaman dibaca */
-    padding: 5px 12px; /* Beri jarak antar item menu */
+    font-size: 0.8em;
+    padding: 5px 12px;
     width: 100%;
     height: 100%;
     transition: color 0.3s ease;
   }
 
-  /* ================================================= */
-  /* === AKHIR DARI PERBAIKAN                      === */
-  /* ================================================= */
-
   nav ul li a i {
     font-size: 1.5em;
     margin-bottom: 5px;
   }
+
   nav ul li a span {
     display: inline;
   }
+
   nav ul li a.active,
   nav ul li a:hover {
     color: #00aaff;
   }
+
   nav ul li a::after {
     display: none;
   }
 
   /* Penyesuaian sisa lainnya */
+  main {
+    padding-top: 20px; /* Sesuaikan padding atas main content */
+  }
   .logo-image {
     display: none;
   }
@@ -859,5 +856,25 @@ select.sorter:focus {
   }
   .artikel-header h2 {
     font-size: 2em;
+  }
+}
+@media (max-width: 768px) {
+  /*
+    * Aturan ini menargetkan body yang memiliki file index.html
+    * dan memaksa .logo-image untuk ditampilkan kembali.
+  */
+  body:has(> main > .container > .logo-image) .logo-image {
+    display: flex; /* Mengubah dari 'none' menjadi 'flex' untuk menampilkannya */
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 40px 0; /* Memberi jarak atas dan bawah */
+    padding: 0;
+  }
+
+  /* Menyesuaikan ukuran gambar logo agar tidak terlalu besar di mobile */
+  body:has(> main > .container > .logo-image) .logo-image img {
+    max-width: 250px; /* Batasi lebar maksimum logo */
+    width: 80%; /* Gunakan persentase agar responsif */
+    height: auto;
   }
 }
