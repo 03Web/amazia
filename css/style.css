@@ -720,51 +720,73 @@ select.sorter:focus {
 .tombol-kembali i {
   margin-right: 8px;
 }
-/* =================================================================== */
-/* ===                KODE UNTUK TAMPILAN MOBILE                   === */
-/* =================================================================== */
+
 @media (max-width: 768px) {
+  /* 1. Atur ulang posisi header dan main dari style desktop */
+  header#main-header {
+    position: static; /* Membuat header atas tidak menempel */
+    background: none;
+    backdrop-filter: none;
+  }
+
+  main {
+    padding-top: 20px; /* Hapus padding atas sisa dari desktop */
+  }
+
+  /* 2. Atur padding body hanya di bawah */
   body {
-    padding-bottom: 65px; /* Memberi ruang untuk navigasi bawah */
-    padding-top: 0; /* Pastikan tidak ada padding atas yang aneh */
+    padding-top: 0;
+    padding-bottom: 65px; /* Ruang untuk navigasi bawah */
   }
 
-  /* Biarkan kontainer tetap ada, tapi jangan tampilkan isinya kecuali <nav> */
+  /* 3. Atur baris header atas (logo) */
   .header-container {
-    border-bottom: none; /* Hilangkan garis bawah di mobile */
-    padding: 0; /* Hapus padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background-color: #000000;
+    border-bottom: 1px solid #333;
   }
 
-  /* Sembunyikan logo dan ikon sosial media di header atas */
-  .header-container .logo,
+  /* Sembunyikan navigasi dari dalam container ini agar tidak mengganggu flexbox */
+  /* Navigasi akan diposisikan ulang secara terpisah di bawah */
+  .header-container nav {
+    display: none;
+  }
+
+  .header-container .logo {
+    display: flex;
+    align-items: center;
+  }
+  .header-container .logo h1 {
+    display: none;
+  }
   .header-container .social-media {
     display: none;
   }
 
-  main {
-    padding-top: 20px; /* Beri sedikit jarak dari atas layar */
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  /* Ini adalah aturan untuk membuat NAVIGASI BAWAH */
-  header nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
+  /* 4. Atur <nav> menjadi bar navigasi bawah yang menempel */
+  /* Ini menargetkan 'nav' secara umum dan memaksanya ke bawah */
+  nav {
+    position: fixed !important; /* !important untuk memaksa penerapan */
+    display: block !important; /* Pastikan nav terlihat */
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 65px !important;
+    z-index: 1000;
     background-color: rgba(26, 26, 26, 0.9);
     border-top: 1px solid #333;
-    z-index: 1000;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
 
-  header nav ul {
-    flex-direction: row;
+  /* Styling untuk isi navigasi (tidak ada perubahan) */
+  nav ul {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
     list-style: none;
@@ -774,13 +796,11 @@ select.sorter:focus {
     height: 100%;
     gap: 0;
   }
-
-  header nav ul li {
+  nav ul li {
     flex: 1;
     text-align: center;
   }
-
-  header nav ul li a {
+  nav ul li a {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -793,39 +813,35 @@ select.sorter:focus {
     height: 100%;
     transition: color 0.3s ease;
   }
-
-  header nav ul li a i {
+  nav ul li a i {
     font-size: 1.5em;
     margin-bottom: 5px;
   }
-
-  header nav ul li a.active,
-  header nav ul li a:hover {
+  nav ul li a span {
+    display: inline;
+  }
+  nav ul li a.active,
+  nav ul li a:hover {
     color: #00aaff;
   }
-
-  header nav ul li a::after {
-    display: none; /* Sembunyikan garis bawah di nav mobile */
+  nav ul li a::after {
+    display: none;
   }
 
-  /* Penyesuaian lain untuk mobile */
+  /* Penyesuaian sisa lainnya */
+  .logo-image {
+    display: none;
+  }
   .kegiatan-item,
   .info-umum {
     flex-direction: column;
   }
-
   .kegiatan-foto {
     max-width: 100%;
   }
-
-  .logo-image img {
-    max-width: 200px;
-  }
-
   .container h2 {
     font-size: 2.2em;
   }
-
   .artikel-header h2 {
     font-size: 2em;
   }
