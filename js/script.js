@@ -324,17 +324,47 @@ function initHeaderFeatures() {
 }
 
 function setActiveNavLink() {
-  const currentLocation = window.location.pathname.split("/").pop();
-  document.querySelectorAll("header nav a").forEach((link) => {
+  // Menentukan halaman saat ini, default ke index.html jika kosong
+  const currentLocation =
+    window.location.pathname.split("/").pop() || "index.html";
+
+  // Mengambil elemen navigasi utama
+  const navContainer = document.querySelector("nav ul");
+  if (!navContainer) return; // Keluar jika elemen tidak ditemukan
+
+  const navLinks = navContainer.querySelectorAll("a");
+  let activeLink = null;
+
+  // Loop melalui semua tautan untuk menemukan yang aktif
+  navLinks.forEach((link) => {
     const linkPath = link.getAttribute("href");
-    link.classList.remove("active"); // Reset dulu
+    link.parentElement.classList.remove("active"); // Hapus kelas aktif dari elemen <li>
+
+    // Logika untuk menentukan tautan mana yang aktif
     if (
       linkPath === currentLocation ||
       (currentLocation === "artikel.html" && linkPath === "kegiatan.html")
     ) {
-      link.classList.add("active");
+      link.parentElement.classList.add("active"); // Terapkan kelas aktif ke elemen <li>
+      activeLink = link.parentElement; // Simpan elemen <li> yang aktif
     }
   });
+
+  // --- LOGIKA PERBAIKAN ---
+  // Jika ada link aktif dan layar adalah mobile (lebar <= 768px), geser menu
+  if (activeLink && window.innerWidth <= 768) {
+    // Hitung posisi yang diperlukan untuk menengahkan menu aktif
+    const scrollLeftPosition =
+      activeLink.offsetLeft -
+      navContainer.offsetWidth / 2 +
+      activeLink.offsetWidth / 2;
+
+    // Lakukan scroll dengan animasi halus (smooth)
+    navContainer.scrollTo({
+      left: scrollLeftPosition,
+      behavior: "smooth",
+    });
+  }
 }
 
 function initScrollAnimations() {
