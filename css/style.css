@@ -1,16 +1,28 @@
 /* Import Font Poppins dari Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap");
 
-/* Reset dasar untuk semua elemen */
-* {
+/* Variabel CSS untuk konsistensi tema */
+:root {
+  --primary-color: #00aaff;
+  --dark-bg: #000000;
+  --light-text: #ffffff;
+  --dark-text: #cccccc;
+  --card-bg: #111111;
+  --border-color: #333333;
+}
+
+/* Reset dasar yang lebih modern */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--dark-bg);
+  color: var(--light-text);
   font-family: "Poppins", sans-serif;
   line-height: 1.6;
   display: flex;
@@ -28,8 +40,8 @@ header#main-header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.8); /* Tambahkan sedikit transparansi */
-  backdrop-filter: blur(10px); /* Efek blur untuk browser modern */
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
@@ -38,7 +50,7 @@ header#main-header {
   align-items: center;
   justify-content: space-between;
   padding: 8px 50px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .logo a {
@@ -49,7 +61,7 @@ header#main-header {
 }
 
 .logo img {
-  width: 55px; /* Sedikit dikecilkan */
+  width: 55px;
   height: 55px;
   margin-right: 15px;
   transition: transform 0.3s ease;
@@ -60,10 +72,10 @@ header#main-header {
 }
 
 .logo h1 {
-  font-size: 1.5em; /* Sedikit dikecilkan */
+  font-size: 1.5em;
   font-weight: bold;
   margin: 0;
-  color: #fff;
+  color: var(--light-text);
   font-family: "Poppins", sans-serif;
   font-style: italic;
   font-weight: 700;
@@ -79,7 +91,7 @@ header nav ul {
 
 header nav ul li a {
   text-decoration: none;
-  color: #ffffff;
+  color: var(--light-text);
   font-size: 1.1em;
   display: flex;
   align-items: center;
@@ -96,17 +108,17 @@ header nav ul li a::after {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #00aaff;
+  background-color: var(--primary-color);
   transition: width 0.3s ease;
 }
 
 header nav ul li a:hover,
-header nav ul li a.active {
-  color: #00aaff;
+header nav ul li.active a {
+  color: var(--primary-color);
 }
 
 header nav ul li a:hover::after,
-header nav ul li a.active::after {
+header nav ul li.active a::after {
   width: 100%;
 }
 
@@ -121,14 +133,14 @@ header nav ul li a span {
 }
 
 .social-media a {
-  color: #ffffff;
+  color: var(--light-text);
   font-size: 1.5em;
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-media a:hover {
-  color: #00aaff;
+  color: var(--primary-color);
   transform: scale(1.1);
 }
 
@@ -185,7 +197,7 @@ main .container {
 .container h3 {
   font-size: 2em;
   margin-bottom: 20px;
-  color: #cccccc;
+  color: var(--dark-text);
 }
 
 .container p {
@@ -196,13 +208,13 @@ footer {
   text-align: center;
   padding: 20px;
   width: 100%;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--border-color);
   margin-top: auto; /* Mendorong footer ke bawah */
 }
 .separator {
   border: none;
   height: 1px;
-  background-color: #333;
+  background-color: var(--border-color);
   margin: 50px auto;
   width: 80%;
 }
@@ -219,7 +231,7 @@ footer {
   min-width: 300px; /* Agar tidak terlalu kecil di mobile */
 }
 .visi-misi-container h3 {
-  color: #00aaff;
+  color: var(--primary-color);
   margin-bottom: 15px;
   font-size: 1.8em;
 }
@@ -234,14 +246,14 @@ footer {
 }
 .misi ul li::before {
   content: "✓";
-  color: #00aaff;
+  color: var(--primary-color);
   margin-right: 10px;
 }
 .struktur-organisasi h3 {
   text-align: center;
   font-size: 2em;
   margin-bottom: 30px;
-  color: #00aaff;
+  color: var(--primary-color);
 }
 .struktur-container {
   display: grid;
@@ -249,8 +261,8 @@ footer {
   gap: 30px;
 }
 .pengurus-card {
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -266,16 +278,16 @@ footer {
   border-radius: 50%;
   margin: 0 auto 20px auto;
   object-fit: cover;
-  border: 3px solid #333; /* Border lebih tebal */
+  border: 3px solid var(--border-color); /* Border lebih tebal */
 }
 .pengurus-card h4 {
   font-size: 1.2em;
   margin-bottom: 5px;
-  color: #ffffff;
+  color: var(--light-text);
 }
 .pengurus-card p {
   font-size: 1em;
-  color: #ccc;
+  color: var(--dark-text);
 }
 .gallery-grid {
   display: grid;
@@ -284,8 +296,8 @@ footer {
   margin-top: 30px;
 }
 .gallery-item {
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
@@ -322,8 +334,8 @@ footer {
 .kegiatan-item {
   display: flex;
   gap: 30px;
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   overflow: hidden;
@@ -352,7 +364,7 @@ footer {
 .kegiatan-konten h3 {
   font-size: 1.6em;
   margin-bottom: 10px;
-  color: #00aaff;
+  color: var(--primary-color);
   text-align: left;
 }
 .kegiatan-meta {
@@ -369,8 +381,8 @@ footer {
 .kegiatan-tombol {
   display: inline-block;
   align-self: flex-start;
-  background-color: #00aaff;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--light-text);
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -390,7 +402,7 @@ footer {
 }
 .info-item {
   background-color: rgba(17, 17, 17, 0.8);
-  border-left: 5px solid #00aaff;
+  border-left: 5px solid var(--primary-color);
   padding: 25px;
   border-radius: 0 8px 8px 0;
   text-align: left;
@@ -404,7 +416,7 @@ footer {
 }
 .info-header h3 {
   font-size: 1.6em;
-  color: #ffffff;
+  color: var(--light-text);
   margin: 0;
 }
 .info-tag {
@@ -452,14 +464,14 @@ footer {
   flex: 1;
 }
 .info-teks h3 {
-  color: #00aaff;
+  color: var(--primary-color);
   margin-bottom: 10px;
 }
 .info-teks p {
   margin-bottom: 20px;
 }
 .info-teks i {
-  color: #00aaff;
+  color: var(--primary-color);
   margin-right: 15px;
   width: 20px;
   text-align: center;
@@ -478,8 +490,8 @@ footer {
   margin-top: 30px;
 }
 .kontak-card {
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 25px;
   text-align: center;
@@ -487,7 +499,7 @@ footer {
   flex-direction: column;
 }
 .kontak-card .jabatan {
-  color: #ccc;
+  color: var(--dark-text);
   font-size: 1em;
   margin-top: -15px;
 }
@@ -499,7 +511,7 @@ footer {
 .wa-button {
   display: inline-block;
   background-color: #25d366;
-  color: #ffffff;
+  color: var(--light-text);
   padding: 12px 20px;
   border-radius: 50px;
   text-decoration: none;
@@ -532,13 +544,13 @@ footer {
   margin-bottom: 15px;
 }
 .footer-social-media a {
-  color: #ffffff;
+  color: var(--light-text);
   font-size: 1.6em;
   margin: 0 15px;
   transition: color 0.3s ease;
 }
 .footer-social-media a:hover {
-  color: #00aaff;
+  color: var(--primary-color);
 }
 .sort-container {
   text-align: left;
@@ -547,9 +559,9 @@ footer {
   font-style: normal;
 }
 select.sorter {
-  background-color: #111;
-  color: #ffffff;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  color: var(--light-text);
+  border: 1px solid var(--border-color);
   padding: 8px 12px;
   border-radius: 5px;
   font-family: "Poppins", sans-serif;
@@ -559,7 +571,7 @@ select.sorter {
 }
 select.sorter:focus {
   outline: none;
-  border-color: #00aaff;
+  border-color: var(--primary-color);
 }
 .album-grid {
   display: grid;
@@ -571,8 +583,8 @@ select.sorter:focus {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .album-item:hover {
@@ -609,7 +621,7 @@ select.sorter:focus {
 .album-info p {
   font-size: 0.9em;
   margin: 5px 0 0 0;
-  color: #ccc;
+  color: var(--dark-text);
   font-style: italic;
 }
 .album-item > a:not(.album-cover) {
@@ -623,7 +635,7 @@ select.sorter:focus {
   margin: auto;
   padding: 2rem;
   text-align: left;
-  background-color: #111;
+  background-color: var(--card-bg);
   border-radius: 8px;
 }
 .artikel-header h2 {
@@ -642,14 +654,14 @@ select.sorter:focus {
 }
 .artikel-meta-info i {
   margin-right: 8px;
-  color: #00aaff;
+  color: var(--primary-color);
 }
 .artikel-konten h3,
 .artikel-konten h4 {
   text-align: left;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: #00aaff; /* Warna disamakan */
+  color: var(--primary-color); /* Warna disamakan */
 }
 .artikel-konten p,
 .artikel-konten li {
@@ -664,19 +676,19 @@ select.sorter:focus {
   padding-left: 20px;
 }
 .artikel-konten blockquote {
-  border-left: 4px solid #00aaff;
+  border-left: 4px solid var(--primary-color);
   padding-left: 1.5rem;
   margin: 1.5rem 0;
   font-style: italic;
   font-size: 1.1em;
-  color: #ccc;
+  color: var(--dark-text);
   text-align: left;
 }
 .artikel-konten blockquote cite {
   display: block;
   margin-top: 10px;
   font-weight: bold;
-  color: #fff;
+  color: var(--light-text);
 }
 /* === CSS SLIDESHOW === */
 .slideshow-container {
@@ -686,7 +698,7 @@ select.sorter:focus {
   border-radius: 8px;
   overflow: hidden; /* Pastikan gambar tidak keluar dari radius */
   margin-bottom: 2rem;
-  background-color: #000;
+  background-color: var(--dark-bg);
 }
 .slideshow-slider {
   display: grid;
@@ -706,8 +718,8 @@ select.sorter:focus {
 .tombol-kembali {
   display: inline-block;
   margin-top: 30px;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--border-color);
+  color: var(--light-text);
   padding: 10px 20px;
   text-decoration: none;
   font-style: normal;
@@ -715,28 +727,32 @@ select.sorter:focus {
   transition: background-color 0.3s ease;
 }
 .tombol-kembali:hover {
-  background-color: #00aaff;
+  background-color: var(--primary-color);
 }
 .tombol-kembali i {
   margin-right: 8px;
 }
 
+/* ========================================= */
+/* ===         RESPONSIVE DESIGN         === */
+/* ========================================= */
+
 @media (max-width: 768px) {
   /* 1. Atur header atas agar tetap menempel (fixed) */
   header#main-header {
-    position: fixed; /* KUNCI: Ubah kembali menjadi fixed */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #000000; /* Beri warna latar belakang solid */
+    background-color: var(--dark-bg);
     backdrop-filter: none;
   }
 
   /* 2. Atur padding untuk body agar konten tidak tertutup header & nav bawah */
   body {
-    padding-top: 60px; /* Ruang untuk header atas (sesuai height .header-container) */
-    padding-bottom: 65px; /* Ruang untuk navigasi bawah */
+    padding-top: 60px;
+    padding-bottom: 65px;
   }
 
   /* 3. Atur container header atas untuk logo */
@@ -746,7 +762,7 @@ select.sorter:focus {
     align-items: center;
     height: 60px; /* Beri tinggi yang pasti untuk header atas */
     padding: 0 20px; /* Beri sedikit padding */
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--border-color);
   }
 
   /* Sembunyikan elemen yang tidak perlu dari header atas */
@@ -763,9 +779,9 @@ select.sorter:focus {
   }
 
   .logo img {
-    width: 100px; /* Sesuaikan ukuran logo untuk mobile */
+    width: 100px;
     height: 100px;
-    margin-right: 0; /* Hapus margin kanan */
+    margin-right: 0;
   }
 
   /* 4. Atur <nav> menjadi bar navigasi bawah yang menempel */
@@ -778,7 +794,7 @@ select.sorter:focus {
     height: 65px !important;
     z-index: 1000;
     background-color: rgba(26, 26, 26, 0.9);
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--border-color);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -815,7 +831,7 @@ select.sorter:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #ccc;
+    color: var(--dark-text);
     text-decoration: none;
     font-size: 0.8em;
     padding: 5px 12px;
@@ -834,10 +850,14 @@ select.sorter:focus {
     display: inline;
   }
 
+  /********** PERUBAHAN DI SINI **********/
+  /* Gaya untuk item menu mobile yang aktif */
   nav ul li.active a {
-    color: #ffffff; /* Warna ikon/teks putih agar kontras */
-    background-color: #00aaff; /* Latar belakang biru solid yang menonjol */
+    color: var(--primary-color); /* Ubah warna ikon dan teks menjadi biru */
+    background-color: transparent; /* Hapus latar belakang agar ikon jelas */
   }
+  /***************************************/
+
   nav ul li a::after {
     display: none;
   }
@@ -869,17 +889,17 @@ select.sorter:focus {
     * dan memaksa .logo-image untuk ditampilkan kembali.
   */
   body:has(> main > .container > .logo-image) .logo-image {
-    display: flex; /* Mengubah dari 'none' menjadi 'flex' untuk menampilkannya */
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0 40px 0; /* Memberi jarak atas dan bawah */
+    margin: 20px 0 40px 0;
     padding: 0;
   }
 
   /* Menyesuaikan ukuran gambar logo agar tidak terlalu besar di mobile */
   body:has(> main > .container > .logo-image) .logo-image img {
-    max-width: 250px; /* Batasi lebar maksimum logo */
-    width: 80%; /* Gunakan persentase agar responsif */
+    max-width: 250px;
+    width: 80%;
     height: auto;
   }
 }

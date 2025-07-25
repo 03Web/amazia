@@ -2,66 +2,53 @@
  * @file script.js
  * @description Script utama untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Anda (atau Partner Coding)
- * @version 4.0.0 (Versi Profesional)
+ * @version 4.1.0 (Versi Profesional yang Ditingkatkan)
  */
 
-// Menjalankan semua fungsi inisialisasi setelah konten halaman (DOM) selesai dimuat.
 document.addEventListener("DOMContentLoaded", () => {
-  // Muat komponen header dan footer secara dinamis
   loadComponent("layout/header.html", "main-header", initHeaderFeatures);
   loadComponent("layout/footer.html", "main-footer");
 
-  // Inisialisasi partikel latar belakang jika elemennya ada
   if (document.getElementById("particles-js")) {
     initParticles();
   }
 
-  // Inisialisasi animasi saat scroll
   initScrollAnimations();
-
-  // Jalankan fungsi spesifik untuk halaman tertentu
   initPageSpecificScripts();
 });
 
-/**
- * Memuat komponen HTML (seperti header/footer) dari file eksternal ke dalam elemen target.
- * @param {string} url - Path menuju file komponen (e.g., "layout/header.html").
- * @param {string} elementId - ID dari elemen target tempat komponen akan disisipkan.
- * @param {function} [callback] - Fungsi opsional yang akan dijalankan setelah komponen berhasil dimuat.
- */
 async function loadComponent(url, elementId, callback) {
   const element = document.getElementById(elementId);
   if (!element) return;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`Gagal memuat komponen: ${url}`);
-    const content = await response.text();
-    element.innerHTML = content;
+    if (!response.ok)
+      throw new Error(`Gagal memuat ${url}: Status ${response.status}`);
+    element.innerHTML = await response.text();
     if (callback) callback();
   } catch (error) {
     console.error(error);
-    element.innerHTML = `<p style="color: red; text-align: center;">Gagal memuat ${elementId}.</p>`;
+    element.innerHTML = `<p style="color: red; text-align: center;">Gagal memuat komponen.</p>`;
   }
 }
 
-/**
- * Menjalankan fungsi yang relevan untuk halaman yang sedang aktif.
- */
 function initPageSpecificScripts() {
-  const path = window.location.pathname.split("/").pop();
+  const pageInitializers = {
+    "kegiatan-list": initKegiatanPage,
+    "album-grid": initGaleriPage,
+    "info-list": initInformasiPage,
+    "artikel-dinamis-container": initArtikelPage,
+  };
 
-  if (document.getElementById("kegiatan-list")) initKegiatanPage();
-  if (document.getElementById("album-grid")) initGaleriPage();
-  if (document.getElementById("info-list")) initInformasiPage();
-  if (path === "artikel.html") initArtikelPage();
+  for (const [id, initializer] of Object.entries(pageInitializers)) {
+    if (document.getElementById(id)) {
+      initializer();
+      break;
+    }
+  }
 }
 
-/**
- * Mengambil data dari file JSON.
- * @param {string} url - Path menuju file JSON.
- * @returns {Promise<any>} - Mengembalikan data dalam bentuk array/objek atau null jika gagal.
- */
 async function fetchData(url) {
   try {
     const response = await fetch(url);
@@ -73,9 +60,6 @@ async function fetchData(url) {
   }
 }
 
-/**
- * Inisialisasi untuk halaman Artikel.
- */
 async function initArtikelPage() {
   const container = document.getElementById("artikel-dinamis-container");
   if (!container) return;
@@ -99,11 +83,10 @@ async function initArtikelPage() {
     const slideshow =
       doc.querySelector(".slideshow-container")?.outerHTML || "";
 
-    // Hitung waktu baca
     const words = doc
       .querySelector(".artikel-konten")
       .innerText.split(/\s+/).length;
-    const readingTime = Math.ceil(words / 200); // Rata-rata 200 kata per menit
+    const readingTime = Math.ceil(words / 200);
 
     document.title = `${title} - Karang Taruna Banjarsari`;
     container.innerHTML = `
@@ -144,9 +127,6 @@ async function initArtikelPage() {
   }
 }
 
-/**
- * Inisialisasi untuk halaman Kegiatan.
- */
 async function initKegiatanPage() {
   const container = document.getElementById("kegiatan-list");
   const data = await fetchData("data/kegiatan.json");
@@ -192,9 +172,6 @@ async function initKegiatanPage() {
   initSorter(data, render, "kegiatan-sorter");
 }
 
-/**
- * Inisialisasi untuk halaman Galeri.
- */
 async function initGaleriPage() {
   const data = await fetchData("data/galeri.json");
   if (!data) return;
@@ -256,9 +233,6 @@ async function initGaleriPage() {
   }
 }
 
-/**
- * Inisialisasi untuk halaman Informasi.
- */
 async function initInformasiPage() {
   const container = document.getElementById("info-list");
   const data = await fetchData("data/informasi.json");
@@ -294,8 +268,6 @@ async function initInformasiPage() {
   initScrollAnimations();
 }
 
-// --- FUNGSI UTILITAS / HELPERS ---
-
 function initSlideshow() {
   document.querySelectorAll(".slideshow-container").forEach((container) => {
     const slides = container.querySelectorAll(".slide-image");
@@ -324,42 +296,34 @@ function initHeaderFeatures() {
 }
 
 function setActiveNavLink() {
-  // Menentukan halaman saat ini, default ke index.html jika kosong
   const currentLocation =
     window.location.pathname.split("/").pop() || "index.html";
 
-  // Mengambil elemen navigasi utama
   const navContainer = document.querySelector("nav ul");
-  if (!navContainer) return; // Keluar jika elemen tidak ditemukan
+  if (!navContainer) return;
 
   const navLinks = navContainer.querySelectorAll("a");
   let activeLink = null;
 
-  // Loop melalui semua tautan untuk menemukan yang aktif
   navLinks.forEach((link) => {
     const linkPath = link.getAttribute("href");
-    link.parentElement.classList.remove("active"); // Hapus kelas aktif dari elemen <li>
+    link.parentElement.classList.remove("active");
 
-    // Logika untuk menentukan tautan mana yang aktif
     if (
       linkPath === currentLocation ||
       (currentLocation === "artikel.html" && linkPath === "kegiatan.html")
     ) {
-      link.parentElement.classList.add("active"); // Terapkan kelas aktif ke elemen <li>
-      activeLink = link.parentElement; // Simpan elemen <li> yang aktif
+      link.parentElement.classList.add("active");
+      activeLink = link.parentElement;
     }
   });
 
-  // --- LOGIKA PERBAIKAN ---
-  // Jika ada link aktif dan layar adalah mobile (lebar <= 768px), geser menu
   if (activeLink && window.innerWidth <= 768) {
-    // Hitung posisi yang diperlukan untuk menengahkan menu aktif
     const scrollLeftPosition =
       activeLink.offsetLeft -
       navContainer.offsetWidth / 2 +
       activeLink.offsetWidth / 2;
 
-    // Lakukan scroll dengan animasi halus (smooth)
     navContainer.scrollTo({
       left: scrollLeftPosition,
       behavior: "smooth",
