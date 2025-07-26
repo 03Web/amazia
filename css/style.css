@@ -329,14 +329,13 @@ footer {
 .kegiatan-list {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Sedikit lebih banyak ruang antar item */
+  gap: 25px;
 }
 
 .kegiatan-item {
   display: grid;
-  /* Kolom gambar berbentuk KOTAK (160px) */
-  grid-template-columns: 160px 1fr;
-  gap: 25px; /* Jarak yang seimbang antara gambar dan teks */
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
   align-items: center;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -353,87 +352,97 @@ footer {
 }
 
 .kegiatan-foto {
-  width: 160px;
-  height: 160px; /* Lebar dan tinggi sama untuk bentuk KOTAK */
+  width: 170px;
+  height: 170px;
   border-radius: 6px;
-  overflow: hidden; /* Penting untuk efek zoom */
+  overflow: hidden;
 }
 
 .kegiatan-foto img {
   width: 100%;
   height: 100%;
-  /* Kembali ke 'cover' untuk mengisi kotak dengan sempurna */
   object-fit: cover;
-  transition: transform 0.4s ease-out; /* Transisi untuk efek zoom */
+  transition: transform 0.4s ease-out;
 }
 
 .kegiatan-item:hover .kegiatan-foto img {
-  transform: scale(1.08); /* Efek zoom halus saat hover */
+  transform: scale(1.08);
 }
 
 .kegiatan-konten {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Menengahkan konten secara vertikal */
+  justify-content: center;
   height: 100%;
   padding: 0;
 }
 
+/* Judul dibuat sangat kecil tapi tetap bold */
 .kegiatan-konten h3 {
-  font-size: 1.3em;
-  margin: 0 0 8px 0; /* Atur margin dengan rapi */
+  font-size: 1em; /* Ukuran font paling kecil */
+  font-weight: 700;
+  margin: 0 0 5px 0;
   color: var(--primary-color);
   text-align: left;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
+/* Meta (tanggal) dengan font sangat kecil */
 .kegiatan-meta {
-  font-size: 0.85em;
+  display: block;
+  font-size: 0.7em; /* Ukuran font paling kecil */
   color: #aaa;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
+/* Cuplikan dengan font sangat kecil */
 .kegiatan-konten p {
-  font-size: 0.95em;
-  margin: 0 0 15px 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Izinkan 3 baris deskripsi */
+  font-size: 0.8em; /* Ukuran font paling kecil */
+  color: var(--dark-text);
+  margin: 0 0 12px 0;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   flex-grow: 1;
 }
 
+/* Tombol dengan ukuran paling kecil */
 .kegiatan-tombol {
   align-self: flex-start;
-  padding: 8px 16px;
-  font-size: 0.85em;
+  padding: 4px 10px;
+  font-size: 0.7em; /* Ukuran font paling kecil */
   margin-top: auto;
 }
 
 /* Penyesuaian untuk tampilan mobile */
 @media (max-width: 768px) {
   .kegiatan-item {
-    grid-template-columns: 110px 1fr; /* Kotak lebih kecil untuk mobile */
+    grid-template-columns: 100px 1fr;
     gap: 15px;
-    padding: 15px;
+    padding: 12px;
   }
 
   .kegiatan-foto {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
   }
 
   .kegiatan-konten h3 {
-    font-size: 1.15em;
+    font-size: 0.9em;
   }
 
   .kegiatan-konten p {
-    font-size: 0.9em;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
+    font-size: 0.75em;
+  }
+
+  .kegiatan-meta,
+  .kegiatan-tombol {
+    font-size: 0.65em;
   }
 }
-
 .kegiatan-tombol {
   display: inline-block;
   align-self: flex-start;
