@@ -329,54 +329,104 @@ footer {
 .kegiatan-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px; /* Rampingkan jarak antar item dari 40px */
 }
+
+/* Menggunakan CSS Grid untuk layout yang lebih ramping dan terkontrol */
 .kegiatan-item {
-  display: flex;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 150px 1fr; /* Kolom 1 (gambar) 150px, Kolom 2 (teks) mengisi sisa ruang */
+  gap: 20px; /* Jarak antara gambar dan konten */
+  align-items: center; /* Membuat gambar dan teks sejajar di tengah secara vertikal */
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 20px;
+  padding: 15px; /* Padding lebih kecil dari sebelumnya (20px) */
   overflow: hidden;
   text-align: left;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
 .kegiatan-item:hover {
-  box-shadow: 0 10px 20px rgba(0, 170, 255, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 170, 255, 0.1);
 }
+
 .kegiatan-foto {
-  flex: 1;
-  min-width: 250px;
-  max-width: 300px;
+  width: 150px;
+  height: 120px; /* Memberi tinggi tetap agar semua gambar seragam */
+  flex-shrink: 0;
 }
+
 .kegiatan-foto img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
   border-radius: 6px;
 }
+
 .kegiatan-konten {
-  flex: 2;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 0; /* Hapus padding di sini karena sudah ada di .kegiatan-item */
+  height: 100%; /* Pastikan konten mengisi tinggi kartu */
 }
+
 .kegiatan-konten h3 {
-  font-size: 1.6em;
-  margin-bottom: 10px;
+  font-size: 1.2em; /* Kecilkan ukuran font judul */
+  margin-bottom: 8px;
   color: var(--primary-color);
   text-align: left;
 }
+
 .kegiatan-meta {
-  font-size: 0.9em;
+  font-size: 0.8em; /* Kecilkan font tanggal */
   color: #aaa;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
-.kegiatan-meta i {
-  margin-right: 8px;
-}
+
+/* Batasi cuplikan deskripsi agar tidak terlalu panjang */
 .kegiatan-konten p {
-  flex-grow: 1;
+  font-size: 0.9em; /* Kecilkan font deskripsi */
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Tampilkan maksimal 2 baris teks */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1; /* Biarkan deskripsi mengisi ruang yang tersedia */
+}
+
+.kegiatan-tombol {
+  align-self: flex-start; /* Tombol tetap di kiri */
+  padding: 6px 12px; /* Kecilkan ukuran tombol */
+  font-size: 0.8em; /* Kecilkan font di tombol */
+  margin-top: auto; /* Dorong tombol ke bagian bawah kartu */
+}
+
+/* Penyesuaian untuk tampilan mobile */
+@media (max-width: 768px) {
+  /* Hapus .kegiatan-item dari aturan flex-direction: column yang lama */
+  .kegiatan-item {
+    grid-template-columns: 100px 1fr; /* Buat gambar lebih kecil di mobile */
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .kegiatan-foto {
+    width: 100px;
+    height: 100px;
+  }
+
+  .kegiatan-konten h3 {
+    font-size: 1.1em;
+  }
+
+  /* Izinkan 3 baris teks di mobile agar lebih informatif */
+  .kegiatan-konten p {
+    -webkit-line-clamp: 3;
+  }
 }
 .kegiatan-tombol {
   display: inline-block;
