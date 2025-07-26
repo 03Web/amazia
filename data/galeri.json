@@ -2,9 +2,9 @@
   "albumFoto": [
     {
       "id": "album-1",
-      "cover": "/foto/foto-karang-taruna/kumpulan-karang-taruna-banjarsari1.jpeg",
-      "judul": "Foto Kumpul-kumpul",
-      "deskripsi": "10++ Foto",
+      "cover": "foto/foto-karang-taruna/kumpulan-karang-taruna-banjarsari1.jpeg",
+      "judul": "picture about Karang Taruna",
+      "deskripsi": "10+ Foto",
       "foto": [
         {
           "src": "foto/foto-karang-taruna/halal1.png",
