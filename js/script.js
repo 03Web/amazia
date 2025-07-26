@@ -2,7 +2,7 @@
  * @file script.js
  * @description Script utama untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Anda (atau Partner Coding)
- * @version 4.1.0 (Versi Profesional yang Ditingkatkan)
+ * @version 4.3.0 (Versi Profesional dengan Halaman Kontak Dinamis)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,6 +39,8 @@ function initPageSpecificScripts() {
     "album-grid": initGaleriPage,
     "info-list": initInformasiPage,
     "artikel-dinamis-container": initArtikelPage,
+    "struktur-container": initAboutPage,
+    "kontak-grid": initKontakPage, // <-- FUNGSI BARU DITAMBAHKAN DI SINI
   };
 
   for (const [id, initializer] of Object.entries(pageInitializers)) {
@@ -58,6 +60,61 @@ async function fetchData(url) {
     console.error(`Gagal memuat data dari ${url}:`, error);
     return null;
   }
+}
+
+// FUNGSI BARU: Untuk memuat data narahubung di halaman "Kontak"
+async function initKontakPage() {
+  const container = document.getElementById("kontak-grid");
+  const data = await fetchData("data/kontak.json");
+  if (!data || !container) {
+    if (container)
+      container.innerHTML = "<p>Gagal memuat daftar narahubung.</p>";
+    return;
+  }
+
+  container.innerHTML = data
+    .map(
+      (kontak) => `
+      <div class="kontak-card">
+        <img src="${kontak.foto}" alt="${
+        kontak.alt
+      }" class="foto-pengurus" loading="lazy" />
+        <h4>${kontak.nama}</h4>
+        <p class="jabatan">${kontak.jabatan}</p>
+        <p class="info-kontak">${kontak.deskripsi}</p>
+        <a href="https://wa.me/${kontak.whatsapp}?text=${encodeURIComponent(
+        kontak.pesan_wa
+      )}" target="_blank" class="wa-button">
+          <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+        </a>
+      </div>
+    `
+    )
+    .join("");
+  // Re-initialize scroll animations untuk elemen yang baru ditambahkan
+  initScrollAnimations();
+}
+
+async function initAboutPage() {
+  const container = document.getElementById("struktur-container");
+  const data = await fetchData("data/pengurus.json");
+  if (!data || !container) {
+    if (container) container.innerHTML = "<p>Gagal memuat daftar pengurus.</p>";
+    return;
+  }
+
+  container.innerHTML = data
+    .map(
+      (pengurus) => `
+      <div class="pengurus-card">
+        <img src="${pengurus.foto}" alt="${pengurus.alt}" class="foto-pengurus" loading="lazy" />
+        <h4>${pengurus.nama}</h4>
+        <p>${pengurus.jabatan}</p>
+      </div>
+    `
+    )
+    .join("");
+  initScrollAnimations();
 }
 
 async function initArtikelPage() {
@@ -309,10 +366,11 @@ function setActiveNavLink() {
     const linkPath = link.getAttribute("href");
     link.parentElement.classList.remove("active");
 
-    if (
-      linkPath === currentLocation ||
-      (currentLocation === "artikel.html" && linkPath === "kegiatan.html")
-    ) {
+    const isCurrentPage = linkPath === currentLocation;
+    const isArtikelPageAndKegiatanLink =
+      currentLocation === "artikel.html" && linkPath === "kegiatan.html";
+
+    if (isCurrentPage || isArtikelPageAndKegiatanLink) {
       link.parentElement.classList.add("active");
       activeLink = link.parentElement;
     }

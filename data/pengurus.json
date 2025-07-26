@@ -1,0 +1,74 @@
+[
+  {
+    "nama": "Andri Apri",
+    "jabatan": "Ketua Karang Taruna",
+    "foto": "foto/foto-about/andri1.png",
+    "alt": "Foto Andri Apri"
+  },
+  {
+    "nama": "Yunita",
+    "jabatan": "Wakil Ketua Karang Taruna",
+    "foto": "foto/foto-about/yunita.jpeg",
+    "alt": "Foto Yunita"
+  },
+  {
+    "nama": "Pak Nirman",
+    "jabatan": "Penasehat",
+    "foto": "foto/foto-about/pak nirma.png",
+    "alt": "Foto Pak Nirman"
+  },
+  {
+    "nama": "Deva",
+    "jabatan": "Tim Media & Kreatif",
+    "foto": "foto/foto-about/deva.png",
+    "alt": "Foto Deva"
+  },
+  {
+    "nama": "Amaz",
+    "jabatan": "Admin Web",
+    "foto": "foto/foto-about/amazadminweb.png",
+    "alt": "Foto Amaz"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Agama Islam",
+    "foto": "foto/ChatGPTlogokarangtaruna.png",
+    "alt": "Foto placeholder"
+  },
+  {
+    "nama": "Margaretha",
+    "jabatan": "Mentri Agama Kristen",
+    "foto": "foto/foto-about/margaretha_mentri_agama_kristen.png",
+    "alt": "Foto Margaretha"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Pertahanan Desa Banjarsari",
+    "foto": "#",
+    "alt": "Foto placeholder"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Pendidikan & Pengembangan Pemuda",
+    "foto": "foto/ChatGPTlogokarangtaruna.png",
+    "alt": "Foto placeholder"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Kebersihan Lingkungan Hidup",
+    "foto": "foto/ChatGPTlogokarangtaruna.png",
+    "alt": "Foto placeholder"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Olahraga",
+    "foto": "foto/ChatGPTlogokarangtaruna.png",
+    "alt": "Foto placeholder"
+  },
+  {
+    "nama": "???",
+    "jabatan": "Mentri Kesenian",
+    "foto": "foto/ChatGPTlogokarangtaruna.png",
+    "alt": "Foto placeholder"
+  }
+]
