@@ -37,7 +37,7 @@
       "id": "album-2",
       "cover": "foto/foto-karang-taruna/tari.jpeg",
       "judul": "Kesenian",
-      "deskripsi": "10++ Foto",
+      "deskripsi": "10+ Foto",
       "foto": [
         { "src": "foto/foto-karang-taruna/tari.jpeg", "title": "Tari" },
         { "src": "foto/foto-karang-taruna/tari.JPG", "title": "Tari" },
