@@ -252,7 +252,7 @@ footer {
 .struktur-organisasi h3 {
   text-align: center;
   font-size: 2em;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   color: var(--primary-color);
 }
 .struktur-container {
@@ -969,16 +969,70 @@ select.sorter:focus {
   }
 }
 
-/* === GAYA STRUKTUR ORGANISASI POHON    === */
+/* ========================================= */
+/* ===    GAYA POHON & KONTROL ZOOM      === */
+/* ========================================= */
 
-.pohon-container {
-  width: 100%;
-  overflow-x: auto; /* Memungkinkan scroll horizontal jika terlalu lebar */
-  text-align: center;
-  padding: 20px 0;
+/* --- BAGIAN BARU: Kontrol Zoom --- */
+.zoom-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.pohon-organisasi,
+.zoom-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--light-text);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.zoom-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--dark-bg);
+  border-color: var(--primary-color);
+}
+
+#zoom-level {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--dark-text);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* --- PERUBAHAN: Penyesuaian pada Pohon --- */
+.pohon-container {
+  width: 100%;
+  overflow: auto; /* Diubah menjadi auto untuk menangani zoom dan pan */
+  text-align: center;
+  padding: 20px 0;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  cursor: grab; /* Menandakan bisa digeser */
+  background-color: rgba(17, 17, 17, 0.5);
+}
+.pohon-container:active {
+  cursor: grabbing;
+}
+
+.pohon-organisasi {
+  display: inline-flex;
+  transition: transform 0.3s ease-out; /* Animasi untuk zoom */
+  transform-origin: center center; /* Titik pusat zoom */
+}
+
 .pohon-organisasi ul,
 .pohon-organisasi li {
   margin: 0;
@@ -987,24 +1041,17 @@ select.sorter:focus {
   position: relative;
 }
 
-.pohon-organisasi {
-  display: inline-flex; /* Agar container menyesuaikan lebar konten */
-}
-
 .pohon-organisasi ul {
   padding-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-/* === PERUBAHAN CSS: Jarak antar node diperkecil === */
 .pohon-organisasi li {
-  /* Jarak horizontal diubah dari 10px menjadi 4px */
   padding: 20px 4px 0 4px;
   text-align: center;
 }
 
-/* Menggambar garis konektor antar node */
 .pohon-organisasi li::before,
 .pohon-organisasi li::after {
   content: "";
@@ -1021,7 +1068,6 @@ select.sorter:focus {
   border-left: 2px solid var(--border-color);
 }
 
-/* Hapus garis konektor kiri/kanan untuk node tunggal & pertama/terakhir */
 .pohon-organisasi li:only-child::after,
 .pohon-organisasi li:only-child::before {
   display: none;
@@ -1030,7 +1076,6 @@ select.sorter:focus {
 .pohon-organisasi li:last-child::after {
   border: 0 none;
 }
-/* Tambah garis vertikal dari parent ke anak terakhir */
 .pohon-organisasi li:last-child::before {
   border-right: 2px solid var(--border-color);
   border-radius: 0 5px 0 0;
@@ -1039,7 +1084,6 @@ select.sorter:focus {
   border-radius: 5px 0 0 0;
 }
 
-/* Garis vertikal dari parent ke anak */
 .pohon-organisasi ul ul::before {
   content: "";
   position: absolute;
@@ -1050,7 +1094,6 @@ select.sorter:focus {
   height: 20px;
 }
 
-/* Styling untuk node (kotak jabatan) */
 .pohon-organisasi li div {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -1060,9 +1103,9 @@ select.sorter:focus {
   font-family: "Poppins", sans-serif;
   display: inline-block;
   border-radius: 8px;
-  min-width: 170px; /* Lebar minimum node */
+  min-width: 170px;
   transition: all 0.5s;
-  position: relative; /* Agar z-index bekerja */
+  position: relative;
   z-index: 1;
 }
 
@@ -1080,7 +1123,6 @@ select.sorter:focus {
   border-color: var(--primary-color);
 }
 
-/* Styling untuk teks di dalam node */
 .pohon-organisasi .jabatan {
   display: block;
   font-size: 0.9em;
@@ -1096,18 +1138,14 @@ select.sorter:focus {
   opacity: 0.8;
 }
 
-/* === BAGIAN BIDANG YANG DIPERBARUI === */
 .pohon-organisasi .bidang-group {
   padding-top: 20px;
 }
 
-/* === PERUBAHAN CSS: Jarak antar node diperkecil === */
 .pohon-organisasi .bidang-group > li {
-  /* Jarak horizontal diubah dari 5px menjadi 4px agar konsisten */
   padding: 20px 4px 0 4px;
 }
 
-/* Grid untuk menata anggota di dalam setiap bidang agar rapi */
 .anggota-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -1117,16 +1155,14 @@ select.sorter:focus {
 }
 
 .anggota-grid li {
-  padding: 0 !important; /* Hapus padding default li */
+  padding: 0 !important;
   width: 100%;
 }
 
 .anggota-grid li::before,
 .anggota-grid li::after {
-  display: none; /* Hapus garis konektor untuk anggota */
+  display: none;
 }
-
-/* === GAYA FOTO DALAM POHON ORGANISASI === */
 
 .pohon-organisasi li div .foto-node {
   width: 50px;
@@ -1136,10 +1172,9 @@ select.sorter:focus {
   margin: 0 auto 10px auto;
   object-fit: cover;
   display: block;
-  background-color: #444; /* Warna latar jika foto tidak ada */
+  background-color: #444;
 }
 
-/* Ikon placeholder jika tidak ada foto */
 .pohon-organisasi li div .foto-node-placeholder {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;

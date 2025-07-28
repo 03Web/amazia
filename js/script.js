@@ -2,7 +2,7 @@
  * @file script.js
  * @description Script utama versi ULTRA MAXIMAL untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Partner Coding
- * @version 5.3.0 (Pusat Otomatis & Jarak Node Disesuaikan)
+ * @version 5.4.0 (Fitur Zoom & Pan pada Struktur Organisasi)
  */
 
 // Module Pattern (IIFE) untuk enkapsulasi dan menghindari polusi global scope.
@@ -200,6 +200,7 @@ const App = (() => {
       return;
     }
 
+    // --- Render Pohon Organisasi (seperti sebelumnya) ---
     const createNode = (jabatan, nama, fotoUrl) => {
       const imageTag = fotoUrl
         ? `<img src="${fotoUrl}" alt="Foto ${nama}" class="foto-node">`
@@ -210,11 +211,13 @@ const App = (() => {
                 <span class="nama">${nama}</span>
               </div>`;
     };
-
     const createBidangTitleNode = (namaBidang) =>
       `<div><span class="jabatan">${namaBidang}</span></div>`;
+    let html = '<ul class="pohon-organisasi" id="pohon-organisasi-chart"></ul>'; // Diberi ID untuk target
+    container.innerHTML = html;
+    const chart = document.getElementById("pohon-organisasi-chart");
 
-    let html = '<ul class="pohon-organisasi">';
+    let chartContent = "";
     const penasehat = data.pengurusInti.find((p) => p.jabatan === "Penasehat");
     const penanggungJawab = data.pengurusInti.find(
       (p) => p.jabatan === "Penanggung Jawab"
@@ -223,20 +226,24 @@ const App = (() => {
     const wakil = data.pengurusInti.find((p) => p.jabatan === "Wakil");
 
     if (penasehat)
-      html += `<li>${createNode(
+      chartContent += `<li>${createNode(
         penasehat.jabatan,
         penasehat.nama,
         penasehat.foto
       )}</li>`;
     if (penanggungJawab)
-      html += `<li>${createNode(
+      chartContent += `<li>${createNode(
         penanggungJawab.jabatan,
         penanggungJawab.nama,
         penanggungJawab.foto
       )}</li>`;
 
     if (ketua) {
-      html += `<li>${createNode(ketua.jabatan, ketua.nama, ketua.foto)}<ul>`;
+      chartContent += `<li>${createNode(
+        ketua.jabatan,
+        ketua.nama,
+        ketua.foto
+      )}<ul>`;
       const sekretaris = data.pengurusInti.find(
         (p) => p.jabatan === "Sekretaris"
       );
@@ -244,18 +251,18 @@ const App = (() => {
         (p) => p.jabatan === "Bendahara"
       );
       if (sekretaris)
-        html += `<li>${createNode(
+        chartContent += `<li>${createNode(
           sekretaris.jabatan,
           sekretaris.nama,
           sekretaris.foto
         )}</li>`;
       if (bendahara)
-        html += `<li>${createNode(
+        chartContent += `<li>${createNode(
           bendahara.jabatan,
           bendahara.nama,
           bendahara.foto
         )}</li>`;
-      html += `<li><div class="jabatan">Bidang-Bidang</div><ul class="bidang-group">`;
+      chartContent += `<li><div class="jabatan">Bidang-Bidang</div><ul class="bidang-group">`;
       data.bidang.forEach((b) => {
         let anggotaHtml = '<ul class="anggota-grid">';
         if (b.anggota) {
@@ -273,29 +280,100 @@ const App = (() => {
           });
         }
         anggotaHtml += "</ul>";
-        html += `<li>${createBidangTitleNode(b.namaBidang)}${anggotaHtml}</li>`;
+        chartContent += `<li>${createBidangTitleNode(
+          b.namaBidang
+        )}${anggotaHtml}</li>`;
       });
-      html += `</ul></li>`;
-      html += `</ul></li>`;
+      chartContent += `</ul></li></ul></li>`;
     }
 
     if (wakil)
-      html += `<li>${createNode(wakil.jabatan, wakil.nama, wakil.foto)}</li>`;
-    html += "</ul>";
-    container.innerHTML = html;
+      chartContent += `<li>${createNode(
+        wakil.jabatan,
+        wakil.nama,
+        wakil.foto
+      )}</li>`;
+    chart.innerHTML = chartContent;
     initScrollAnimations();
 
-    // ==> BAGIAN BARU: PUSATKAN SCROLL POHON ORGANISASI SECARA OTOMATIS <==
+    // --- BAGIAN BARU: FUNGSI ZOOM & PAN ---
+    const zoomInBtn = document.getElementById("zoom-in-btn");
+    const zoomOutBtn = document.getElementById("zoom-out-btn");
+    const zoomLevelDisplay = document.getElementById("zoom-level");
+    let currentZoom = 1;
+    const ZOOM_STEP = 0.1;
+    const MIN_ZOOM = 0.3;
+    const MAX_ZOOM = 2;
+
+    const applyZoom = () => {
+      chart.style.transform = `scale(${currentZoom})`;
+      zoomLevelDisplay.textContent = `${Math.round(currentZoom * 100)}%`;
+    };
+
+    zoomInBtn.addEventListener("click", () => {
+      currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
+      applyZoom();
+    });
+
+    zoomOutBtn.addEventListener("click", () => {
+      currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
+      applyZoom();
+    });
+
+    container.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      const delta = Math.sign(event.deltaY);
+      if (delta > 0) {
+        // Scroll ke bawah (zoom out)
+        currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
+      } else {
+        // Scroll ke atas (zoom in)
+        currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
+      }
+      applyZoom();
+    });
+
+    // --- Fungsi Pan (Geser) ---
+    let isPanning = false;
+    let startX, startY, scrollLeft, scrollTop;
+
+    container.addEventListener("mousedown", (e) => {
+      isPanning = true;
+      container.style.cursor = "grabbing";
+      startX = e.pageX - container.offsetLeft;
+      startY = e.pageY - container.offsetTop;
+      scrollLeft = container.scrollLeft;
+      scrollTop = container.scrollTop;
+    });
+
+    container.addEventListener("mouseleave", () => {
+      isPanning = false;
+      container.style.cursor = "grab";
+    });
+
+    container.addEventListener("mouseup", () => {
+      isPanning = false;
+      container.style.cursor = "grab";
+    });
+
+    container.addEventListener("mousemove", (e) => {
+      if (!isPanning) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const y = e.pageY - container.offsetTop;
+      const walkX = (x - startX) * 1.5; // *1.5 untuk geser lebih cepat
+      const walkY = (y - startY) * 1.5;
+      container.scrollLeft = scrollLeft - walkX;
+      container.scrollTop = scrollTop - walkY;
+    });
+
+    // --- Pusatkan Scroll Awal ---
     setTimeout(() => {
       if (container.scrollWidth > container.clientWidth) {
-        const scrollLeftPosition =
+        container.scrollLeft =
           (container.scrollWidth - container.clientWidth) / 2;
-        container.scrollTo({
-          left: scrollLeftPosition,
-          behavior: "auto", // 'auto' untuk instan, 'smooth' untuk animasi
-        });
       }
-    }, 100); // Diberi jeda singkat agar browser selesai menghitung layout
+    }, 100);
   }
 
   async function initInformasiPage() {
