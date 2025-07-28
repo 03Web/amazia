@@ -200,7 +200,7 @@ const App = (() => {
       return;
     }
 
-    // --- Render Pohon Organisasi (seperti sebelumnya) ---
+    // --- Render Pohon Organisasi ---
     const createNode = (jabatan, nama, fotoUrl) => {
       const imageTag = fotoUrl
         ? `<img src="${fotoUrl}" alt="Foto ${nama}" class="foto-node">`
@@ -213,18 +213,24 @@ const App = (() => {
     };
     const createBidangTitleNode = (namaBidang) =>
       `<div><span class="jabatan">${namaBidang}</span></div>`;
-    let html = '<ul class="pohon-organisasi" id="pohon-organisasi-chart"></ul>'; // Diberi ID untuk target
+    let html = '<ul class="pohon-organisasi" id="pohon-organisasi-chart"></ul>';
     container.innerHTML = html;
     const chart = document.getElementById("pohon-organisasi-chart");
 
+    // --- LOGIKA BARU UNTUK STRUKTUR SEJAJAR ---
     let chartContent = "";
-    const penasehat = data.pengurusInti.find((p) => p.jabatan === "Penasehat");
-    const penanggungJawab = data.pengurusInti.find(
+    const pengurusInti = data.pengurusInti;
+
+    const ketua = pengurusInti.find((p) => p.jabatan === "Ketua");
+    const penasehat = pengurusInti.find((p) => p.jabatan === "Penasehat");
+    const penanggungJawab = pengurusInti.find(
       (p) => p.jabatan === "Penanggung Jawab"
     );
-    const ketua = data.pengurusInti.find((p) => p.jabatan === "Ketua");
-    const wakil = data.pengurusInti.find((p) => p.jabatan === "Wakil");
+    const wakil = pengurusInti.find((p) => p.jabatan === "Wakil");
+    const sekretaris = pengurusInti.find((p) => p.jabatan === "Sekretaris");
+    const bendahara = pengurusInti.find((p) => p.jabatan === "Bendahara");
 
+    // Baris atas yang sejajar
     if (penasehat)
       chartContent += `<li>${createNode(
         penasehat.jabatan,
@@ -239,30 +245,22 @@ const App = (() => {
       )}</li>`;
 
     if (ketua) {
-      chartContent += `<li>${createNode(
-        ketua.jabatan,
-        ketua.nama,
-        ketua.foto
-      )}<ul>`;
-      const sekretaris = data.pengurusInti.find(
-        (p) => p.jabatan === "Sekretaris"
-      );
-      const bendahara = data.pengurusInti.find(
-        (p) => p.jabatan === "Bendahara"
-      );
+      // Gabungkan semua bawahan di dalam satu <ul> di bawah Ketua
+      let bawahanHtml = "<ul>";
       if (sekretaris)
-        chartContent += `<li>${createNode(
+        bawahanHtml += `<li>${createNode(
           sekretaris.jabatan,
           sekretaris.nama,
           sekretaris.foto
         )}</li>`;
       if (bendahara)
-        chartContent += `<li>${createNode(
+        bawahanHtml += `<li>${createNode(
           bendahara.jabatan,
           bendahara.nama,
           bendahara.foto
         )}</li>`;
-      chartContent += `<li><div class="jabatan">Bidang-Bidang</div><ul class="bidang-group">`;
+
+      let bidangHtml = '<ul class="bidang-group">';
       data.bidang.forEach((b) => {
         let anggotaHtml = '<ul class="anggota-grid">';
         if (b.anggota) {
@@ -270,21 +268,22 @@ const App = (() => {
             anggotaHtml += `<li>${createNode(a.jabatan, a.nama, a.foto)}</li>`;
           });
         }
-        if (b.subBidang) {
-          b.subBidang.forEach((sub) => {
-            anggotaHtml += `<li>${createNode(
-              sub.nama,
-              sub.anggota.join(", "),
-              ""
-            )}</li>`;
-          });
-        }
         anggotaHtml += "</ul>";
-        chartContent += `<li>${createBidangTitleNode(
+        bidangHtml += `<li>${createBidangTitleNode(
           b.namaBidang
         )}${anggotaHtml}</li>`;
       });
-      chartContent += `</ul></li></ul></li>`;
+      bidangHtml += "</ul>";
+
+      bawahanHtml += `<li><div class="jabatan">Bidang-Bidang</div>${bidangHtml}</li>`;
+      bawahanHtml += "</ul>";
+
+      // Render Ketua dengan semua bawahan di dalam <li> nya
+      chartContent += `<li>${createNode(
+        ketua.jabatan,
+        ketua.nama,
+        ketua.foto
+      )}${bawahanHtml}</li>`;
     }
 
     if (wakil)
@@ -293,10 +292,11 @@ const App = (() => {
         wakil.nama,
         wakil.foto
       )}</li>`;
+
     chart.innerHTML = chartContent;
     initScrollAnimations();
 
-    // --- BAGIAN BARU: FUNGSI ZOOM & PAN ---
+    // --- FUNGSI ZOOM & PAN (TETAP SAMA) ---
     const zoomInBtn = document.getElementById("zoom-in-btn");
     const zoomOutBtn = document.getElementById("zoom-out-btn");
     const zoomLevelDisplay = document.getElementById("zoom-level");
@@ -320,24 +320,11 @@ const App = (() => {
       applyZoom();
     });
 
-    container.addEventListener("wheel", (event) => {
-      event.preventDefault();
-      const delta = Math.sign(event.deltaY);
-      if (delta > 0) {
-        // Scroll ke bawah (zoom out)
-        currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
-      } else {
-        // Scroll ke atas (zoom in)
-        currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
-      }
-      applyZoom();
-    });
-
-    // --- Fungsi Pan (Geser) ---
     let isPanning = false;
     let startX, startY, scrollLeft, scrollTop;
 
     container.addEventListener("mousedown", (e) => {
+      e.preventDefault();
       isPanning = true;
       container.style.cursor = "grabbing";
       startX = e.pageX - container.offsetLeft;
@@ -361,13 +348,12 @@ const App = (() => {
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
       const y = e.pageY - container.offsetTop;
-      const walkX = (x - startX) * 1.5; // *1.5 untuk geser lebih cepat
-      const walkY = (y - startY) * 1.5;
+      const walkX = x - startX;
+      const walkY = y - startY;
       container.scrollLeft = scrollLeft - walkX;
       container.scrollTop = scrollTop - walkY;
     });
 
-    // --- Pusatkan Scroll Awal ---
     setTimeout(() => {
       if (container.scrollWidth > container.clientWidth) {
         container.scrollLeft =

@@ -69,25 +69,27 @@
     },
     {
       "namaBidang": "Bidang Agama Islam",
-      "subBidang": [
-        {
-          "nama": "Koordinator",
-          "anggota": ["Iswanto"]
-        },
-        { "nama": "anggota", "anggota": ["Aji"] },
-        { "nama": "anggota", "anggota": ["Aifa Nurul A."] }
+      "anggota": [
+        { "nama": "Iswanto", "jabatan": "Koordinator", "foto": "" },
+        { "nama": "Aji", "jabatan": "Anggota", "foto": "" },
+        { "nama": "Aifa Nurul A.", "jabatan": "Anggota", "foto": "" }
       ]
     },
     {
       "namaBidang": "Bidang Agama Kristen",
-      "subBidang": [
+      "anggota": [
         {
-          "nama": "Koordinator",
-          "anggota": ["Margaretha"]
+          "nama": "Margaretha",
+          "jabatan": "Koordinator",
+          "foto": "foto/foto-about/margaretha_mentri_agama_kristen.png"
         },
-        { "nama": "Anggota", "anggota": ["Amazia"] },
-        { "nama": "Anggota", "anggota": ["Agatha"] },
-        { "nama": "Anggota", "anggota": ["Nessa"] }
+        {
+          "nama": "Amazia",
+          "jabatan": "Anggota",
+          "foto": "foto/foto-about/amazadminweb.png"
+        },
+        { "nama": "Agatha", "jabatan": "Anggota", "foto": "" },
+        { "nama": "Nessa", "jabatan": "Anggota", "foto": "" }
       ]
     },
     {
