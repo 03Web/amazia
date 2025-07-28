@@ -14,7 +14,7 @@
   {
     "nama": "Pak Nirman",
     "jabatan": "Penasehat",
-    "foto": "foto/foto-about/pak nirma.png",
+    "foto": "../foto/foto-about/pak nirma.png",
     "alt": "Foto Pak Nirman"
   },
   {
