@@ -2,7 +2,7 @@
  * @file script.js
  * @description Script utama versi ULTRA MAXIMAL untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Partner Coding
- * @version 5.0.1 (Versi Refactored + Perbaikan Scroll Navigasi Mobile)
+ * @version 5.1.0 (Versi dengan Struktur Organisasi Baru)
  */
 
 // Module Pattern (IIFE) untuk enkapsulasi dan menghindari polusi global scope.
@@ -40,7 +40,10 @@ const App = (() => {
   };
 
   const fetchData = async (key, url) => {
-    if (state[key] && state[key].length > 0) {
+    if (
+      state[key] &&
+      (state[key].length > 0 || Object.keys(state[key]).length > 0)
+    ) {
       return state[key];
     }
     try {
@@ -142,14 +145,6 @@ const App = (() => {
     </div>
   `;
 
-  const createPengurusTemplate = (pengurus) => `
-      <div class="pengurus-card">
-        <img src="${pengurus.foto}" alt="${pengurus.alt}" class="foto-pengurus" loading="lazy" />
-        <h4>${pengurus.nama}</h4>
-        <p>${pengurus.jabatan}</p>
-      </div>
-  `;
-
   const createInformasiTemplate = (info) => `
     <div class="info-item animate-on-scroll">
       <div class="info-header">
@@ -196,14 +191,122 @@ const App = (() => {
   }
 
   async function initAboutPage() {
-    const container = document.getElementById("struktur-container");
+    const container = document.getElementById("pohon-organisasi-container");
+    if (!container) return;
+
     const data = await fetchData("pengurus", "data/pengurus.json");
-    renderItems(
-      container,
-      data,
-      createPengurusTemplate,
-      "Gagal memuat daftar pengurus."
+    if (!data) {
+      container.innerHTML = "<p>Gagal memuat struktur organisasi.</p>";
+      return;
+    }
+
+    // Helper untuk membuat node HTML (foto, jabatan, nama)
+    const createNode = (jabatan, nama, fotoUrl) => {
+      const imageTag = fotoUrl
+        ? `<img src="${fotoUrl}" alt="Foto ${nama}" class="foto-node">`
+        : `<span class="foto-node foto-node-placeholder fas fa-user"></span>`;
+
+      return `<div>
+                ${imageTag}
+                <span class="jabatan">${jabatan}</span>
+                <span class="nama">${nama}</span>
+              </div>`;
+    };
+
+    // Helper untuk membuat node Judul Bidang
+    const createBidangTitleNode = (namaBidang) =>
+      `<div><span class="jabatan">${namaBidang}</span></div>`;
+
+    let html = '<ul class="pohon-organisasi">';
+
+    // TINGKAT 1: Penasehat, P. Jawab, dan Ketua sebagai cabang utama yang setara
+    const penasehat = data.pengurusInti.find((p) => p.jabatan === "Penasehat");
+    const penanggungJawab = data.pengurusInti.find(
+      (p) => p.jabatan === "Penanggung Jawab"
     );
+    const ketua = data.pengurusInti.find((p) => p.jabatan === "Ketua");
+
+    if (penasehat)
+      html += `<li>${createNode(
+        penasehat.jabatan,
+        penasehat.nama,
+        penasehat.foto
+      )}</li>`;
+    if (penanggungJawab)
+      html += `<li>${createNode(
+        penanggungJawab.jabatan,
+        penanggungJawab.nama,
+        penanggungJawab.foto
+      )}</li>`;
+
+    // Cabang Ketua yang memiliki anak
+    if (ketua) {
+      html += `<li>${createNode(ketua.jabatan, ketua.nama, ketua.foto)}<ul>`; // Buka ul untuk anak Ketua
+
+      // TINGKAT 2: Wakil di bawah Ketua
+      const wakil = data.pengurusInti.find((p) => p.jabatan === "Wakil");
+      if (wakil) {
+        html += `<li>${createNode(wakil.jabatan, wakil.nama, wakil.foto)}<ul>`; // Buka ul untuk anak Wakil
+
+        // TINGKAT 3: Sekretaris & Bendahara di bawah Wakil
+        const sekretaris = data.pengurusInti.find(
+          (p) => p.jabatan === "Sekretaris"
+        );
+        const bendahara = data.pengurusInti.find(
+          (p) => p.jabatan === "Bendahara"
+        );
+        if (sekretaris)
+          html += `<li>${createNode(
+            sekretaris.jabatan,
+            sekretaris.nama,
+            sekretaris.foto
+          )}</li>`;
+        if (bendahara)
+          html += `<li>${createNode(
+            bendahara.jabatan,
+            bendahara.nama,
+            bendahara.foto
+          )}</li>`;
+
+        // TINGKAT 4: Node Judul "Bidang-Bidang"
+        html += `<li><div class="jabatan">Bidang-Bidang</div><ul class="bidang-group">`;
+
+        // Loop untuk setiap bidang
+        data.bidang.forEach((b) => {
+          let anggotaHtml = '<ul class="anggota-grid">'; // Grid untuk anggota
+          if (b.anggota) {
+            b.anggota.forEach((a) => {
+              anggotaHtml += `<li>${createNode(
+                a.jabatan,
+                a.nama,
+                a.foto
+              )}</li>`;
+            });
+          }
+          if (b.subBidang) {
+            b.subBidang.forEach((sub) => {
+              anggotaHtml += `<li>${createNode(
+                sub.nama,
+                sub.anggota.join(", "),
+                ""
+              )}</li>`;
+            });
+          }
+          anggotaHtml += "</ul>";
+          html += `<li>${createBidangTitleNode(
+            b.namaBidang
+          )}${anggotaHtml}</li>`;
+        });
+
+        html += `</ul></li>`; // Tutup .bidang-group
+        html += `</ul></li>`; // Tutup ul wakil
+      }
+      html += `</ul></li>`; // Tutup ul ketua
+    }
+
+    html += "</ul>"; // Tutup .pohon-organisasi
+    container.innerHTML = html;
+    initScrollAnimations();
   }
 
   async function initInformasiPage() {
@@ -467,7 +570,7 @@ const App = (() => {
       "album-grid": initGaleriPage,
       "info-list": initInformasiPage,
       "artikel-dinamis-container": initArtikelPage,
-      "struktur-container": initAboutPage,
+      "pohon-organisasi-container": initAboutPage, // <-- SUDAH DIPERBAIKI
       "kontak-grid": initKontakPage,
     };
     for (const [id, initializer] of Object.entries(pageInitializers)) {
