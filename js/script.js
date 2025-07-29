@@ -1,8 +1,8 @@
 /**
  * @file script.js
- * @description Script utama versi ULTRA MAXIMAL untuk fungsionalitas website Karang Taruna Banjarsari.
+ * @description Script utama untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Partner Coding
- * @version 6.0.0 (Login Wajib)
+ * @version 7.0.0 (Login dengan Timeout Inaktivitas)
  */
 
 const App = (() => {
@@ -16,6 +16,23 @@ const App = (() => {
     kontak: [],
   };
 
+  // --- FUNGSI UNTUK MELACAK AKTIVITAS ---
+  function startInactivityTracker() {
+    const events = [
+      "mousemove",
+      "mousedown",
+      "keypress",
+      "scroll",
+      "touchstart",
+    ];
+    const resetTimer = () => {
+      sessionStorage.setItem("lastActivityTimestamp", Date.now());
+    };
+    events.forEach((event) => {
+      window.addEventListener(event, resetTimer, { passive: true });
+    });
+  }
+
   // === FUNGSI UNTUK WELCOME SCREEN (LOGIN) ===
   function initWelcomeScreen() {
     const overlay = document.getElementById("welcome-overlay");
@@ -23,19 +40,21 @@ const App = (() => {
     const messageEl = document.getElementById("form-message");
     const submitButton = document.getElementById("submit-button");
 
-    // =============================================================================
-    // !!! PERTANYAAN 2: "Link yang tadi dikemanakan?" !!!
-    // GANTI URL DI BAWAH INI DENGAN LINK FORMSPREE YANG SUDAH ANDA SALIN
-    // =============================================================================
+    // !!! PENTING: GANTI URL DI BAWAH INI DENGAN LINK FORMSPREE ANDA !!!
     const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg";
 
-    // Fungsi ini akan selalu berjalan setiap kali halaman utama dibuka
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    if (isLoggedIn) {
+      overlay.classList.add("hidden");
+      return;
+    }
+
+    overlay.classList.remove("hidden");
+
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
-
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
-
       messageEl.textContent = "Mengirim data...";
       messageEl.classList.remove("hidden", "success", "error");
       submitButton.disabled = true;
@@ -49,11 +68,12 @@ const App = (() => {
             Accept: "application/json",
           },
         });
-
         if (response.ok) {
           messageEl.textContent = "Terima kasih! Anda akan dialihkan...";
           messageEl.classList.add("success");
-
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("lastActivityTimestamp", Date.now());
+          startInactivityTracker();
           setTimeout(() => {
             overlay.classList.add("hidden");
           }, 1500);
@@ -68,7 +88,7 @@ const App = (() => {
     });
   }
 
-  // === UTILITIES & HELPERS ===
+  // === UTILITIES & HELPERS (TIDAK PERLU DIUBAH) ===
   const loadComponent = async (url, elementId, callback) => {
     const element = document.getElementById(elementId);
     if (!element) return;
@@ -125,16 +145,13 @@ const App = (() => {
           }
         });
       },
-      {
-        threshold: 0.1,
-      }
+      { threshold: 0.1 }
     );
     document
       .querySelectorAll(".animate-on-scroll:not(.visible)")
       .forEach((el) => observer.observe(el));
   };
 
-  // ... (Sisa kode seperti renderItems, createKegiatanTemplate, dll. tetap sama persis)
   const renderItems = (container, items, templateFn, errorMessage) => {
     if (!container) return;
     if (!items || items.length === 0) {
@@ -215,7 +232,6 @@ const App = (() => {
     </div>
   `;
 
-  // === PAGE INITIALIZERS ===
   async function initKegiatanPage() {
     const container = document.getElementById("kegiatan-list");
     const data = await fetchData("kegiatan", "data/kegiatan.json");
@@ -244,29 +260,22 @@ const App = (() => {
   async function initAboutPage() {
     const container = document.getElementById("pohon-organisasi-container");
     if (!container) return;
-
     const data = await fetchData("pengurus", "data/pengurus.json");
     if (!data) {
       container.innerHTML = "<p>Gagal memuat struktur organisasi.</p>";
       return;
     }
-
     const createNode = (jabatan, nama, fotoUrl) => {
       const imageTag = fotoUrl
         ? `<img src="${fotoUrl}" alt="Foto ${nama}" class="foto-node">`
         : `<span class="foto-node foto-node-placeholder fas fa-user"></span>`;
-      return `<div>
-                ${imageTag}
-                <span class="jabatan">${jabatan}</span>
-                <span class="nama">${nama}</span>
-              </div>`;
+      return `<div>${imageTag}<span class="jabatan">${jabatan}</span><span class="nama">${nama}</span></div>`;
     };
     const createBidangTitleNode = (namaBidang) =>
       `<div><span class="jabatan">${namaBidang}</span></div>`;
-    let html = '<ul class="pohon-organisasi" id="pohon-organisasi-chart"></ul>';
-    container.innerHTML = html;
+    container.innerHTML =
+      '<ul class="pohon-organisasi" id="pohon-organisasi-chart"></ul>';
     const chart = document.getElementById("pohon-organisasi-chart");
-
     let chartContent = "";
     const pengurusInti = data.pengurusInti;
     const ketua = pengurusInti.find((p) => p.jabatan === "Ketua");
@@ -277,7 +286,6 @@ const App = (() => {
     const wakil = pengurusInti.find((p) => p.jabatan === "Wakil");
     const sekretaris = pengurusInti.find((p) => p.jabatan === "Sekretaris");
     const bendahara = pengurusInti.find((p) => p.jabatan === "Bendahara");
-
     if (penasehat)
       chartContent += `<li>${createNode(
         penasehat.jabatan,
@@ -290,7 +298,6 @@ const App = (() => {
         penanggungJawab.nama,
         penanggungJawab.foto
       )}</li>`;
-
     if (ketua) {
       let bawahanHtml = "<ul>";
       if (sekretaris)
@@ -327,7 +334,6 @@ const App = (() => {
         ketua.foto
       )}${bawahanHtml}</li>`;
     }
-
     if (wakil)
       chartContent += `<li>${createNode(
         wakil.jabatan,
@@ -336,7 +342,6 @@ const App = (() => {
       )}</li>`;
     chart.innerHTML = chartContent;
     initScrollAnimations();
-
     const zoomInBtn = document.getElementById("zoom-in-btn");
     const zoomOutBtn = document.getElementById("zoom-out-btn");
     const zoomLevelDisplay = document.getElementById("zoom-level");
@@ -344,25 +349,20 @@ const App = (() => {
     const ZOOM_STEP = 0.1;
     const MIN_ZOOM = 0.3;
     const MAX_ZOOM = 2;
-
     const applyZoom = () => {
       chart.style.transform = `scale(${currentZoom})`;
       zoomLevelDisplay.textContent = `${Math.round(currentZoom * 100)}%`;
     };
-
     zoomInBtn.addEventListener("click", () => {
       currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
       applyZoom();
     });
-
     zoomOutBtn.addEventListener("click", () => {
       currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
       applyZoom();
     });
-
     let isPanning = false;
     let startX, startY, scrollLeft, scrollTop;
-
     container.addEventListener("mousedown", (e) => {
       e.preventDefault();
       isPanning = true;
@@ -372,17 +372,14 @@ const App = (() => {
       scrollLeft = container.scrollLeft;
       scrollTop = container.scrollTop;
     });
-
     container.addEventListener("mouseleave", () => {
       isPanning = false;
       container.style.cursor = "grab";
     });
-
     container.addEventListener("mouseup", () => {
       isPanning = false;
       container.style.cursor = "grab";
     });
-
     container.addEventListener("mousemove", (e) => {
       if (!isPanning) return;
       e.preventDefault();
@@ -393,7 +390,6 @@ const App = (() => {
       container.scrollLeft = scrollLeft - walkX;
       container.scrollTop = scrollTop - walkY;
     });
-
     setTimeout(() => {
       if (container.scrollWidth > container.clientWidth) {
         container.scrollLeft =
@@ -444,8 +440,7 @@ const App = (() => {
                 }" data-title="${foto.title || album.judul}"></a>`
             )
             .join("")}
-        </div>
-      `,
+        </div>`,
         "Gagal memuat album foto."
       );
     }
@@ -456,14 +451,13 @@ const App = (() => {
           videoContainer,
           items,
           (video) => `
-        <div class="gallery-item video-item animate-on-scroll" data-tanggal="${
-          video.tanggal
-        }">
-          <iframe src="${video.src.replace("watch?v=", "embed/")}" title="${
+          <div class="gallery-item video-item animate-on-scroll" data-tanggal="${
+            video.tanggal
+          }">
+            <iframe src="${video.src.replace("watch?v=", "embed/")}" title="${
             video.title
           }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-        </div>
-      `,
+          </div>`,
           "Gagal memuat video."
         );
       renderVideos(data.dokumentasiVideo);
@@ -517,20 +511,12 @@ const App = (() => {
       initSlideshow();
     } catch (error) {
       console.error("Gagal memuat artikel:", error);
-      container.innerHTML = `
-        <div style="text-align: center;">
-          <h2>Gagal Memuat Artikel</h2>
-          <p>Maaf, konten yang Anda cari tidak dapat ditemukan atau terjadi kesalahan. Coba muat ulang halaman.</p>
-          <p><i>${error.message}</i></p>
-          <a href="kegiatan.html" class="kegiatan-tombol" style="margin-top: 20px;"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a>
-        </div>
-      `;
+      container.innerHTML = `<div style="text-align: center;"><h2>Gagal Memuat Artikel</h2><p>Maaf, konten yang Anda cari tidak dapat ditemukan atau terjadi kesalahan.</p><p><i>${error.message}</i></p><a href="kegiatan.html" class="kegiatan-tombol" style="margin-top: 20px;"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a></div>`;
     } finally {
       initScrollAnimations();
     }
   }
 
-  // === UI INITIALIZERS ===
   function initSlideshow() {
     document.querySelectorAll(".slideshow-container").forEach((container) => {
       const slides = container.querySelectorAll(".slide-image");
@@ -556,9 +542,7 @@ const App = (() => {
       window.location.pathname.split("/").pop() || "index.html";
     const navContainer = document.querySelector("nav ul");
     if (!navContainer) return;
-
     let activeLinkElement = null;
-
     navContainer.querySelectorAll("a").forEach((link) => {
       const parentLi = link.parentElement;
       const linkPath = link.getAttribute("href");
@@ -571,7 +555,6 @@ const App = (() => {
         activeLinkElement = parentLi;
       }
     });
-
     if (activeLinkElement && window.innerWidth <= 768) {
       const scrollLeftPosition =
         activeLinkElement.offsetLeft -
@@ -649,8 +632,33 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const init = () => {
-    // Panggil fungsi welcome screen di baris paling atas ini
-    initWelcomeScreen();
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    const lastActivity = sessionStorage.getItem("lastActivityTimestamp");
+    const TIMEOUT_DURATION = 20 * 60 * 1000; // 20 menit
+
+    if (
+      isLoggedIn &&
+      lastActivity &&
+      Date.now() - lastActivity > TIMEOUT_DURATION
+    ) {
+      sessionStorage.removeItem("isLoggedIn");
+      sessionStorage.removeItem("lastActivityTimestamp");
+      if (
+        window.location.pathname.includes("index.html") ||
+        window.location.pathname.endsWith("/")
+      ) {
+        window.location.reload();
+      } else {
+        window.location.href = "index.html";
+      }
+      return;
+    } else if (isLoggedIn) {
+      startInactivityTracker();
+    }
+
+    if (document.getElementById("welcome-overlay")) {
+      initWelcomeScreen();
+    }
 
     loadComponent("layout/header.html", "main-header", setActiveNavLink);
     loadComponent("layout/footer.html", "main-footer");
