@@ -2,10 +2,9 @@
  * @file script.js
  * @description Script utama versi ULTRA MAXIMAL untuk fungsionalitas website Karang Taruna Banjarsari.
  * @author Partner Coding
- * @version 5.4.0 (Fitur Zoom & Pan pada Struktur Organisasi)
+ * @version 6.0.0 (Login Wajib)
  */
 
-// Module Pattern (IIFE) untuk enkapsulasi dan menghindari polusi global scope.
 const App = (() => {
   // === STATE & CACHE ===
   const cache = new Map();
@@ -16,6 +15,58 @@ const App = (() => {
     pengurus: [],
     kontak: [],
   };
+
+  // === FUNGSI UNTUK WELCOME SCREEN (LOGIN) ===
+  function initWelcomeScreen() {
+    const overlay = document.getElementById("welcome-overlay");
+    const form = document.getElementById("welcome-form");
+    const messageEl = document.getElementById("form-message");
+    const submitButton = document.getElementById("submit-button");
+
+    // =============================================================================
+    // !!! PERTANYAAN 2: "Link yang tadi dikemanakan?" !!!
+    // GANTI URL DI BAWAH INI DENGAN LINK FORMSPREE YANG SUDAH ANDA SALIN
+    // =============================================================================
+    const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg";
+
+    // Fungsi ini akan selalu berjalan setiap kali halaman utama dibuka
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      messageEl.textContent = "Mengirim data...";
+      messageEl.classList.remove("hidden", "success", "error");
+      submitButton.disabled = true;
+
+      try {
+        const response = await fetch(FORMSPREE_URL, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          messageEl.textContent = "Terima kasih! Anda akan dialihkan...";
+          messageEl.classList.add("success");
+
+          setTimeout(() => {
+            overlay.classList.add("hidden");
+          }, 1500);
+        } else {
+          throw new Error("Gagal mengirim data. Coba lagi.");
+        }
+      } catch (error) {
+        messageEl.textContent = error.message;
+        messageEl.classList.add("error");
+        submitButton.disabled = false;
+      }
+    });
+  }
 
   // === UTILITIES & HELPERS ===
   const loadComponent = async (url, elementId, callback) => {
@@ -83,7 +134,7 @@ const App = (() => {
       .forEach((el) => observer.observe(el));
   };
 
-  // === RENDERING FUNCTIONS (DOM OPTIMIZED) ===
+  // ... (Sisa kode seperti renderItems, createKegiatanTemplate, dll. tetap sama persis)
   const renderItems = (container, items, templateFn, errorMessage) => {
     if (!container) return;
     if (!items || items.length === 0) {
@@ -200,7 +251,6 @@ const App = (() => {
       return;
     }
 
-    // --- Render Pohon Organisasi ---
     const createNode = (jabatan, nama, fotoUrl) => {
       const imageTag = fotoUrl
         ? `<img src="${fotoUrl}" alt="Foto ${nama}" class="foto-node">`
@@ -217,10 +267,8 @@ const App = (() => {
     container.innerHTML = html;
     const chart = document.getElementById("pohon-organisasi-chart");
 
-    // --- LOGIKA BARU UNTUK STRUKTUR SEJAJAR ---
     let chartContent = "";
     const pengurusInti = data.pengurusInti;
-
     const ketua = pengurusInti.find((p) => p.jabatan === "Ketua");
     const penasehat = pengurusInti.find((p) => p.jabatan === "Penasehat");
     const penanggungJawab = pengurusInti.find(
@@ -230,7 +278,6 @@ const App = (() => {
     const sekretaris = pengurusInti.find((p) => p.jabatan === "Sekretaris");
     const bendahara = pengurusInti.find((p) => p.jabatan === "Bendahara");
 
-    // Baris atas yang sejajar
     if (penasehat)
       chartContent += `<li>${createNode(
         penasehat.jabatan,
@@ -245,7 +292,6 @@ const App = (() => {
       )}</li>`;
 
     if (ketua) {
-      // Gabungkan semua bawahan di dalam satu <ul> di bawah Ketua
       let bawahanHtml = "<ul>";
       if (sekretaris)
         bawahanHtml += `<li>${createNode(
@@ -259,7 +305,6 @@ const App = (() => {
           bendahara.nama,
           bendahara.foto
         )}</li>`;
-
       let bidangHtml = '<ul class="bidang-group">';
       data.bidang.forEach((b) => {
         let anggotaHtml = '<ul class="anggota-grid">';
@@ -274,11 +319,8 @@ const App = (() => {
         )}${anggotaHtml}</li>`;
       });
       bidangHtml += "</ul>";
-
       bawahanHtml += `<li><div class="jabatan">Bidang-Bidang</div>${bidangHtml}</li>`;
       bawahanHtml += "</ul>";
-
-      // Render Ketua dengan semua bawahan di dalam <li> nya
       chartContent += `<li>${createNode(
         ketua.jabatan,
         ketua.nama,
@@ -292,11 +334,9 @@ const App = (() => {
         wakil.nama,
         wakil.foto
       )}</li>`;
-
     chart.innerHTML = chartContent;
     initScrollAnimations();
 
-    // --- FUNGSI ZOOM & PAN (TETAP SAMA) ---
     const zoomInBtn = document.getElementById("zoom-in-btn");
     const zoomOutBtn = document.getElementById("zoom-out-btn");
     const zoomLevelDisplay = document.getElementById("zoom-level");
@@ -609,6 +649,9 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const init = () => {
+    // Panggil fungsi welcome screen di baris paling atas ini
+    initWelcomeScreen();
+
     loadComponent("layout/header.html", "main-header", setActiveNavLink);
     loadComponent("layout/footer.html", "main-footer");
     initScrollAnimations();
