@@ -2,15 +2,49 @@
   {
     "tanggal": "2025-07-23",
     "gambar": "konten-kegiatan/foto/perang nazi,eropa,jermandll.png",
-    "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi terhadap Bangsa Yahudi",
-    "deskripsi": "Akar dari permusuhan terhadap Yahudi di Eropa dapat ditelusuri kembali ke masa Kekristenan awal. Selama berabad-abad, banyak ajaran Kristen yang secara aktif mempromosikan pandangan negatif terhadap orang Yahudi, yang sering disebut sebagai anti-Yudaisme. Salah satu tuduhan yang paling kuat dan bertahan lama adalah tuduhan deisida—keyakinan keliru bahwa orang Yahudi secara kolektif bertanggung jawab atas pembunuhan Yesus Kristus. Meskipun otoritas Romawi yang sebenarnya mengeksekusi Yesus, narasi tentang Yahudi pembunuh Kristus diperkuat dalam teologi dan ajaran resmi gereja selama berabad-abad, baru secara resmi ditolak oleh beberapa gereja besar, seperti Gereja Katolik Roma melalui Konsili Vatikan II pada tahun 1965....",
-    "link": "artikel.html?slug=alasan-nazi-membenci-yahudi"
+    "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi",
+    "deskripsi": "Menyelami akar kebencian Nazi terhadap Yahudi, melampaui sekadar iri hati, menuju investigasi multi-faset dari sejarah, politik, hingga psikologi.",
+    "link": "artikel.html?slug=history/alasan-nazi-membenci-yahudi",
+    "kategori": "history"
+  },
+  {
+    "tanggal": "2025-07-28",
+    "gambar": "foto/new0/people_krengseng.jpg",
+    "judul": "Paradoks Media Sosial: Lebih Terhubung, Lebih Kesepian",
+    "deskripsi": "Sebuah keresahan tentang bagaimana platform yang dirancang untuk menyatukan kita justru sering kali membuat kita merasa lebih terisolasi dari sebelumnya.",
+    "link": "artikel.html?slug=keresahan/keresahan-sosial",
+    "kategori": "KERESAHAN"
+  },
+  {
+    "tanggal": "2025-06-15",
+    "gambar": "foto/books/self-help-atomic-habits.jpg",
+    "judul": "Ringkasan 'Atomic Habits': Perubahan Kecil, Hasil Luar Biasa",
+    "deskripsi": "Bagaimana membangun kebiasaan baik dan menghilangkan kebiasaan buruk melalui perubahan 1% setiap hari. Poin-poin kunci dari buku James Clear.",
+    "link": "artikel.html?slug=summary-books/summary-atomic-habits",
+    "kategori": "summary books"
+  },
+  {
+    "tanggal": "2025-05-10",
+    "gambar": "foto/logoneutronltrblkhitam.png",
+    "judul": "Apa Itu Lubang Hitam? Sebuah Pengantar Sederhana",
+    "deskripsi": "Menjelajahi salah satu objek paling misterius di alam semesta, dari apa itu terbentuk hingga bagaimana para ilmuwan mempelajarinya tanpa bisa melihatnya.",
+    "link": "artikel.html?slug=science/science-blackhole",
+    "kategori": "science"
+  },
+  {
+    "tanggal": "2025-04-20",
+    "gambar": "foto/books/self-help-filosofi-teras.jpg",
+    "judul": "Pengantar Stoikisme: Menemukan Ketenangan di Tengah Badai",
+    "deskripsi": "Belajar dari para filsuf kuno seperti Seneca dan Marcus Aurelius tentang bagaimana mengendalikan apa yang bisa kita kendalikan dan menerima sisanya.",
+    "link": "artikel.html?slug=philosophy/philosophy-stoic",
+    "kategori": "PHILOSOPHY"
   },
   {
     "tanggal": "2024-08-17",
     "gambar": "foto/foto-karang-taruna/17_agurstus_girl.png",
-    "judul": "Semarak Kemerdekaan: Lomba 17 Agustus di Desa Banjarsari 2024",
-    "deskripsi": "Dalam rangka memeriahkan HUT RI ke-79, Karang Taruna Banjarsari sukses menggelar berbagai macam perlombaan untuk anak-anak hingga orang dewasa...",
-    "link": "artikel.html?slug=kegiatan-17agustus"
+    "judul": "Catatan Random: Tentang Hujan dan Secangkir Kopi",
+    "deskripsi": "Hanya beberapa pemikiran acak yang muncul saat memandang rintik hujan dari jendela, ditemani oleh kehangatan secangkir kopi hitam.",
+    "link": "artikel.html?slug=notes-random/catatan-hujan-kopi",
+    "kategori": "NOTES & ARTICLES RANDOM"
   }
 ]

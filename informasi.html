@@ -21,11 +21,29 @@
 
     <main>
       <div class="container">
-        <h2 class="animate-on-scroll">Informasi & Pengumuman</h2>
+        <h2 class="animate-on-scroll">Tweets & Note Series</h2>
         <p style="margin-bottom: 40px" class="animate-on-scroll">
-          Semua update terbaru, pengumuman penting, dan jadwal acara dari Karang
-          Taruna Banjarsari.
+          Kumpulan kutipan, pemikiran acak, dan catatan singkat lainnya.
         </p>
+
+        <div class="filter-container animate-on-scroll">
+          <div class="sort-container">
+            <label for="informasi-kategori-filter">Kategori:</label>
+            <select id="informasi-kategori-filter" class="sorter">
+              <option value="semuanya">Semuanya</option>
+              <option value="kutipan">Kutipan</option>
+              <option value="Twets">Tweets</option>
+              <option value="nganu">Catatan Random</option>
+            </select>
+          </div>
+          <div class="sort-container">
+            <label for="informasi-sorter">Urutkan:</label>
+            <select id="informasi-sorter" class="sorter">
+              <option value="terbaru">Terbaru ke Lama</option>
+              <option value="terlama">Lama ke Terbaru</option>
+            </select>
+          </div>
+        </div>
 
         <div class="info-list" id="info-list"></div>
       </div>

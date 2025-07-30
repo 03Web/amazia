@@ -217,7 +217,7 @@ const App = (() => {
     <div class="info-item animate-on-scroll">
       <div class="info-header">
         <h3>${info.judul}</h3>
-        <span class="info-tag ${info.tag_class}">${info.tag}</span>
+        <span class="info-tag tag-pengumuman">${info.kategori}</span>
       </div>
       <p class="info-meta">
         <i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
@@ -227,23 +227,54 @@ const App = (() => {
           month: "long",
           year: "numeric",
         })}
+        <span>- ${info.meta_info}</span>
       </p>
-      <div class="info-body">${info.konten}</div>
+      <div class="info-body">${info.konten_html}</div>
     </div>
   `;
 
   async function initKegiatanPage() {
     const container = document.getElementById("kegiatan-list");
-    const data = await fetchData("kegiatan", "data/kegiatan.json");
-    const render = (items) =>
+    const kategoriFilter = document.getElementById("kategori-filter");
+    const sorter = document.getElementById("kegiatan-sorter");
+
+    const originalData = await fetchData("kegiatan", "data/kegiatan.json");
+    if (!originalData) {
+      container.innerHTML = "<p>Gagal memuat daftar kegiatan.</p>";
+      return;
+    }
+
+    const updateList = () => {
+      const selectedCategory = kategoriFilter.value;
+      const sortOrder = sorter.value;
+
+      let filteredData = originalData;
+      if (selectedCategory !== "semuanya") {
+        filteredData = originalData.filter(
+          (item) => item.kategori === selectedCategory
+        );
+      }
+
+      const sortedData = [...filteredData].sort((a, b) => {
+        const dateA = new Date(a.tanggal);
+        const dateB = new Date(b.tanggal);
+        return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
+      });
+
       renderItems(
         container,
-        items,
+        sortedData,
         createKegiatanTemplate,
-        "Gagal memuat daftar kegiatan."
+        "<p>Tidak ada artikel dalam kategori ini.</p>"
       );
-    render(data);
-    initSorter(data, render, "kegiatan-sorter");
+    };
+
+    if (kategoriFilter && sorter) {
+      kategoriFilter.addEventListener("change", updateList);
+      sorter.addEventListener("change", updateList);
+    }
+
+    updateList();
   }
 
   async function initKontakPage() {
@@ -403,13 +434,48 @@ const App = (() => {
 
   async function initInformasiPage() {
     const container = document.getElementById("info-list");
-    const data = await fetchData("informasi", "data/informasi.json");
-    renderItems(
-      container,
-      data,
-      createInformasiTemplate,
-      "Gagal memuat informasi."
-    );
+    const kategoriFilter = document.getElementById("informasi-kategori-filter");
+    const sorter = document.getElementById("informasi-sorter");
+
+    const dataObject = await fetchData("informasi", "data/informasi.json");
+    const originalData = dataObject ? dataObject.informasi : [];
+
+    if (originalData.length === 0) {
+      container.innerHTML = "<p>Gagal memuat atau tidak ada informasi.</p>";
+      return;
+    }
+
+    const updateList = () => {
+      const selectedCategory = kategoriFilter.value;
+      const sortOrder = sorter.value;
+
+      let filteredData = originalData;
+      if (selectedCategory !== "semuanya") {
+        filteredData = originalData.filter(
+          (item) => item.kategori === selectedCategory
+        );
+      }
+
+      const sortedData = [...filteredData].sort((a, b) => {
+        const dateA = new Date(a.tanggal);
+        const dateB = new Date(b.tanggal);
+        return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
+      });
+
+      renderItems(
+        container,
+        sortedData,
+        createInformasiTemplate,
+        "<p>Tidak ada item dalam kategori ini.</p>"
+      );
+    };
+
+    if (kategoriFilter && sorter) {
+      kategoriFilter.addEventListener("change", updateList);
+      sorter.addEventListener("change", updateList);
+    }
+
+    updateList();
   }
 
   async function initGaleriPage() {

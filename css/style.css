@@ -1,5 +1,4 @@
-/* Import Font Poppins dari Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 /* Variabel CSS untuk konsistensi tema */
 :root {
@@ -61,7 +60,7 @@ header#main-header {
 }
 
 .logo img {
-  width: 55px;
+  width: 55px; /* Anda bisa sesuaikan ukurannya */
   height: 55px;
   margin-right: 15px;
   transition: transform 0.3s ease;
@@ -71,14 +70,29 @@ header#main-header {
   transform: scale(1.1) rotate(-5deg);
 }
 
+/* Mengatur grup teks (Judul dan Subtitle) */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
 .logo h1 {
   font-size: 1.5em;
-  font-weight: bold;
+  font-weight: 700; /* DITAMBAHKAN */
   margin: 0;
   color: var(--light-text);
   font-family: "Poppins", sans-serif;
   font-style: italic;
-  font-weight: 700;
+  line-height: 1.1;
+}
+
+.logo-subtitle {
+  font-size: 0.8em;
+  color: var(--dark-text);
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  font-weight: 700; /* DITAMBAHKAN */
 }
 
 header nav ul {
@@ -99,8 +113,9 @@ header nav ul li a {
   padding: 5px 0;
   position: relative;
   transition: color 0.3s ease;
+  font-style: italic;
+  font-weight: 700; /* DITAMBAHKAN */
 }
-
 header nav ul li a::after {
   content: "";
   position: absolute;
@@ -1301,4 +1316,117 @@ select.sorter:focus {
 
 #form-message.error {
   color: #dc3545;
+}
+/* Gaya untuk filter container di halaman kegiatan */
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px; /* Jarak antara filter kategori dan tanggal */
+  flex-wrap: wrap; /* Agar responsif di layar kecil */
+  margin-bottom: 25px;
+  margin-top: 30px;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-style: normal;
+}
+/* ========================================= */
+/* ===         GAYA HALAMAN KONTAK BARU    === */
+/* ========================================= */
+
+.contact-links-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-link-item {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 25px 30px;
+  text-decoration: none;
+  color: var(--light-text);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+  font-size: 1.2em;
+}
+
+.contact-link-item:hover {
+  transform: translateY(-5px);
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 20px rgba(0, 170, 255, 0.2);
+}
+
+.contact-link-item i {
+  font-size: 1.8em;
+  width: 40px; /* Memberi lebar tetap agar rapi */
+  text-align: center;
+}
+/* ========================================= */
+/* ===     GAYA KHUSUS HALAMAN HOME ANIMASI === */
+/* ========================================= */
+
+.home-page-body {
+  /* Tidak ada perubahan di sini */
+}
+
+.home-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#logo-container {
+  position: absolute;
+  /* Durasi diubah menjadi 9 detik */
+  animation: looped-animation 9s ease-in-out infinite;
+}
+
+#animated-logo {
+  width: 400px;
+  height: auto;
+}
+
+/* Keyframe dihitung ulang untuk durasi 9 detik */
+@keyframes looped-animation {
+  /* FASE 1: Jatuh (0% - 22.2%) -> 2 detik */
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  22.2% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* FASE 2: Diam (22.2% - 77.7%) -> 5 detik */
+  77.7% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+
+  /* FASE 3: Pergi (77.7% - 100%) -> 2 detik */
+  99.9% {
+    transform: translateY(0) translateX(100vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
 }

@@ -8,65 +8,21 @@
       content="Selamat datang di website resmi Karang Taruna Banjarsari. Temukan informasi kegiatan, program kerja, dan galeri kami. Mari bersama membangun desa."
     />
     <link rel="icon" type="image/png" href="/foto/logoneutronltrblkhitam.png" />
-    <title>Home - Karang Taruna Banjarsari</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+    <title>Home - The Great Apes</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
-    <div id="welcome-overlay" class="hidden">
-      <div id="welcome-box">
-        <img
-          src="foto/logoneutrontransparan.png"
-          alt="Logo Karang Taruna"
-          class="welcome-logo"
-        />
-        <h2>Selamat Datang</h2>
-        <p>Silakan perkenalkan diri Anda untuk melanjutkan.</p>
-        <form id="welcome-form">
-          <div class="form-group">
-            <label for="nama">Siapa nama Anda? </label>
-            <input
-              type="text"
-              id="nama"
-              name="nama"
-              required
-              placeholder="Contoh:(Kabol) atau lainnya..."
-            />
-          </div>
-          <div class="form-group">
-            <label for="is_banjarsari">Apakah Anda orang Banjarsari?</label>
-            <select id="is_banjarsari" name="asal" required>
-              <option value="" disabled selected>-- Pilih Jawaban --</option>
-              <option value="Ya, saya dari Banjarsari">Ya</option>
-              <option value="Bukan, saya dari luar">Bukan</option>
-            </select>
-          </div>
-          <button type="submit" id="submit-button">Masuk ke Website</button>
-          <p id="form-message" class="hidden"></p>
-        </form>
-      </div>
-    </div>
+  <body class="home-page-body">
     <div id="particles-js"></div>
+
     <header id="main-header"></header>
 
-    <main>
-      <div class="container" style="padding-top: 0">
-        <div class="logo-image">
-          <img
-            src="/foto/taranpraanstayhungry.png"
-            alt="Logo Karang Taruna Banjarsari dengan slogan Solidaritas"
-          />
-        </div>
-        <h2 class="animate-on-scroll">Selamat Datang di Website Resmi</h2>
-        <h2 class="animate-on-scroll">Karang Taruna Banjarsari</h2>
-        <p class="animate-on-scroll">
-          Ini adalah tempat di mana Anda dapat menemukan semua informasi tentang
-          kegiatan kami, program kerja, galeri foto & video, dan cara untuk
-          terhubung dengan kami. Mari bersama membangun desa menjadi lebih baik.
-        </p>
+    <main class="home-main">
+      <div id="logo-container">
+        <img
+          id="animated-logo"
+          src="foto/taranpraanstayhungry.png"
+          alt="Stay Hungry, Stay Foolish"
+        />
       </div>
     </main>
 

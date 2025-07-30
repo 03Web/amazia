@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Jelajahi berbagai kegiatan Karang Taruna Banjarsari, baik yang akan datang maupun yang sudah dilaksanakan."
+      content="Jelajahi berbagai tulisan, pemikiran, dan ringkasan buku."
     />
     <link rel="icon" type="image/png" href="/foto/logoneutronltrblkhitam.png" />
     <title>Reading</title>
@@ -26,12 +26,26 @@
           Jelajahi berbagai Tulisan Dan Keberisikan Pikiran Saya.
         </p>
 
-        <div class="sort-container animate-on-scroll">
-          <label for="kegiatan-sorter">Urutkan berdasarkan:</label>
-          <select id="kegiatan-sorter" class="sorter">
-            <option value="terbaru">Terbaru ke Lama</option>
-            <option value="terlama">Lama ke Terbaru</option>
-          </select>
+        <div class="filter-container animate-on-scroll">
+          <div class="sort-container">
+            <label for="kategori-filter">Kategori:</label>
+            <select id="kategori-filter" class="sorter">
+              <option value="semuanya">Semuanya</option>
+              <option value="NOTES & ARTICLES RANDOM">Notes & Random</option>
+              <option value="KERESAHAN">Keresahan</option>
+              <option value="summary books">Summary Books</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="PHILOSOPHY">Philosophy</option>
+            </select>
+          </div>
+          <div class="sort-container">
+            <label for="kegiatan-sorter">Urutkan:</label>
+            <select id="kegiatan-sorter" class="sorter">
+              <option value="terbaru">Terbaru ke Lama</option>
+              <option value="terlama">Lama ke Terbaru</option>
+            </select>
+          </div>
         </div>
 
         <div class="kegiatan-list" id="kegiatan-list"></div>
