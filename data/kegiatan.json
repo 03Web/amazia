@@ -1,5 +1,13 @@
 [
   {
+    "tanggal": "2025-07-31",
+    "gambar": "https://mmc.tirto.id/image/otf/970x0/2019/02/21/header-tan-malaka--mozaik--nauval_ratio-16x9.jpg",
+    "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi",
+    "deskripsi": "Madilog: Senjata Logika Melawan Dogma dan Takhayul Bangsa indonesia...",
+    "link": "artikel.html?slug=history/tan-malaka-madilog",
+    "kategori": "history"
+  },
+  {
     "tanggal": "2025-07-23",
     "gambar": "konten-kegiatan/foto/perang nazi,eropa,jermandll.png",
     "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi",
@@ -8,7 +16,7 @@
     "kategori": "history"
   },
   {
-    "tanggal": "2025-07-28",
+    "tanggal": "2024-07-28",
     "gambar": "foto/new0/people_krengseng.jpg",
     "judul": "Paradoks Media Sosial: Lebih Terhubung, Lebih Kesepian",
     "deskripsi": "Sebuah keresahan tentang bagaimana platform yang dirancang untuk menyatukan kita justru sering kali membuat kita merasa lebih terisolasi dari sebelumnya.",
@@ -16,7 +24,7 @@
     "kategori": "KERESAHAN"
   },
   {
-    "tanggal": "2025-06-15",
+    "tanggal": "2024-06-15",
     "gambar": "foto/books/self-help-atomic-habits.jpg",
     "judul": "Ringkasan 'Atomic Habits': Perubahan Kecil, Hasil Luar Biasa",
     "deskripsi": "Bagaimana membangun kebiasaan baik dan menghilangkan kebiasaan buruk melalui perubahan 1% setiap hari. Poin-poin kunci dari buku James Clear.",
@@ -24,7 +32,7 @@
     "kategori": "summary books"
   },
   {
-    "tanggal": "2025-05-10",
+    "tanggal": "2024-05-10",
     "gambar": "foto/logoneutronltrblkhitam.png",
     "judul": "Apa Itu Lubang Hitam? Sebuah Pengantar Sederhana",
     "deskripsi": "Menjelajahi salah satu objek paling misterius di alam semesta, dari apa itu terbentuk hingga bagaimana para ilmuwan mempelajarinya tanpa bisa melihatnya.",
@@ -32,7 +40,7 @@
     "kategori": "science"
   },
   {
-    "tanggal": "2025-04-20",
+    "tanggal": "2024-04-20",
     "gambar": "foto/books/self-help-filosofi-teras.jpg",
     "judul": "Pengantar Stoikisme: Menemukan Ketenangan di Tengah Badai",
     "deskripsi": "Belajar dari para filsuf kuno seperti Seneca dan Marcus Aurelius tentang bagaimana mengendalikan apa yang bisa kita kendalikan dan menerima sisanya.",
