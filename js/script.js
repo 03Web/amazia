@@ -278,14 +278,17 @@ const App = (() => {
     const chart = document.getElementById("pohon-organisasi-chart");
     let chartContent = "";
     const pengurusInti = data.pengurusInti;
-    const ketua = pengurusInti.find((p) => p.jabatan === "Ketua");
-    const penasehat = pengurusInti.find((p) => p.jabatan === "Penasehat");
-    const penanggungJawab = pengurusInti.find(
-      (p) => p.jabatan === "Penanggung Jawab"
-    );
-    const wakil = pengurusInti.find((p) => p.jabatan === "Wakil");
-    const sekretaris = pengurusInti.find((p) => p.jabatan === "Sekretaris");
-    const bendahara = pengurusInti.find((p) => p.jabatan === "Bendahara");
+
+    // === PERUBAHAN DIMULAI DI SINI ===
+    // Mengambil data pengurus inti berdasarkan urutan/indeks, bukan nama jabatan
+    const penasehat = pengurusInti[0];
+    const penanggungJawab = pengurusInti[1];
+    const ketua = pengurusInti[2];
+    const wakil = pengurusInti[3];
+    const sekretaris = pengurusInti[4];
+    const bendahara = pengurusInti[5];
+    // === PERUBAHAN SELESAI DI SINI ===
+
     if (penasehat)
       chartContent += `<li>${createNode(
         penasehat.jabatan,

@@ -1,23 +1,357 @@
-[
-  {
-    "tanggal": "2025-07-07",
-    "judul": "Jadwal Rapat Pleno Persiapan Acara HUT RI ke-80  \"DISCLAIMER!!!HANYA CONTOH\"",
-    "tag": "PENTING",
-    "tag_class": "tag-penting",
-    "konten": "<p>Diberitahukan kepada seluruh anggota Karang Taruna Banjarsari, akan diadakan rapat pleno untuk membahas persiapan akhir acara peringatan HUT RI ke-80. Kehadiran seluruh koordinator seksi sangat diharapkan.</p><ul><li><strong>Hari/Tanggal:</strong> Sabtu, 19 Juli 2025</li><li><strong>Waktu:</strong> 19:30 WIB (Ba'da Isya)</li><li><strong>Tempat:</strong> Balai Desa Banjarsari</li></ul><p>Mohon untuk hadir tepat waktu. Terima kasih.</p>"
-  },
-  {
-    "tanggal": "2025-07-06",
-    "judul": "Pendaftaran Peserta Lomba Cerdas Cermat Telah Dibuka! \"DISCLAIMER!!!HANYA CONTOH\"",
-    "tag": "PENGUMUMAN",
-    "tag_class": "tag-pengumuman",
-    "konten": "<p>Ayo daftarkan tim terbaikmu dalam Lomba Cerdas Cermat tingkat desa! Pendaftaran dibuka mulai hari ini hingga tanggal 25 Juli 2025. Total hadiah jutaan rupiah menanti!</p><p>Syarat dan ketentuan lebih lanjut dapat dilihat pada pamflet yang tersedia di sekretariat Karang Taruna atau dengan menghubungi contact person yang tertera.</p>"
-  },
-  {
-    "tanggal": "2025-07-05",
-    "judul": "Update Desain Kaos Resmi Karang Taruna 2025 \"DISCLAIMER!!!HANYA CONTOH.\"",
-    "tag": "UPDATE",
-    "tag_class": "tag-update",
-    "konten": "<p>Berdasarkan masukan dari beberapa anggota, terdapat sedikit penyesuaian pada desain akhir kaos resmi Karang Taruna Banjarsari untuk periode 2025. Desain terbaru sudah bisa dilihat di grup WhatsApp pengurus. Proses pre-order akan segera diinformasikan.</p>"
-  }
-]
+{
+  "informasi": [
+    {
+      "id": "nganu1",
+      "judul": "nganu ",
+      "tag": {
+        "teks": "nganu",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2025-02-03",
+      "meta_info": "03 febuary 2025",
+      "konten_html": "Lagipula, setiap orang adalah pahlawan dalam kisahnya masing-masing."
+    },
+    {
+      "id": "nganu2",
+      "judul": "nganu ",
+      "tag": {
+        "teks": "nganu",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2025-02-02",
+      "meta_info": "02 febuary 2025",
+      "konten_html": "In the end, life is about being realistic and going with the flow, not about being idealistic and dreaming of a limitless sky."
+    },
+    {
+      "id": "nganu3",
+      "judul": "nganu ",
+      "tag": {
+        "teks": "nganu",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2025-02-01",
+      "meta_info": "01 febuary 2025",
+      "konten_html": "Life is hard, and it’s become harder when you are stupid."
+    },
+    {
+      "id": "nganu4",
+      "judul": "nganu ",
+      "tag": {
+        "teks": "nganu",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2025-01-30",
+      "meta_info": "04 febuary 2025",
+      "konten_html": "You Are What You Eat."
+    },
+    {
+      "id": "nganu4",
+      "judul": "nganu ",
+      "tag": {
+        "teks": "nganu",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2025-01-30",
+      "meta_info": "04 febuary 2025",
+      "konten_html": "You don’t have to proof anything to anyone You just gotta live your life"
+    },
+    {
+      "id": "Albert-Einstein1",
+      "judul": "Albert Einstein",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1955-10-13",
+      "meta_info": "(1879-1955)",
+      "konten_html": "Imajinasi lebih penting daripada pengetahuan. Karena pengetahuan itu terbatas, sedangkan imajinasi mencakup seluruh dunia, merangsang kemajuan, melahirkan evolusi. Hal ini, secara tegas, merupakan faktor nyata dalam penelitian ilmiah."
+    },
+    {
+      "id": "Richard-Feynman1",
+      "judul": "Richard Feynman",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1988-10-13",
+      "meta_info": "(1918-1988)",
+      "konten_html": "Anda tidak memiliki tanggung jawab untuk memenuhi apa yang orang lain pikir harus Anda capai. Saya tidak memiliki tanggung jawab untuk menjadi seperti yang mereka harapkan. Itu adalah kesalahan mereka, bukan kegagalan saya."
+    },
+    {
+      "id": "Richard-Feynman2",
+      "judul": "Richard Feynman",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1988-10-14",
+      "meta_info": "(1918-1988)",
+      "konten_html": "Jika Anda tidak dapat menjelaskan sesuatu dengan bahasa sederhana, berarti Anda tidak memahaminya."
+    },
+    {
+      "id": "Richard-Feynman3",
+      "judul": "Richard Feynman",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1988-10-14",
+      "meta_info": "(1918-1988)",
+      "konten_html": " Saya tidak suka penghargaan."
+    },
+    {
+      "id": "carlsagan1",
+      "judul": "carl sagan ",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-pengumuman"
+      },
+      "tanggal": "1994-10-13",
+      "meta_info": "1939-1996",
+      "konten_html": "Sia-sia meyakinkan orang yang sudah telanjur percaya; karena kepercayaannya tidak bersumber dari bukti, melainkan dari kebutuhan batin yang kuat untuk percaya."
+    },
+    {
+      "id": "carlsagan2",
+      "judul": "carl sagan ",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-pengumuman"
+      },
+      "tanggal": "1996-10-13",
+      "meta_info": "1939-1996",
+      "konten_html": "“Setiap dari kita, dalam perspektif kosmik, sangatlah berharga. Jika ada manusia yang tidak sependapat denganmu, biarkan dia hidup. Di antara seratus miliar galaksi, kau tidak akan menemukan yang serupa dengannya.”"
+    },
+    {
+      "id": "carlsagan3",
+      "judul": "carl sagan (pale blue dot)",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1996-10-13",
+      "meta_info": "1939-1996",
+      "konten_html": "Dari jarak sejauh ini, Bumi tidak lagi terlihat penting. Namun bagi kita, lain lagi ceritanya. Tataplah lagi titik itu. Titik itulah yang dinamai 'di sini.' Itulah rumah. Itulah kita. Di satu titik itu semua orang yang kamu cintai, semua orang yang kamu kenal, semua orang yang pernah kamu dengar namanya, semua manusia yang pernah ada, menghabiskan hidup mereka. Segenap kebahagiaan dan penderitaan kita, ribuan agama, pemikiran, dan doktrin ekonomi yang merasa benar, setiap pemburu dan perambah, setiap pahlawan dan pengecut, setiap pembangun dan pemusnah peradaban, setiap raja dan petani, setiap pasangan muda yang jatuh cinta, setiap ibu dan ayah, anak yang bercita-cita tinggi, penemu dan penjelajah, setiap pengajar kebaikan, setiap politisi busuk, setiap \"bintang pujaan\", setiap \"pemimpin besar\", setiap orang suci dan pendosa sepanjang sejarah spesies manusia hidup di sana, di atas setitik debu yang melayang dalam seberkas sinar.</p><p>Bumi adalah panggung yang amat kecil di tengah luasnya arena kosmik. Renungkanlah sungai darah yang ditumpahkan para jenderal dan maharaja sehingga dalam keagungan dan kejayaan itu mereka dapat menjadi penguasa sementara di sebagian kecil dari titik itu. Renungkanlah kekejaman tanpa akhir yang dilakukan orang-orang di satu sudut titik ini terhadap orang-orang tak dikenal di sudut titik yang lain, betapa sering mereka salah paham, betapa siap mereka untuk membunuh satu sama lain, betapa bergejolak kebencian mereka. Sikap kita, keistimewaan kita yang semu, khayalan bahwa kita memiliki tempat penting di alam semesta ini, tidak berarti apapun di hadapan setitik cahaya redup ini. Planet kita hanyalah sebutir debu yang kesepian di alam yang besar dan gelap. Dalam kebingungan kita, di tengah - luasnya jagat raya ini, tiada tanda bahwa pertolongan akan datang dari tempat lain untuk menyelamatkan kita dari diri kita sendiri.</p><p>Bumi adalah satu-satunya dunia, sejauh ini, yang diketahui memiliki kehidupan. Tidak ada tempat lain, setidaknya sampai beberapa waktu ke depan, yang bisa dijadikan tempat tinggal. Ada yang bisa kita kunjungi, tetapi belum ada yang bisa kita tinggali. Suka atau tidak, untuk saat ini, Bumi adalah satu-satunya tempat kita hidup. Sering dikatakan bahwa astronomi adalah sebuah pengalaman yang menumbuhkan kerendahan hati dan membangun kepribadian. Mungkin tak ada yang dapat menunjukkan laknatnya kesombongan manusia secara lebih baik selain citra dunia kita yang mungil ini. Bagiku, gambar ini mempertegas tanggung jawab kita untuk bertindak lebih baik terhadap satu sama lain, dan menjaga serta merawat sang titik biru pucat, satu-satunya rumah yang kita kenal selama ini.<br>— Carl Sagan, pidato di Universitas Cornell, 13 Oktober 1994</p>"
+    },
+    {
+      "id": "carlsagan4",
+      "judul": "carl sagan ",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1994-10-13",
+      "meta_info": "1939-1996",
+      "konten_html": "Nitrogen dalam DNA kita, kalsium dalam gigi kita, zat besi dalam darah kita, karbon dalam pai apel kita dibuat di dalam interior bintang yang runtuh. Kita terbuat dari materi bintang."
+    },
+
+    {
+      "id": "ryuhasan1",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2012-12-06",
+      "meta_info": "6 des 2012",
+      "konten_html": "<p>Ilmu pengetahuan yang baik adalah yang menyisakan pertanyaan, sebagai pijakan untuk berkembangan ilmu itu sendiri. Tidak pernah final...</p>"
+    },
+    {
+      "id": "ryuhasan2",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-01-25",
+      "meta_info": "20 Januari 2020",
+      "konten_html": "<p>Ilmu pengetahuan mengajarkan Anda untuk membuka mata dan menghargai realitas di sekitar Anda. Takhayul mengajarkan Anda untuk menutup mata dan berpegang teguh pada fantasi di dalam diri Anda.</p>"
+    },
+    {
+      "id": "ryuhasan3",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-03-27",
+      "meta_info": "27 Maret 2020",
+      "konten_html": "<p>Hanya karena Anda ingin hal itu benar, bukan berarti itu benar. Hanya karena miliaran orang percaya, bukan berarti mereka harus percaya. Dan hanya karena kebenaran itu menyakitkan, bukan berarti kebenaran itu tidak benar.</p>"
+    },
+    {
+      "id": "ryuhasan4",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-07-13",
+      "meta_info": "13 Juli 2020",
+      "konten_html": "<p>Berapa banyak malapetaka yang diawali dengan “niat baik”?</p>"
+    },
+    {
+      "id": "ryuhasan5",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2019-03-17",
+      "meta_info": "17 Maret 2019",
+      "konten_html": "<p>“Jika Anda pikir sihir adalah jawaban dari pertanyaan Anda, berarti Anda belum berusaha cukup keras.”</p>"
+    },
+    {
+      "id": "ryuhasan6",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2019-12-30",
+      "meta_info": "30 Desember 2019",
+      "konten_html": "<p>“Betapa sebuah hukuman yang hebat bagi mereka yang tidak percaya pada kenyataan, mereka dipaksa untuk menerimanya setiap hari.”</p>"
+    },
+    {
+      "id": "ryuhasan7",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-12-15",
+      "meta_info": "15 Desember 2020",
+      "konten_html": "<p>Semesta ini berjalan tidak dengan mengikuti karepe raimu</p>"
+    },
+    {
+      "id": "ryuhasan8",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2019-12-15",
+      "meta_info": "15 Desember 2019",
+      "konten_html": "<p>Tidak ada cara yg benar atau cara yg salah dalam menjalani depresi, semua mengalir begitu saja tak bisa dibendung Kalo dengan menjilat setir mobil bisa membuat merasa lebih nyaman ya lakukan saja</p>"
+    },
+    {
+      "id": "ryuhasan9",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2017-04-15",
+      "meta_info": "15 April 2017",
+      "konten_html": "<p>“Apa yang tidak kita ketahui, kita takuti. Apa yang kita takuti, kita benci. Apa yang kita benci, kita hancurkan.Pendidikan adalah jawaban atas semua masalah kehidupan.”</p>"
+    },
+    {
+      "id": "ryuhasan10",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-03-29",
+      "meta_info": "29 Maret 2020",
+      "konten_html": "<p>“Satu-satunya obat untuk ketidaktahuan adalah pendidikan. Namun, jika ketidaktahuan itu sudah terlalu mengakar, si bodoh akan memilih untuk tidak mencari pendidikan. Beginilah cara otak kita bekerja.”</p>"
+    },
+    {
+      "id": "ryuhasan11",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2018-10-11",
+      "meta_info": "11 Oktober 2018",
+      "konten_html": "<p>“Kalau menurutmu pendidikan itu mahal, cobalah kebodohan.”</p>"
+    },
+    {
+      "id": "ryuhasan12",
+      "judul": "ryu hasan",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2018-9-30",
+      "meta_info": "30-09-2018",
+      "konten_html": "<p>“Hidup adalah lelucon bagi bedes2 yg berpikir, dan tragedi bagi mereka yg mengandalkan perasaan..”</p>"
+    },
+    {
+      "id": "Stephen-Hawking",
+      "judul": "Stephen Hawking",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-pengumuman"
+      },
+      "tanggal": "1942-12-12",
+      "meta_info": "(1942-2018)",
+      "konten_html": "<p>“Buang-buang waktu saja untuk marah tentang disabilitas saya. Kita harus melanjutkan hidup dan saya tidak melakukan hal yang buruk. Orang tidak akan punya waktu untuk Anda jika Anda selalu marah atau mengeluh.”</p>"
+    },
+    {
+      "id": "naval-1",
+      "judul": "naval ravikant",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-10-30",
+      "meta_info": "30 Oktober 2020",
+      "konten_html": "<p>“Anda menghabiskan waktu untuk menghemat uang, padahal seharusnya Anda membelanjakan uang untuk menghemat waktu.”</p>"
+    },
+    {
+      "id": "Wendell-Berry-1",
+      "judul": "Wendell Berry",
+      "tag": {
+        "teks": "Twets",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "2020-10-30",
+      "meta_info": "30 Oktober 2020",
+      "konten_html": "<p>Maka aku pun pergi ke hutan. Saat aku masuk ke bawah pepohonan, dengan percaya diri, hampir seketika, tanpa melakukan apa pun, semuanya berjalan sebagaimana mestinya. Aku memasuki tatanan yang tak ada di luar sana, di ruang-ruang manusia....Aku tak sepenting yang kukira. Aku bersukacita karenanya. —Wendell Berry</p>"
+    },
+    {
+      "id": "Michael-Levitt1",
+      "judul": "Michael Levitt",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-pengumuman"
+      },
+      "tanggal": "2024-03-02",
+      "meta_info": "02 maret 2024",
+      "konten_html": "<p>Kecenderungan alami saya dalam hidup adalah selalu memperlakukan hidup sebagai Prasmanan.Ambillah apa yang kamu suka, dan jangan mengeluh terhadap apa yang tidak kamu suka. --Michael Levitt received the 2013 Nobel Prize in Chemistry</p>"
+    },
+    {
+      "id": "Bertrand-Russell1",
+      "judul": "Bertrand Russell",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1970-03-02",
+      "meta_info": "(1872-1970)",
+      "konten_html": "<p>Masalahnya dengan dunia ini adalah bahwa orang bodoh dan fanatik selalu begitu yakin dengan diri mereka sendiri, dan orang-orang yang lebih bijaksana begitu penuh keraguan.</p>"
+    },
+    {
+      "id": "George-Orwell1",
+      "judul": "George Orwell",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-penting"
+      },
+      "tanggal": "1903-03-02",
+      "meta_info": "(1903-1950)",
+      "konten_html": "<p>Bahasa politik dirancang untuk membuat kebohongan terdengar benar.</p>"
+    },
+    {
+      "id": "Isaac-Asimov1",
+      "judul": "Isaac Asimov",
+      "tag": {
+        "teks": "kutipan",
+        "kelas": "tag-pengumuman"
+      },
+      "tanggal": "1992-10-30",
+      "meta_info": "(1920 - 1992)",
+      "konten_html": "<p>Pendidikan bukanlah sesuatu yang dapat Anda selesaikan. </p>"
+    }
+  ]
+}

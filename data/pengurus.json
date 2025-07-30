@@ -1,122 +1,122 @@
 {
   "pengurusInti": [
     {
-      "jabatan": "Penasehat",
-      "nama": "Sunirman, S.Ag",
+      "jabatan": "kpg",
+      "nama": "atomic habits",
       "foto": "foto/foto-about/pak nirma.png"
     },
-    { "jabatan": "Penanggung Jawab", "nama": "Suryono, S.Pd", "foto": "" },
+    { "jabatan": "", "nama": "", "foto": "" },
     {
-      "jabatan": "Ketua",
-      "nama": "Andri Apriyanto",
+      "jabatan": "",
+      "nama": "",
       "foto": "foto/foto-about/andri1.png"
     },
     {
-      "jabatan": "Wakil",
-      "nama": "Yunita Sari",
+      "jabatan": "",
+      "nama": "",
       "foto": "foto/foto-about/yunita.jpeg"
     },
-    { "jabatan": "Sekretaris", "nama": "Dimas Suryo L.", "foto": "" },
-    { "jabatan": "Bendahara", "nama": "Yudi Arum S.", "foto": "" }
+    { "jabatan": "", "nama": "", "foto": "" },
+    { "jabatan": "", "nama": "", "foto": "" }
   ],
   "bidang": [
     {
-      "namaBidang": "Bidang Sosial",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Isrofi", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Mulyono", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Mas Udi", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Nana Mustakimah", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Sifa Amadea P.", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Perekonomian dan Kewirausahaan",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Dani Indri S.", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Tri Arifin", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Harniyati", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Amalis Saliyati", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Olahraga dan Seni Budaya",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "M. Ardan Maulana", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Satria Nindy W.", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Iswanto heru", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Wisnu", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Puput", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Media",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Haidar Daffa", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Azizah Melan", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Indra Kurniawan", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Lingkungan Hidup Dan Kebersihan",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Yogi Ivan", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Ibnu", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Adit", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Rezel", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Jojo", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Agama Islam",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Iswanto", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Aji", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Aifa Nurul A.", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Agama Kristen",
+      "namaBidang": "",
       "anggota": [
         {
-          "nama": "Margaretha",
-          "jabatan": "Koordinator",
+          "nama": "",
+          "jabatan": "",
           "foto": "foto/foto-about/margaretha_mentri_agama_kristen.png"
         },
         {
-          "nama": "Amazia",
-          "jabatan": "Anggota",
+          "nama": "",
+          "jabatan": "",
           "foto": "foto/foto-about/amazadminweb.png"
         },
-        { "nama": "Agatha", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Nessa", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Keamanan",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Budi Santoso", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Rendi Sikun", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Satria Juang W.", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Beni Nurhidayat", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Sendi", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Imas", "jabatan": "Anggota", "foto": "" },
-        { "nama": "Enggar", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Pendidikan",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Arlin fatoni", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Doni ismail", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     },
     {
-      "namaBidang": "Bidang Organisasi Dan Kaderisasi",
+      "namaBidang": "",
       "anggota": [
-        { "nama": "Ari", "jabatan": "Koordinator", "foto": "" },
-        { "nama": "Titik", "jabatan": "Anggota", "foto": "" },
-        { "nama": "M. Nur Fauzi", "jabatan": "Anggota", "foto": "" }
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" },
+        { "nama": "", "jabatan": "", "foto": "" }
       ]
     }
   ]
