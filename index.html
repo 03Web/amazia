@@ -8,20 +8,56 @@
       content="Selamat datang di website resmi Karang Taruna Banjarsari. Temukan informasi kegiatan, program kerja, dan galeri kami. Mari bersama membangun desa."
     />
     <link rel="icon" type="image/png" href="/foto/logoneutronltrblkhitam.png" />
-    <title>Home - The Great Apes</title>
+    <title>Home - Karang Taruna Banjarsari</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="home-page-body">
+  <body>
+    <div id="welcome-overlay" class="hidden">
+      <div id="welcome-box">
+        <img
+          src="foto/logoneutrontransparan.png"
+          alt="Logo Karang Taruna"
+          class="welcome-logo"
+        />
+        <h2>Selamat Datang</h2>
+        <p>Silakan perkenalkan diri Anda untuk melanjutkan.</p>
+        <form id="welcome-form">
+          <div class="form-group">
+            <label for="nama">Siapa nama Anda? </label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              required
+              placeholder="Contoh:(Kabol) atau lainnya..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="is_banjarsari">Apakah Anda orang Banjarsari?</label>
+            <select id="is_banjarsari" name="asal" required>
+              <option value="" disabled selected>-- Pilih Jawaban --</option>
+              <option value="Ya, saya dari Banjarsari">Ya</option>
+              <option value="Bukan, saya dari luar">Bukan</option>
+            </select>
+          </div>
+          <button type="submit" id="submit-button">Masuk ke Website</button>
+          <p id="form-message" class="hidden"></p>
+        </form>
+      </div>
+    </div>
     <div id="particles-js"></div>
-
     <header id="main-header"></header>
 
-    <main class="home-main">
+    <main>
       <div id="logo-container">
         <img
           id="animated-logo"
           src="foto/taranpraanstayhungry.png"
-          alt="Stay Hungry, Stay Foolish"
+          alt="Logo"
         />
       </div>
     </main>
