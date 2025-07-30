@@ -2,203 +2,323 @@
   "albumFoto": [
     {
       "id": "album-1",
-      "cover": "foto/new0/me_botak.jpg",
+      "cover": "https://03web.github.io/amaz03/foto/new0/children.jpg",
       "judul": "picture",
       "deskripsi": "image 1 of 23 ",
       "foto": [
         {
-          "src": "foto/new0/children.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/children.jpg",
           "title": "children"
         },
         {
-          "src": "foto/new0/sd.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/sd.jpg",
           "title": "sd"
         },
         {
-          "src": "foto/new0/smp.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/smp.jpg",
           "title": "smp"
         },
-        { "src": "foto/new0/high_school.jpg", "title": "sma" },
         {
-          "src": "foto/new0/high_school1.jpg",
-          "title": "sma 1"
-        },
-        {
-          "src": "foto/new0/high_school2.JPG",
+          "src": "https://03web.github.io/amaz03/foto/new0/high_school.jpg",
           "title": "sma"
         },
         {
-          "src": "foto/new0/bass.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/high_school1.jpg",
+          "title": "sma 1"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/new0/high_school2.JPG",
+          "title": "sma"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/new0/bass.jpg",
           "title": "musik"
         },
         {
-          "src": "foto/new0/drummer.webp",
+          "src": "https://03web.github.io/amaz03/foto/new0/drummer.webp",
           "title": "musik"
         },
         {
-          "src": "foto/new0/me_cajon.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_cajon.jpg",
           "title": "musik"
         },
         {
-          "src": "foto/new0/me_and_band.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_and_band.jpg",
           "title": ""
         },
         {
-          "src": "foto/new0/me_retret.JPG",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_retret.JPG",
           "title": "retret"
         },
         {
-          "src": "foto/new0/pepople_krengseng1.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/pepople_krengseng1.jpg",
           "title": ""
         },
         {
-          "src": "foto/new0/people_krengseng.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/people_krengseng.jpg",
           "title": ""
         },
         {
-          "src": "foto/new0/natal.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/natal.jpg",
           "title": ""
         },
         {
-          "src": "foto/new0/metriel.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/metriel.jpg",
           "title": ""
         },
         {
-          "src": "foto/new0/friends_cjwi.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/friends_cjwi.jpg",
           "title": "cjwi"
         },
         {
-          "src": "foto/new0/cimory.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/cimory.jpg",
           "title": "cimory"
         },
         {
-          "src": "foto/new0/cimory2.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/cimory2.jpg",
           "title": "cimory"
         },
         {
-          "src": "foto/new0/kuliah.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/kuliah.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/me_botak1.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_botak1.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/me_botak.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_botak.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/me_botak1.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_botak1.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/me_botak.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_botak.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/me_botak1.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/me_botak1.jpg",
           "title": "school"
         },
         {
-          "src": "foto/new0/bass.jpg",
+          "src": "https://03web.github.io/amaz03/foto/new0/bass.jpg",
           "title": "musik"
         }
       ]
     },
     {
       "id": "album-2",
-      "cover": "foto/books/libary-books.jpg",
+      "cover": "https://03web.github.io/amaz03/foto/books/libary-books.jpg",
       "judul": "A privilege and a blessing to be able to read all these books.",
       "deskripsi": "image 1 of 52 Foto",
       "foto": [
-        { "src": "foto/books/antropolgi1.jpg", "title": "Antropolgi" },
-        { "src": "foto/books/antropoligi2.jpg", "title": "Antropolgi" },
-        { "src": "foto/books/antropoligi3.jpg", "title": "Antropolgi" },
-        { "src": "foto/books/antropologi4.jpg", "title": "Antropolgi" },
-        { "src": "foto/books/biografi.jpg", "title": "Biografi" },
-        { "src": "foto/books/filsafat barat.jpg", "title": "Filsafat Barat" },
-        { "src": "foto/books/politik-daskapital.jpg", "title": "politik" },
-        { "src": "foto/books/politik1.jpg", "title": "Politik" },
-        { "src": "foto/books/politik2.jpg", "title": "Politik" },
-        { "src": "foto/books/politik3.jpg", "title": "Politik" },
-        { "src": "foto/books/politik4.jpg", "title": "Politik" },
-        { "src": "foto/books/politik5.jpg", "title": "Politik" },
-        { "src": "foto/books/science-carlsagan1.jpg", "title": "Science" },
-        { "src": "foto/books/science-carlsagan2.jpg", "title": "Science" },
-        { "src": "foto/books/science-carlsagan3.jpg", "title": "Science" },
         {
-          "src": "foto/books/science-duniamenurutfisika.jpg",
-          "title": "Science"
-        },
-        { "src": "foto/books/science-sukacitacinta.jpg", "title": "Science" },
-        {
-          "src": "foto/books/science-emotionalentelegent1.jpg",
-          "title": "Science"
+          "src": "https://03web.github.io/amaz03/foto/books/antropolgi1.jpg",
+          "title": "Antropolgi"
         },
         {
-          "src": "foto/books/science-emotionalintelegent2.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/antropoligi2.jpg",
+          "title": "Antropolgi"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/antropoligi3.jpg",
+          "title": "Antropolgi"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/antropologi4.jpg",
+          "title": "Antropolgi"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/biografi.jpg",
+          "title": "Biografi"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/filsafat barat.jpg",
+          "title": "Filsafat Barat"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik-daskapital.jpg",
+          "title": "politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik1.jpg",
+          "title": "Politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik2.jpg",
+          "title": "Politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik3.jpg",
+          "title": "Politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik4.jpg",
+          "title": "Politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/politik5.jpg",
+          "title": "Politik"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-carlsagan1.jpg",
           "title": "Science"
         },
         {
-          "src": "foto/books/science-filsafatdll-madilog.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/science-carlsagan2.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-carlsagan3.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-duniamenurutfisika.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-sukacitacinta.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-emotionalentelegent1.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-emotionalintelegent2.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-filsafatdll-madilog.jpg",
           "title": "Science, Filsafat, Madilog dll"
         },
-        { "src": "foto/books/science-free-will.jpg", "title": "Science" },
-        { "src": "foto/books/science-furture-stories.jpg", "title": "Science" },
         {
-          "src": "foto/books/science-gendartamungkerji.jpg",
-          "title": "Science"
-        },
-        { "src": "foto/books/science-homo-deus.jpg", "title": "Science" },
-        { "src": "foto/books/science-homo-sapiens.jpg", "title": "Science" },
-        { "src": "foto/books/science-inlaghtmen.jpg", "title": "Science" },
-        { "src": "foto/books/science-money.jpg", "title": "Science" },
-        { "src": "foto/books/science-moral-lanscape.jpg", "title": "Science" },
-        { "src": "foto/books/science-noise.jpg", "title": "Science" },
-        { "src": "foto/books/science-origin-story.jpg", "title": "Science" },
-        { "src": "foto/books/science-otak.jpg", "title": "Science" },
-        { "src": "foto/books/science-pale-blue-dot.jpg", "title": "Science" },
-        { "src": "foto/books/science-ricard-feynman.jpg", "title": "Science" },
-        { "src": "foto/books/science-ricarddawkins1.jpg", "title": "Science" },
-        { "src": "foto/books/science-ricarddawkins2.jpg", "title": "Science" },
-        { "src": "foto/books/science-ricarddawkins3jpg", "title": "Science" },
-        { "src": "foto/books/science-ricarddawkins4.jpg", "title": "Science" },
-        { "src": "foto/books/science-ricarddawkins5.jpg", "title": "Science" },
-        {
-          "src": "foto/books/science-the-brafe-history-of-time.jpg",
-          "title": "Science"
-        },
-        { "src": "foto/books/science-the-gred-disgn.jpg", "title": "Science" },
-        {
-          "src": "foto/books/science-the-origin-of-species.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/science-free-will.jpg",
           "title": "Science"
         },
         {
-          "src": "foto/books/science-trisurya.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/science-furture-stories.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-gendartamungkerji.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-homo-deus.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-homo-sapiens.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-inlaghtmen.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-money.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-moral-lanscape.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-noise.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-origin-story.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-otak.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-pale-blue-dot.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricard-feynman.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricarddawkins1.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricarddawkins2.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricarddawkins3.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricarddawkins4.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-ricarddawkins5.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-the-brafe-history-of-time.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-the-gred-disgn.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-the-origin-of-species.jpg",
+          "title": "Science"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/science-trisurya.jpg",
           "title": "Science fiction"
         },
-        { "src": "foto/books/sejarah1.jpg", "title": "Sejarah" },
-        { "src": "foto/books/sejarah2.jpg", "title": "Sejarah" },
-        { "src": "foto/books/self-help-alcamits.jpg", "title": "Self Help" },
         {
-          "src": "foto/books/self-help-atomic-habits.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/sejarah1.jpg",
+          "title": "Sejarah"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/sejarah2.jpg",
+          "title": "Sejarah"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-alcamits.jpg",
           "title": "Self Help"
         },
         {
-          "src": "foto/books/self-help-influence-peoole.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-atomic-habits.jpg",
           "title": "Self Help"
         },
         {
-          "src": "foto/books/self-help-filosofi-teras.jpg",
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-influence-people.jpg",
           "title": "Self Help"
         },
-        { "src": "foto/books/self-help-mindset.jpg", "title": "Self Help" },
-        { "src": "foto/books/self-help-money.jpg", "title": "Self Help" },
-        { "src": "foto/books/self-help-zero-one.jpg", "title": "Self Help" },
         {
-          "src": "foto/foto-karang-taruna/teri topeng ireng.JPG",
-          "title": "Tari Topeng Ireng"
-        }
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-filosofi-teras.jpg",
+          "title": "Self Help"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-mindset.jpg",
+          "title": "Self Help"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-money.jpg",
+          "title": "Self Help"
+        },
+        {
+          "src": "https://03web.github.io/amaz03/foto/books/self-help-zero-one.jpg",
+          "title": "Self Help"
+        },
+        {}
       ]
     }
   ],
@@ -210,7 +330,7 @@
     },
     {
       "tanggal": "2024-05-10",
-      "src": "https://www.youtube.com/embed/RTY0e3aInDw?si=Be2ysZ615m0m6CKd",
+      "src": "",
       "title": "Video Kegiatan Mei"
     },
 

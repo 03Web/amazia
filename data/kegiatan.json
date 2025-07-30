@@ -24,11 +24,19 @@
     "kategori": "history"
   },
   {
-    "tanggal": "2024-07-28",
-    "gambar": "foto/new0/people_krengseng.jpg",
-    "judul": "Paradoks Media Sosial: Lebih Terhubung, Lebih Kesepian",
-    "deskripsi": "Sebuah keresahan tentang bagaimana platform yang dirancang untuk menyatukan kita justru sering kali membuat kita merasa lebih terisolasi dari sebelumnya.",
-    "link": "artikel.html?slug=keresahan/keresahan-sosial",
+    "tanggal": "2025-07-31",
+    "gambar": "https://miro.medium.com/v2/resize:fit:572/1*HOqkhUgGQIXYoHjfzWNZrw.jpeg",
+    "judul": "Eksplorasi Mendalam Tentang konsep ROh & Jiwa",
+    "deskripsi": "Terdapat ketegangan fundamental antara reduksionisme neurosains dan non-reduksionisme filsafat/agama. Neurosains memandang pikiran sebagai produk aktivitas otak, dengan kesadaran sebagai properti emergen dari interaksi neuron. Materialisme, sebagai dasar filosofis beberapa neurosains, menolak entitas non-material seperti roh atau jiwa. Di sisi lain, filsafat (Plato, Descartes, Ibnu Sina) dan agama (Kristen, Islam, Hindu) secara konsisten mempostulatkan jiwa/roh sebagai entitas yang berbeda, seringkali immaterial, abadi, dan memiliki asal-usul ilahi. Ini menciptakan ketegangan ontologis yang mendasar: apakah pikiran/kesadaran dapat direduksi menjadi proses fisik atau memiliki realitas non-fisik yang independen.",
+    "link": "artikel.html?slug=keresahan/Eksplorasi-Mendalam-Tentang-ROh&Jiwa",
+    "kategori": "KERESAHAN"
+  },
+  {
+    "tanggal": "2025-07-32",
+    "gambar": "https://i.abcnewsfe.com/a/7c14609f-4589-4c03-86d5-698882069d2c/brain-rot-gty-thg-241202_1733158807773_hpMain.jpg",
+    "judul": "Dari Busuk Kentang ke Busuk Otak: Sebuah Analisis Komprehensif tentang Peringatan Henry David Thoreau dan Krisis Perhatian Modern",
+    "deskripsi": "Sebuah analisis mendalam tentang relevansi peringatan Thoreau di era digital saat ini, menghubungkan krisis perhatian modern dengan fenomena 'brain rot'...",
+    "link": "artikel.html?slug=keresahan/Brain-Root",
     "kategori": "KERESAHAN"
   },
   {
