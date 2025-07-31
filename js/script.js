@@ -16,7 +16,16 @@ const App = (() => {
     kontak: [],
   };
 
-  // --- FUNGSI UNTUK MELACAK AKTIVITAS ---
+  // === BAGIAN BARU: PENGATURAN SESI & INAKTIVITAS ===
+  const TIMEOUT_DURATION = 20 * 60 * 1000; // 20 menit dalam milidetik
+  let inactivityTimer;
+
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(logoutUser, TIMEOUT_DURATION);
+    sessionStorage.setItem("lastActivityTimestamp", Date.now());
+  }
+
   function startInactivityTracker() {
     const events = [
       "mousemove",
@@ -25,12 +34,36 @@ const App = (() => {
       "scroll",
       "touchstart",
     ];
-    const resetTimer = () => {
-      sessionStorage.setItem("lastActivityTimestamp", Date.now());
-    };
     events.forEach((event) => {
-      window.addEventListener(event, resetTimer, { passive: true });
+      window.addEventListener(event, resetInactivityTimer, { passive: true });
     });
+    resetInactivityTimer(); // Mulai timer saat halaman dimuat
+  }
+
+  function logoutUser() {
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("lastActivityTimestamp");
+    // Paksa kembali ke halaman index untuk login ulang
+    window.location.href = "index.html";
+  }
+
+  function checkLoginStatus() {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    const lastActivity = sessionStorage.getItem("lastActivityTimestamp");
+
+    if (!isLoggedIn || !lastActivity) {
+      // Jika tidak ada status login atau catatan aktivitas, paksa logout
+      logoutUser();
+      return false;
+    }
+
+    if (Date.now() - parseInt(lastActivity, 10) > TIMEOUT_DURATION) {
+      // Jika waktu inaktivitas terlampaui sejak tab terakhir ditutup
+      logoutUser();
+      return false;
+    }
+
+    return true;
   }
 
   // === FUNGSI UNTUK WELCOME SCREEN (LOGIN) ===
@@ -39,17 +72,24 @@ const App = (() => {
     const form = document.getElementById("welcome-form");
     const messageEl = document.getElementById("form-message");
     const submitButton = document.getElementById("submit-button");
+    const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg"; // URL Formspree Anda
 
-    // !!! PENTING: GANTI URL DI BAWAH INI DENGAN LINK FORMSPREE ANDA !!!
-    const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg";
+    // Cek apakah halaman saat ini adalah index.html
+    const isIndexPage =
+      window.location.pathname.endsWith("/") ||
+      window.location.pathname.includes("index.html");
 
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-    if (isLoggedIn) {
+    // Jika sudah login dan aktif, sembunyikan overlay.
+    // Jika belum login, tampilkan overlay hanya di halaman index.
+    if (sessionStorage.getItem("isLoggedIn")) {
       overlay.classList.add("hidden");
-      return;
+      startInactivityTracker();
+    } else if (isIndexPage) {
+      overlay.classList.remove("hidden");
+    } else {
+      // Jika belum login dan mencoba akses halaman lain, paksa ke index
+      logoutUser();
     }
-
-    overlay.classList.remove("hidden");
 
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -72,10 +112,9 @@ const App = (() => {
           messageEl.textContent = "Terima kasih! Anda akan dialihkan...";
           messageEl.classList.add("success");
           sessionStorage.setItem("isLoggedIn", "true");
-          sessionStorage.setItem("lastActivityTimestamp", Date.now());
-          startInactivityTracker();
           setTimeout(() => {
             overlay.classList.add("hidden");
+            startInactivityTracker(); // Mulai pelacak setelah login berhasil
           }, 1500);
         } else {
           throw new Error("Gagal mengirim data. Coba lagi.");
@@ -701,40 +740,33 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const init = () => {
+    // Pindahkan pengecekan ke bagian atas
+    const isIndexPage =
+      window.location.pathname.endsWith("/") ||
+      window.location.pathname.includes("index.html");
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-    const lastActivity = sessionStorage.getItem("lastActivityTimestamp");
-    const TIMEOUT_DURATION = 20 * 60 * 1000; // 20 menit
 
-    if (
-      isLoggedIn &&
-      lastActivity &&
-      Date.now() - lastActivity > TIMEOUT_DURATION
-    ) {
-      sessionStorage.removeItem("isLoggedIn");
-      sessionStorage.removeItem("lastActivityTimestamp");
-      if (
-        window.location.pathname.includes("index.html") ||
-        window.location.pathname.endsWith("/")
-      ) {
-        window.location.reload();
-      } else {
-        window.location.href = "index.html";
-      }
-      return;
+    if (!isLoggedIn && !isIndexPage) {
+      // Jika belum login dan mencoba mengakses halaman selain index, paksa logout (redirect)
+      logoutUser();
+      return; // Hentikan eksekusi lebih lanjut
+    }
+
+    // Jika sudah login, atau jika ini adalah halaman index, lanjutkan
+    loadComponent("layout/header.html", "main-header", setActiveNavLink);
+    loadComponent("layout/footer.html", "main-footer");
+
+    if (document.getElementById("welcome-overlay")) {
+      initWelcomeScreen();
     } else if (isLoggedIn) {
       startInactivityTracker();
     }
 
-    if (document.getElementById("welcome-overlay")) {
-      initWelcomeScreen();
-    }
-
-    loadComponent("layout/header.html", "main-header", setActiveNavLink);
-    loadComponent("layout/footer.html", "main-footer");
     initScrollAnimations();
     if (document.getElementById("particles-js")) {
       setTimeout(initParticles, 500);
     }
+
     const pageInitializers = {
       "kegiatan-list": initKegiatanPage,
       "album-grid": initGaleriPage,
