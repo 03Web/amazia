@@ -17,53 +17,48 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
     />
-      <link rel="stylesheet" href="css/style.css" />
-    </head>
-      <body>
-        <div id="particles-js"></div>
-        <header id="main-header"></header>
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.3/dist/turbo.es2017-esm.js"
+    ></script>
+  </head>
+  <body data-page-id="galeri">
+    <div id="particles-js"></div>
+    <header id="main-header"></header>
 
-        <main>
-          <div class="container">
-            <h2 class="animate-on-scroll">Galeri</h2>
-            <p style="margin-bottom: 40px" class="animate-on-scroll">
-              Dokumentasi visual dari berbagai kegiatan dan momen.
-            </p>
+    <main>
+      <div class="container">
+        <h2 class="animate-on-scroll">Galeri</h2>
+        <p style="margin-bottom: 40px" class="animate-on-scroll">
+          Dokumentasi visual dari berbagai kegiatan dan momen.
+        </p>
 
-            <hr class="separator animate-on-scroll" />
+        <hr class="separator animate-on-scroll" />
 
-            <h3 class="animate-on-scroll">Dokumentasi Foto</h3>
-            <div class="album-grid" id="album-grid"></div>
+        <h3 class="animate-on-scroll">Dokumentasi Foto</h3>
+        <div class="album-grid" id="album-grid"></div>
 
-            <hr class="separator animate-on-scroll" />
+        <hr class="separator animate-on-scroll" />
 
-            <h3 class="animate-on-scroll">Dokumentasi Video</h3>
-            <div class="sort-container animate-on-scroll">
-              <label for="video-sorter">Urutkan berdasarkan:</label>
-              <select id="video-sorter" class="sorter">
-                <option value="terbaru">Terbaru ke Lama</option>
-                <option value="terlama">Lama ke Terbaru</option>
-              </select>
-            </div>
-            <div class="gallery-grid" id="video-grid"></div>
-          </div>
-        </main>
-
-        <footer id="main-footer"></footer>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-        <script src="js/script.js"></script>
-      </body>
-    </html>
-   
+        <h3 class="animate-on-scroll">Dokumentasi Video</h3>
+        <div class="sort-container animate-on-scroll">
+          <label for="video-sorter">Urutkan berdasarkan:</label>
+          <select id="video-sorter" class="sorter">
+            <option value="terbaru">Terbaru ke Lama</option>
+            <option value="terlama">Lama ke Terbaru</option>
+          </select>
+        </div>
+        <div class="gallery-grid" id="video-grid"></div>
+      </div>
+    </main>
 
     <footer id="main-footer"></footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/app-core.js"></script>
+    <script src="js/page-initializers.js"></script>
   </body>
 </html>
