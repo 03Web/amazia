@@ -72,7 +72,7 @@ const App = (() => {
     const form = document.getElementById("welcome-form");
     const messageEl = document.getElementById("form-message");
     const submitButton = document.getElementById("submit-button");
-    const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg"; // URL Formspree Anda
+    const FORMSPREE_URL = "https://formspree.io/f/mpwllonq"; // URL Formspree Anda
 
     // Cek apakah halaman saat ini adalah index.html
     const isIndexPage =
