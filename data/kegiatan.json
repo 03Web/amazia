@@ -2,8 +2,8 @@
   {
     "tanggal": "2025-07-31",
     "gambar": "https://mmc.tirto.id/image/otf/970x0/2019/02/21/header-tan-malaka--mozaik--nauval_ratio-16x9.jpg",
-    "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi",
-    "deskripsi": "Madilog: Senjata Logika Melawan Dogma dan Takhayul Bangsa indonesia...",
+    "judul": "Madilog: Senjata Logika Melawan Dogma dan Takhayul Bangsa",
+    "deskripsi": "Pola ini tidak hanya terjadi pada Tan Malaka; ini mencerminkan kecenderungan sosial dan politik yang lebih luas untuk membersihkan sejarah, lebih memilih narasi yang disederhanakan daripada kebenaran kompleks dan tidak nyaman....",
     "link": "artikel.html?slug=history/tan-malaka-madilog",
     "kategori": "history"
   },
@@ -17,11 +17,19 @@
   },
   {
     "tanggal": "2025-07-23",
-    "gambar": "konten-kegiatan/foto/perang nazi,eropa,jermandll.png",
+    "gambar": "https://m.media-amazon.com/images/I/91Y1Ec8ARmL._UF1000,1000_QL80_.jpg",
     "judul": "Anatomi Sebuah Bencana: Dekonstruksi Perang Nazi",
-    "deskripsi": "Menyelami akar kebencian Nazi terhadap Yahudi, melampaui sekadar iri hati, menuju investigasi multi-faset dari sejarah, politik, hingga psikologi.",
+    "deskripsi": "Menyelami akar kebencian Nazi terhadap Yahudi, melampaui sekadar iri hati, menuju investigasi multi-faset dari sejarah, politik, hingga psikologi....",
     "link": "artikel.html?slug=history/alasan-nazi-membenci-yahudi",
     "kategori": "history"
+  },
+  {
+    "tanggal": "2025-07-31",
+    "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTusyqzhysNqPqdmBpEvv2_5TU_R1K-BaWk2g&s",
+    "judul": "Arsitektur Pengetahuan: Hierarki Ilmu dan Konsekuensinya bagi Dunia Modern",
+    "deskripsi": " Gagasan untuk menyusun pengetahuan dalam sebuah hierarki yang ketat tidak lahir dalam ruang hampa akademis. Sebaliknya, ia merupakan respons langsung terhadap gejolak sosial dan intelektual yang melanda Eropa pasca-Revolusi Prancis.....",
+    "link": "artikel.html?slug=keresahan/Hirarki-Ilmu-Pengetahuan",
+    "kategori": "KERESAHAN"
   },
   {
     "tanggal": "2025-07-31",
@@ -64,11 +72,19 @@
     "kategori": "PHILOSOPHY"
   },
   {
-    "tanggal": "2024-08-17",
-    "gambar": "foto/foto-karang-taruna/17_agurstus_girl.png",
-    "judul": "Catatan Random: Tentang Hujan dan Secangkir Kopi",
-    "deskripsi": "Hanya beberapa pemikiran acak yang muncul saat memandang rintik hujan dari jendela, ditemani oleh kehangatan secangkir kopi hitam.",
-    "link": "artikel.html?slug=notes-random/catatan-hujan-kopi",
+    "tanggal": "2025-07-31",
+    "gambar": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Alan_Turing_%281951%29.jpg/250px-Alan_Turing_%281951%29.jpg",
+    "judul": "Kisah Tragis dan Jasa Besar Alan Turing",
+    "deskripsi": "Kasus  yang paling terkenal adalah yang dialami oleh  Alan Turing. Dia adalah seorang  bedes  paling berjasa  sebagai penemu cikal bakal dunia maya digital saat ini namun dinyatakan sebagai kriminal karena dia seorang gay.Akan tetapi, itu <strong>adalah</strong> masa lalu Inggris.Secara tidak langsung, dunia kedokteran, khususnya neurologi (ilmu saraf), berhutang sejarah kepada Alan Turing dalam arti yang ...",
+    "link": "artikel.html?slug=notes-random/kisah-tragis-alan-turing",
+    "kategori": "NOTES & ARTICLES RANDOM"
+  },
+  {
+    "tanggal": "2025-07-31",
+    "gambar": "https://www.nybooks.com/wp-content/uploads/2018/12/d_bell_1-011719.jpg",
+    "judul": "Endgame Berpikir dan Bernegara dari Kacamata Filsafat - F. Budi Hardiman Chronicles",
+    "deskripsi": "Fiksi itu bisa menjadi mitos kalau sudah lama sekali dihayati—puluhan tahun, ratusan tahun—lalu menjadi tradisi, kemudian menjadi pandangan hidup, dan akhirnya menjadi versi realitas tertentu yang dihayati oleh mereka yang percaya...",
+    "link": "artikel.html?slug=notes-random/Endgame-Berpikir-dan-Bernegara-dari-Kacamata-Filsafat-FBudi-Hardiman-Chronicles",
     "kategori": "NOTES & ARTICLES RANDOM"
   }
 ]
