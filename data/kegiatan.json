@@ -36,7 +36,7 @@
     "gambar": "https://miro.medium.com/v2/resize:fit:572/1*HOqkhUgGQIXYoHjfzWNZrw.jpeg",
     "judul": "Eksplorasi Mendalam Tentang konsep ROh & Jiwa",
     "deskripsi": "Terdapat ketegangan fundamental antara reduksionisme neurosains dan non-reduksionisme filsafat/agama. Neurosains memandang pikiran sebagai produk aktivitas otak, dengan kesadaran sebagai properti emergen dari interaksi neuron. Materialisme, sebagai dasar filosofis beberapa neurosains, menolak entitas non-material seperti roh atau jiwa. Di sisi lain, filsafat (Plato, Descartes, Ibnu Sina) dan agama (Kristen, Islam, Hindu) secara konsisten mempostulatkan jiwa/roh sebagai entitas yang berbeda, seringkali immaterial, abadi, dan memiliki asal-usul ilahi. Ini menciptakan ketegangan ontologis yang mendasar: apakah pikiran/kesadaran dapat direduksi menjadi proses fisik atau memiliki realitas non-fisik yang independen.",
-    "link": "artikel.html?slug=keresahan/Eksplorasi-Mendalam-Tentang-ROh&Jiwa",
+    "link": "artikel.html?slug=keresahan/Eksplorasi-Mendalam-Tentang-ROhJiwa",
     "kategori": "KERESAHAN"
   },
   {
@@ -49,18 +49,18 @@
   },
   {
     "tanggal": "2024-06-15",
-    "gambar": "foto/books/self-help-atomic-habits.jpg",
-    "judul": "Ringkasan 'Atomic Habits': Perubahan Kecil, Hasil Luar Biasa",
-    "deskripsi": "Bagaimana membangun kebiasaan baik dan menghilangkan kebiasaan buruk melalui perubahan 1% setiap hari. Poin-poin kunci dari buku James Clear.",
-    "link": "artikel.html?slug=summary-books/summary-atomic-habits",
+    "gambar": "https://images.penguinrandomhouse.com/cover/9780141395098",
+    "judul": "The Two-Gods of Leviathan",
+    "deskripsi": "Hobbes berpendapat bahwa agama \"selamanya tidak terpisahkan dari masalah politik\". Ia melihat konflik antara kepatuhan terhadap hukum manusia dan hukum ilahi yang diwahyukan sebagai masalah politik sentral. Dalam <em>Leviathan</em>, Hobbes mengkonseptualisasikan kesulitan mematuhi hukum manusia dan hukum Tuhan yang diwahyukan sebagai kasus khusus dari masalah koherensi dua sistem otoritas: agama dan politik. Untuk mengatasi hal ini, Hobbes berupaya menundukkan otoritas agama sepenuhnya kepada penguasa sipil. Penguasa, menurutnya, \"harus menetapkan Agama yang mereka anggap terbaik untuk memastikan perdamaian sipil. Ini bukan tentang mempromosikan kesalehan, melainkan memastikan kontrol politik. Hobbes bahkan membela liturgi dan upacara, dan agama yang ia sukai adalah Anglikanisme yang \"dide-klerikalisasi\", yang berarti agama yang otoritasnya tidak berada di tangan klerus independen, melainkan di bawah kendali negara.",
+    "link": "artikel.html?slug=summary-books/The-Two-Gods-of-Leviathan",
     "kategori": "summary books"
   },
   {
-    "tanggal": "2024-05-10",
-    "gambar": "foto/logoneutronltrblkhitam.png",
-    "judul": "Apa Itu Lubang Hitam? Sebuah Pengantar Sederhana",
-    "deskripsi": "Menjelajahi salah satu objek paling misterius di alam semesta, dari apa itu terbentuk hingga bagaimana para ilmuwan mempelajarinya tanpa bisa melihatnya.",
-    "link": "artikel.html?slug=science/science-blackhole",
+    "tanggal": "2025-07-31",
+    "gambar": "https://m.media-amazon.com/images/I/61F8dRFGwKL._UF1000,1000_QL80_.jpg",
+    "judul": "What-Is-Science?",
+    "deskripsi": "Sains, atau ilmu pengetahuan, bukan sekadar kumpulan fakta statis atau buku teks yang berdebu. Sebaliknya, <strong>sains adalah sistem pengetahuan yang terstruktur dan terorganisir, diperoleh melalui metode ilmiah yang ketat.....",
+    "link": "artikel.html?slug=science/What-Is-Science",
     "kategori": "science"
   },
   {
