@@ -483,19 +483,20 @@ footer {
 .info-item {
   background-color: rgba(17, 17, 17, 0.8);
   border-left: 5px solid var(--primary-color);
-  padding: 25px;
+  padding: 20px;
   border-radius: 0 8px 8px 0;
   text-align: left;
 }
 .info-header {
+  flex-direction: column;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 8px;
 }
 .info-header h3 {
-  font-size: 1.6em;
+  font-size: 1.4em;
   color: var(--light-text);
   margin: 0;
 }
@@ -527,6 +528,7 @@ footer {
 }
 .info-body p,
 .info-body ul {
+  font-size: 1em;
   line-height: 1.7;
   margin-bottom: 15px;
 }
@@ -1376,52 +1378,86 @@ select.sorter:focus {
 /* ===     GAYA KHUSUS HALAMAN HOME ANIMASI === */
 /* ========================================= */
 
-.home-page-body {
-  /* Tidak ada perubahan di sini */
-}
-
-.home-main {
+body[data-page-id="home"] main {
   flex-grow: 1;
   width: 100%;
-  position: relative; /* Ini penting untuk langkah berikutnya */
-  overflow: hidden;
+  position: relative; /* Penting untuk positioning absolut */
+  overflow: hidden; /* Sembunyikan logo saat di luar layar */
 }
 
 #logo-container {
   position: absolute;
   top: 50%;
   left: 50%;
-  animation: looped-animation 9s ease-in-out infinite;
+  /* Menerapkan animasi yang berjalan tanpa henti */
+  animation: home-logo-bounce-loop 12s ease-in-out infinite;
 }
 
 #animated-logo {
-  width: 400px;
+  width: 350px; /* Anda bisa menyesuaikan ukuran logo di sini */
   height: auto;
 }
-@keyframes looped-animation {
-  /* FASE 1: Jatuh */
+@keyframes home-logo-bounce-loop {
+  /* FASE 0: Persiapan (Logo di luar layar atas) */
   0% {
-    transform: translate(-50%, -50%) translateY(-100vh);
+    transform: translate(-50%, -150vh) scale(0.8);
     opacity: 0;
   }
-  22.2% {
-    transform: translate(-50%, -50%) translateY(0);
+
+  /* FASE 1: Logo Jatuh dengan Cepat (Efek gravitasi) */
+  10% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    animation-timing-function: ease-in; /* Percepat saat jatuh */
+  }
+
+  /* FASE 2: Pantulan Halus & Natural (Seperti Bola) */
+  12% {
+    /* Pantulan 1 (paling tinggi) */
+    transform: translate(-50%, -50%) translateY(-100px);
+    animation-timing-function: ease-out; /* Lambat di puncak pantulan */
+  }
+  14% {
+    transform: translate(-50%, -50%);
+    animation-timing-function: ease-in;
+  }
+  15.5% {
+    /* Pantulan 2 (lebih pendek) */
+    transform: translate(-50%, -50%) translateY(-50px);
+    animation-timing-function: ease-out;
+  }
+  17% {
+    transform: translate(-50%, -50%);
+    animation-timing-function: ease-in;
+  }
+  18% {
+    /* Pantulan 3 (paling pendek) */
+    transform: translate(-50%, -50%) translateY(-25px);
+    animation-timing-function: ease-out;
+  }
+  19% {
+    /* Kembali diam setelah pantulan terakhir */
+    transform: translate(-50%, -50%);
+  }
+
+  /* FASE 3: Logo Diam di Tengah Selama 5 Detik */
+  /* Durasi: dari 19% hingga 60% (sekitar 5 detik dari total 12 detik animasi) */
+  19.01%,
+  60% {
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
 
-  /* FASE 2: Diam di Tengah */
-  77.7% {
-    transform: translate(-50%, -50%) translateX(0);
-    opacity: 1;
+  /* FASE 4: Logo Menghilang ke Kanan dengan cepat */
+  68% {
+    transform: translate(150vw, -50%) scale(0.8);
+    opacity: 0;
+    animation-timing-function: ease-in;
   }
 
-  /* FASE 3: Pergi ke Samping */
-  99.9% {
-    transform: translate(-50%, -50%) translateX(100vw);
-    opacity: 0;
-  }
+  /* FASE 5: Tetap Menghilang Sampai Loop Berikutnya Dimulai */
   100% {
-    transform: translate(-50%, -50%) translateY(-100vh);
+    transform: translate(150vw, -50%);
     opacity: 0;
   }
 }
