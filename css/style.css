@@ -477,16 +477,25 @@ footer {
   color: #fff;
   flex-shrink: 0;
 }
-.tag-pengumuman { background-color: #007bff; }
-.tag-update { background-color: #28a745; }
-.tag-penting { background-color: #dc3545; }
+.tag-pengumuman {
+  background-color: #007bff;
+}
+.tag-update {
+  background-color: #28a745;
+}
+.tag-penting {
+  background-color: #dc3545;
+}
 .info-meta {
   font-size: 0.8em; /* Diperkecil */
   color: #aaa;
   margin-bottom: 20px;
 }
-.info-meta i { margin-right: 8px; }
-.info-body p, .info-body ul {
+.info-meta i {
+  margin-right: 8px;
+}
+.info-body p,
+.info-body ul {
   font-size: 0.9em; /* Diperkecil */
   line-height: 1.7;
   margin-bottom: 15px;
@@ -501,12 +510,16 @@ footer {
   text-align: left;
   margin-bottom: 30px;
 }
-.info-teks { flex: 1; }
+.info-teks {
+  flex: 1;
+}
 .info-teks h3 {
   color: var(--primary-color);
   margin-bottom: 10px;
 }
-.info-teks p { margin-bottom: 20px; }
+.info-teks p {
+  margin-bottom: 20px;
+}
 .info-teks i {
   color: var(--primary-color);
   margin-right: 15px;
@@ -517,7 +530,9 @@ footer {
   flex: 1;
   min-width: 300px;
 }
-.map-container iframe { border-radius: 8px; }
+.map-container iframe {
+  border-radius: 8px;
+}
 .kontak-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -681,7 +696,9 @@ select.sorter:focus {
   margin-bottom: 25px;
   font-style: normal;
 }
-.artikel-meta-info span { margin-right: 20px; }
+.artikel-meta-info span {
+  margin-right: 20px;
+}
 .artikel-meta-info i {
   margin-right: 8px;
   color: var(--primary-color);
@@ -729,7 +746,9 @@ select.sorter:focus {
   overflow: hidden;
   margin-bottom: 2rem;
 }
-.slideshow-slider { display: grid; }
+.slideshow-slider {
+  display: grid;
+}
 .slide-image {
   grid-area: 1 / 1 / 2 / 2;
   width: 100%;
@@ -739,7 +758,9 @@ select.sorter:focus {
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
 }
-.slide-image.active-slide { opacity: 1; }
+.slide-image.active-slide {
+  opacity: 1;
+}
 .tombol-kembali {
   display: inline-block;
   margin-top: 30px;
@@ -859,6 +880,12 @@ select.sorter:focus {
     font-size: 13px; /* Ukuran font dasar mobile diperkecil lagi */
   }
 
+  /* Sembunyikan navigasi atas di mobile */
+  .header-container nav {
+    display: none;
+  }
+
+  /* Pusatkan logo di header atas */
   .header-container {
     justify-content: center;
     height: 60px;
@@ -866,14 +893,24 @@ select.sorter:focus {
     border-bottom: 1px solid var(--border-color);
   }
 
-  .header-container nav, .header-container .social-media { display: none; }
+  /* Sembunyikan social media di header atas */
+  .header-container .social-media {
+    display: none;
+  }
+
   .logo img {
     width: 40px; /* Logo diperkecil di mobile */
     height: 40px;
   }
-  .logo h1 { font-size: 1.2em; }
-  .logo-subtitle { font-size: 0.65em; }
 
+  .logo h1 {
+    font-size: 1.2em;
+  }
+  .logo-subtitle {
+    font-size: 0.65em;
+  }
+
+  /* GAYA NAVIGASI BAWAH UNTUK MOBILE */
   nav {
     position: fixed !important;
     display: block !important;
@@ -904,7 +941,9 @@ select.sorter:focus {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  nav ul::-webkit-scrollbar { display: none; }
+  nav ul::-webkit-scrollbar {
+    display: none;
+  }
 
   nav ul li a {
     display: flex;
@@ -927,7 +966,9 @@ select.sorter:focus {
   nav ul li.active a {
     color: var(--primary-color);
   }
-  nav ul li a::after { display: none; }
+  nav ul li a::after {
+    display: none;
+  }
 
   /* Penyesuaian font mobile untuk kartu kegiatan */
   .kegiatan-item {
@@ -941,18 +982,48 @@ select.sorter:focus {
     height: 90px;
   }
 
-  .kegiatan-konten h3 { font-size: 0.9em; }
+  .kegiatan-konten h3 {
+    font-size: 0.9em;
+  }
   .kegiatan-konten p {
     -webkit-line-clamp: 2;
     font-size: 0.8em;
   }
-  .kegiatan-meta, .kegiatan-tombol { font-size: 0.7em; }
+  .kegiatan-meta,
+  .kegiatan-tombol {
+    font-size: 0.7em;
+  }
 
-  .container h2 { font-size: 2em; }
-  .artikel-header h2 { font-size: 1.8em; }
-
+  .container h2 {
+    font-size: 2em;
+  }
+  .artikel-header h2 {
+    font-size: 1.8em;
+  }
 }
 
+/* Sisa kode Anda yang tidak terkait font-size bisa tetap sama */
+/* Misalnya: .pohon-container, .zoom-controls, .welcome-overlay, animasi, dll. */
+/* Sisa kode CSS yang tidak diubah tetap di sini */
+.pohon-container {
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+  padding: 20px 0;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  cursor: grab;
+  background-color: rgba(17, 17, 17, 0.5);
+}
+.pohon-container:active {
+  cursor: grabbing;
+}
+.pohon-organisasi {
+  display: inline-flex;
+  transition: transform 0.3s ease-out;
+  transform-origin: center center;
+}
+/* ... dan seterusnya ... */
 
 /* ========================================= */
 /* ===         GAYA WELCOME SCREEN       === */
