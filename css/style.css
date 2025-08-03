@@ -875,79 +875,62 @@ select.sorter:focus {
 /* ===         RESPONSIVE DESIGN         === */
 /* ========================================= */
 
-/* GANTI SELURUH BLOK @media LAMA ANDA DENGAN YANG BARU INI */
 @media (max-width: 768px) {
-  /* 1. Atur Body Padding untuk memberi ruang bagi header dan nav */
   body {
-    padding-top: 60px; /* Ruang untuk header logo di atas */
-    padding-bottom: 60px; /* Ruang untuk menu navigasi di bawah */
-    font-size: 13px;
+    padding-top: 0; /* Hapus padding atas di mobile */
+    padding-bottom: 60px; /* Disesuaikan dengan nav bawah */
+    font-size: 13px; /* Ukuran font dasar mobile diperkecil lagi */
   }
 
-  /* 2. Atur Header Atas (SEKARANG HANYA WADAH LOGO) */
+  /* === PINDAHKAN HEADER KE BAWAH DI MOBILE === */
   header#main-header {
-    top: 0;
-    bottom: auto;
+    top: auto; /* Hapus properti 'top' */
+    bottom: 0; /* Tetapkan di bawah */
+    border-top: 1px solid var(--border-color); /* Ganti border-bottom menjadi border-top */
+    border-bottom: none;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.8);
-    /* PENTING: Hapus backdrop-filter dari sini agar tidak 'menjebak' nav */
-    border-bottom: 1px solid var(--border-color);
-    transition: top 0.3s ease-in-out;
-    /* Pastikan header atas tidak memiliki border atas di mobile */
-    border-top: none;
   }
 
-  /* Pastikan logo dan kontainernya tampil dengan benar */
   .header-container {
-    padding: 0 15px;
+    padding: 0 10px;
     height: 100%;
-    justify-content: flex-start; /* Logo di kiri */
+    border-bottom: none;
   }
 
-  .header-container .logo {
-    display: flex; /* Tampilkan logo */
-  }
-
-  /* Sembunyikan social media dari header atas */
+  /* Sembunyikan Logo dan Social Media di Nav Bawah */
+  .header-container .logo,
   .header-container .social-media {
     display: none;
   }
 
-  /* 3. Atur Navigasi sebagai Bar Bawah yang Terpisah */
+  /* Atur Navigasi untuk Tampil di Bawah */
   header nav {
-    /* Ini akan menargetkan <nav> di dalam <header> dan memposisikannya ulang */
     display: block;
-    position: fixed;
-    bottom: 0; /* Menempel di bawah layar */
-    left: 0;
-    top: auto; /* Memastikan tidak menempel di atas */
-
     width: 100%;
-    height: 60px;
-
-    /* PENTING: Terapkan efek blur HANYA di bar bawah ini */
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    border-top: 1px solid var(--border-color);
-    z-index: 1001;
+    height: 100%;
   }
 
-  /* Atur item menu di dalam bar bawah */
   header nav ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; /* Agar menu tersebar rata */
     align-items: center;
     width: 100%;
     height: 100%;
     gap: 0;
     padding: 0;
     margin: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  header nav ul::-webkit-scrollbar {
+    display: none;
   }
 
   header nav ul li {
-    flex: 1;
+    flex: 1; /* Agar setiap item menu memiliki lebar yang sama */
     text-align: center;
   }
 
@@ -970,16 +953,16 @@ select.sorter:focus {
   }
 
   header nav ul li a::after {
-    display: none;
+    display: none; /* Hapus garis bawah aktif di mobile */
   }
 
-  /* Sisa penyesuaian untuk mobile */
   main {
-    padding-top: 20px;
+    padding-top: 20px; /* Beri sedikit ruang di atas konten */
   }
 
+  /* Penyesuaian font mobile untuk kartu kegiatan */
   .kegiatan-item {
-    grid-template-columns: 90px 1fr;
+    grid-template-columns: 90px 1fr; /* Gambar lebih kecil */
     gap: 15px;
     padding: 12px;
   }
@@ -1007,6 +990,221 @@ select.sorter:focus {
   .artikel-header h2 {
     font-size: 1.8em;
   }
+}
+/* ========================================= */
+/* ===    GAYA POHON & KONTROL ZOOM      === */
+/* ========================================= */
+
+/* --- BAGIAN BARU: Kontrol Zoom --- */
+.zoom-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.zoom-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--light-text);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.zoom-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--dark-bg);
+  border-color: var(--primary-color);
+}
+
+#zoom-level {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--dark-text);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* --- PERUBAHAN: Penyesuaian pada Pohon --- */
+.pohon-container {
+  width: 100%;
+  overflow: auto; /* Diubah menjadi auto untuk menangani zoom dan pan */
+  text-align: center;
+  padding: 20px 0;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  cursor: grab; /* Menandakan bisa digeser */
+  background-color: rgba(17, 17, 17, 0.5);
+}
+.pohon-container:active {
+  cursor: grabbing;
+}
+
+.pohon-organisasi {
+  display: inline-flex;
+  transition: transform 0.3s ease-out; /* Animasi untuk zoom */
+  transform-origin: center center; /* Titik pusat zoom */
+}
+
+.pohon-organisasi ul,
+.pohon-organisasi li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+.pohon-organisasi ul {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pohon-organisasi li {
+  padding: 20px 4px 0 4px;
+  text-align: center;
+}
+
+.pohon-organisasi li::before,
+.pohon-organisasi li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid var(--border-color);
+  width: 50%;
+  height: 20px;
+}
+.pohon-organisasi li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--border-color);
+}
+
+.pohon-organisasi li:only-child::after,
+.pohon-organisasi li:only-child::before {
+  display: none;
+}
+.pohon-organisasi li:first-child::before,
+.pohon-organisasi li:last-child::after {
+  border: 0 none;
+}
+.pohon-organisasi li:last-child::before {
+  border-right: 2px solid var(--border-color);
+  border-radius: 0 5px 0 0;
+}
+.pohon-organisasi li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+.pohon-organisasi ul ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid var(--border-color);
+  width: 0;
+  height: 20px;
+}
+
+.pohon-organisasi li div {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--light-text);
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  border-radius: 8px;
+  min-width: 170px;
+  transition: all 0.5s;
+  position: relative;
+  z-index: 1;
+}
+
+.pohon-organisasi li div:hover,
+.pohon-organisasi li div:hover + ul li div {
+  background: var(--primary-color);
+  color: var(--dark-bg);
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+.pohon-organisasi li div:hover + ul li::after,
+.pohon-organisasi li div:hover + ul li::before,
+.pohon-organisasi li div:hover + ul::before,
+.pohon-organisasi li div:hover + ul ul::before {
+  border-color: var(--primary-color);
+}
+
+.pohon-organisasi .jabatan {
+  display: block;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: inherit;
+  margin-bottom: 4px;
+}
+.pohon-organisasi .nama {
+  display: block;
+  font-size: 0.8em;
+  font-style: italic;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.pohon-organisasi .bidang-group {
+  padding-top: 20px;
+}
+
+.pohon-organisasi .bidang-group > li {
+  padding: 20px 4px 0 4px;
+}
+
+.anggota-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 15px;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.anggota-grid li {
+  padding: 0 !important;
+  width: 100%;
+}
+
+.anggota-grid li::before,
+.anggota-grid li::after {
+  display: none;
+}
+
+.pohon-organisasi li div .foto-node {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  margin: 0 auto 10px auto;
+  object-fit: cover;
+  display: block;
+  background-color: #444;
+}
+
+.pohon-organisasi li div .foto-node-placeholder {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--dark-text);
 }
 
 /* Sisa kode Anda yang tidak terkait font-size bisa tetap sama */
