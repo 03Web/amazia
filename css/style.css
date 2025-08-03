@@ -28,6 +28,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   font-size: 14px; /* Ukuran font dasar sedikit diperkecil */
+  padding-top: 85px; /* Memberi ruang untuk header di desktop */
 }
 
 /* ========================================= */
@@ -36,13 +37,15 @@ body {
 
 header#main-header {
   position: fixed;
-  top: 0;
+  top: 0; /* Default di atas */
+  bottom: auto; /* Pastikan properti bottom tidak aktif di desktop */
   left: 0;
   width: 100%;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition: top 0.3s ease, bottom 0.3s ease; /* Tambahkan transisi */
 }
 
 .header-container {
@@ -164,7 +167,6 @@ header nav ul li a span {
 /* ========================================= */
 
 main {
-  padding-top: 85px;
   width: 100%;
   flex-grow: 1;
 }
@@ -875,90 +877,87 @@ select.sorter:focus {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 60px;
+    padding-top: 0; /* Hapus padding atas di mobile */
     padding-bottom: 60px; /* Disesuaikan dengan nav bawah */
     font-size: 13px; /* Ukuran font dasar mobile diperkecil lagi */
   }
 
-  .header-container {
-    justify-content: center;
+  /* === PINDAHKAN HEADER KE BAWAH DI MOBILE === */
+  header#main-header {
+    top: auto; /* Hapus properti 'top' */
+    bottom: 0; /* Tetapkan di bawah */
+    border-top: 1px solid var(--border-color); /* Ganti border-bottom menjadi border-top */
+    border-bottom: none;
     height: 60px;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--border-color);
   }
 
-  .header-container nav,
+  .header-container {
+    padding: 0 10px;
+    height: 100%;
+    border-bottom: none;
+  }
+
+  /* Sembunyikan Logo dan Social Media di Nav Bawah */
+  .header-container .logo,
   .header-container .social-media {
     display: none;
   }
-  .logo img {
-    width: 40px; /* Logo diperkecil di mobile */
-    height: 40px;
-  }
-  .logo h1 {
-    font-size: 1.2em;
-  }
-  .logo-subtitle {
-    font-size: 0.65em;
-  }
 
-  nav {
-    position: fixed !important;
-    display: block !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 60px !important; /* Tinggi nav bawah dikurangi */
-    z-index: 1000;
-    background-color: rgba(26, 26, 26, 0.9);
-    border-top: 1px solid var(--border-color);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    list-style: none;
-    padding: 0 5px;
-    margin: 0;
+  /* Atur Navigasi untuk Tampil di Bawah */
+  header nav {
+    display: block;
     width: 100%;
     height: 100%;
+  }
+
+  header nav ul {
+    display: flex;
+    justify-content: space-around; /* Agar menu tersebar rata */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    padding: 0;
+    margin: 0;
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  nav ul::-webkit-scrollbar {
+
+  header nav ul::-webkit-scrollbar {
     display: none;
   }
 
-  nav ul li a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--dark-text);
-    text-decoration: none;
-    font-size: 0.75em; /* Font nav mobile sangat kecil */
-    padding: 5px 10px; /* Padding disesuaikan */
-    height: 100%;
-    transition: color 0.3s ease;
+  header nav ul li {
+    flex: 1; /* Agar setiap item menu memiliki lebar yang sama */
+    text-align: center;
   }
 
-  nav ul li a i {
-    font-size: 1.6em; /* Ikon sedikit lebih besar dari teks */
+  header nav ul li a {
+    flex-direction: column;
+    justify-content: center;
+    color: var(--dark-text);
+    font-size: 0.75em;
+    padding: 5px;
+    height: 100%;
+  }
+
+  header nav ul li a i {
+    font-size: 1.6em;
     margin-bottom: 4px;
   }
 
-  nav ul li.active a {
+  header nav ul li.active a {
     color: var(--primary-color);
   }
-  nav ul li a::after {
-    display: none;
+
+  header nav ul li a::after {
+    display: none; /* Hapus garis bawah aktif di mobile */
+  }
+
+  main {
+    padding-top: 20px; /* Beri sedikit ruang di atas konten */
   }
 
   /* Penyesuaian font mobile untuk kartu kegiatan */
@@ -995,141 +994,6 @@ select.sorter:focus {
 
 /* Sisa kode Anda yang tidak terkait font-size bisa tetap sama */
 
-/* ========================================= */
-/* ===         GAYA WELCOME SCREEN       === */
-/* ========================================= */
-
-#welcome-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  transition: opacity 0.5s ease;
-}
-
-#welcome-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#welcome-box {
-  background-color: var(--card-bg);
-  padding: 30px 40px;
-  border-radius: 10px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 5px 25px rgba(0, 170, 255, 0.1);
-}
-
-.welcome-logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 15px;
-}
-
-#welcome-box h2 {
-  margin-bottom: 5px;
-  font-size: 2em;
-  color: var(--primary-color);
-}
-
-#welcome-box p {
-  font-style: italic;
-  font-size: 1em;
-  margin-bottom: 25px;
-  color: var(--dark-text);
-}
-
-.form-group {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--dark-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  color: var(--light-text);
-  font-family: "Poppins", sans-serif;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-#submit-button {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#submit-button:hover {
-  background-color: #0088cc;
-}
-
-#submit-button:disabled {
-  background-color: #555;
-  cursor: not-allowed;
-}
-
-#form-message {
-  margin-top: 15px;
-  font-size: 0.9em;
-  transition: opacity 0.3s ease;
-}
-
-#form-message.success {
-  color: #28a745;
-}
-
-#form-message.error {
-  color: #dc3545;
-}
-/* Gaya untuk filter container di halaman kegiatan */
-.filter-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px; /* Jarak antara filter kategori dan tanggal */
-  flex-wrap: wrap; /* Agar responsif di layar kecil */
-  margin-bottom: 25px;
-  margin-top: 30px;
-}
-
-.sort-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-style: normal;
-}
 /* ========================================= */
 /* ===         GAYA HALAMAN KONTAK BARU    === */
 /* ========================================= */
@@ -1255,4 +1119,22 @@ body[data-page-id="home"] main {
     transform: translate(150vw, -50%);
     opacity: 0;
   }
+}
+
+/* Gaya untuk filter container di halaman kegiatan */
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px; /* Jarak antara filter kategori dan tanggal */
+  flex-wrap: wrap; /* Agar responsif di layar kecil */
+  margin-bottom: 25px;
+  margin-top: 30px;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-style: normal;
 }
