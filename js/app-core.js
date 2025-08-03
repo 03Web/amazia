@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.0.0 (Optimized with Code Splitting & Turbo)
+ * @version 8.1.0 (Added Mobile Top Header with Scroll Behavior)
  */
 
 const App = (() => {
@@ -13,6 +13,7 @@ const App = (() => {
     informasi: [],
     pengurus: [],
     kontak: [],
+    lastScrollTop: 0, // State untuk scroll position
   };
 
   // === PENGATURAN SESI & INAKTIVITAS ===
@@ -101,6 +102,24 @@ const App = (() => {
         submitButton.disabled = false;
       }
     });
+  }
+
+  // === FUNGSI HEADER BARU UNTUK MOBILE ===
+  function handleMobileHeaderScroll() {
+    const topHeader = document.querySelector(".mobile-top-header");
+    if (!topHeader) return;
+
+    let currentScroll =
+      window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > state.lastScrollTop && currentScroll > 50) {
+      // Scroll Down
+      topHeader.classList.add("hidden");
+    } else {
+      // Scroll Up
+      topHeader.classList.remove("hidden");
+    }
+    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
   }
 
   // === UTILITIES & HELPERS (SHARED) ===
@@ -275,13 +294,52 @@ const App = (() => {
       return;
     }
 
-    loadComponent("layout/header.html", "main-header", setActiveNavLink);
+    // Buat dan tambahkan header atas mobile secara dinamis
+    if (!document.querySelector(".mobile-top-header")) {
+      const mobileHeader = document.createElement("header");
+      mobileHeader.className = "mobile-top-header";
+      mobileHeader.innerHTML = `
+            <div class="mobile-header-container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="foto/logoneutrontransparan.png" alt="Logo The Great Apes" />
+                        <div class="logo-text">
+                            <h1>The Great Apes</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class="social-media">
+                     <a href="https://www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                     <a href="https://github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                     <a href="https://x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        `;
+      document.body.prepend(mobileHeader);
+    }
+
+    loadComponent("layout/header.html", "main-header", () => {
+      // Pindahkan navigasi dari header desktop ke dalam elemen nav di body untuk mobile
+      const mainHeaderNav = document.querySelector("#main-header nav");
+      if (mainHeaderNav && window.innerWidth <= 768) {
+        document.querySelector("#main-header").append(mainHeaderNav);
+      }
+      setActiveNavLink();
+    });
+
     loadComponent("layout/footer.html", "main-footer");
 
     if (document.getElementById("welcome-overlay")) {
       initWelcomeScreen();
     } else if (isLoggedIn) {
       startInactivityTracker();
+    }
+
+    // Tambahkan event listener untuk scroll HANYA di mobile
+    if (window.innerWidth <= 768) {
+      window.addEventListener("scroll", handleMobileHeaderScroll, {
+        passive: true,
+      });
     }
 
     initScrollAnimations();

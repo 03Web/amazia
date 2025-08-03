@@ -872,35 +872,68 @@ select.sorter:focus {
 }
 
 /* ========================================= */
+/* ===     HEADER ATAS MOBILE BARU       === */
+/* ========================================= */
+.mobile-top-header {
+  display: none; /* Sembunyikan di desktop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* Di atas header bawah */
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.3s ease-in-out;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-top-header.hidden {
+  transform: translateY(-100%);
+}
+
+.mobile-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 15px;
+  height: 50px;
+}
+
+/* ========================================= */
 /* ===         RESPONSIVE DESIGN         === */
 /* ========================================= */
 
 @media (max-width: 768px) {
   body {
-    padding-top: 0; /* Hapus padding atas di mobile */
+    padding-top: 50px; /* Ruang untuk header atas mobile */
     padding-bottom: 60px; /* Disesuaikan dengan nav bawah */
     font-size: 13px; /* Ukuran font dasar mobile diperkecil lagi */
   }
 
-  /* === PINDAHKAN HEADER KE BAWAH DI MOBILE === */
+  /* === TAMPILKAN HEADER ATAS MOBILE === */
+  .mobile-top-header {
+    display: block;
+  }
+
+  /* Sembunyikan header desktop asli di mobile */
+  header#main-header .header-container {
+    display: none;
+  }
+
+  /* === PINDAHKAN NAVIGASI KE BAWAH DI MOBILE === */
   header#main-header {
     top: auto; /* Hapus properti 'top' */
     bottom: 0; /* Tetapkan di bawah */
     border-top: 1px solid var(--border-color); /* Ganti border-bottom menjadi border-top */
     border-bottom: none;
     height: 60px;
-  }
-
-  .header-container {
-    padding: 0 10px;
-    height: 100%;
-    border-bottom: none;
-  }
-
-  /* Sembunyikan Logo dan Social Media di Nav Bawah */
-  .header-container .logo,
-  .header-container .social-media {
-    display: none;
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.9
+    ); /* Sedikit lebih gelap untuk kontras */
   }
 
   /* Atur Navigasi untuk Tampil di Bawah */
@@ -1314,25 +1347,18 @@ body[data-page-id="home"] main {
     transform: translate(-50%, -50%);
   }
 
-  /* FASE 3: Logo Diam di Tengah Selama 5 Detik */
-  /* Durasi: dari 19% hingga 60% (sekitar 5 detik dari total 12 detik animasi) */
+  /* FASE 3: Logo Diam di Tengah (durasi disesuaikan) */
   19.01%,
-  60% {
+  85% {
     transform: translate(-50%, -50%);
     opacity: 1;
   }
 
-  /* FASE 4: Logo Menghilang ke Kanan dengan cepat */
-  68% {
+  /* FASE 4: Logo Menghilang ke Kanan, selesai tepat di 100% untuk loop instan */
+  100% {
     transform: translate(150vw, -50%) scale(0.8);
     opacity: 0;
     animation-timing-function: ease-in;
-  }
-
-  /* FASE 5: Tetap Menghilang Sampai Loop Berikutnya Dimulai */
-  100% {
-    transform: translate(150vw, -50%);
-    opacity: 0;
   }
 }
 
