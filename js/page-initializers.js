@@ -133,33 +133,87 @@ App.initializers.informasi = async () => {
   const container = document.getElementById("info-list");
   if (!container) return;
 
+  const sorter = document.getElementById("informasi-sorter");
+  const kategoriFilter = document.getElementById("informasi-kategori-filter");
+
+  // Fungsi untuk memetakan 'kategori' dari JSON ke kelas CSS untuk tag
+  const getTagClass = (kategori) => {
+    switch (kategori.toLowerCase()) {
+      case "kutipan":
+        return "tag-penting"; // Merah
+      case "twets":
+        return "tag-pengumuman"; // Biru
+      case "nganu":
+        return "tag-update"; // Hijau
+      default:
+        return "";
+    }
+  };
+
   const createInformasiTemplate = (info) => `
     <div class="info-item animate-on-scroll">
       <div class="info-header">
         <h3>${info.judul}</h3>
-        <span class="info-tag ${info.tag_class}">${info.tag}</span>
+        <span class="info-tag ${getTagClass(info.kategori)}">${
+    info.kategori
+  }</span>
       </div>
-      <p class="info-meta"><i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
-        info.tanggal
-      ).toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })}</p>
-      <div class="info-body">${info.konten}</div>
+      <p class="info-meta">
+        <i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
+          info.tanggal
+        ).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
+        ${
+          info.meta_info ? `<span>| <em>${info.meta_info}</em></span>` : ""
+        } </p>
+      <div class="info-body">${info.konten_html}</div>
     </div>`;
 
-  const originalData = await App.fetchData("informasi", "data/informasi.json");
-  if (!originalData || originalData.length === 0) {
+  const dataObject = await App.fetchData("informasi", "data/informasi.json");
+  if (!dataObject || !dataObject.informasi) {
     container.innerHTML = "<p>Gagal memuat atau tidak ada informasi.</p>";
     return;
   }
-  App.renderItems(
-    container,
-    originalData,
-    createInformasiTemplate,
-    "<p>Tidak ada informasi untuk ditampilkan.</p>"
-  );
+  
+  const originalData = dataObject.informasi; // <-- PERBAIKAN 1: Mengakses array 'informasi'
+
+  const updateList = () => {
+    let filteredData = [...originalData];
+
+    // 1. Terapkan Filter Kategori
+    const selectedKategori = kategoriFilter.value;
+    if (selectedKategori !== "semuanya") {
+      filteredData = filteredData.filter(
+        (item) => item.kategori.toLowerCase() === selectedKategori.toLowerCase()
+      );
+    }
+
+    // 2. Terapkan Urutan (Sorting)
+    const sortOrder = sorter.value;
+    filteredData.sort((a, b) =>
+      sortOrder === "terbaru"
+        ? new Date(b.tanggal) - new Date(a.tanggal)
+        : new Date(a.tanggal) - new Date(b.tanggal)
+    );
+
+    // 3. Render hasil ke halaman
+    App.renderItems(
+      container,
+      filteredData,
+      createInformasiTemplate,
+      "<p>Tidak ada informasi yang cocok dengan filter ini.</p>"
+    );
+  };
+
+  // Tambahkan event listener untuk setiap perubahan pada filter atau sorter
+  sorter.addEventListener("change", updateList);
+  kategoriFilter.addEventListener("change", updateList);
+
+  // Muat daftar untuk pertama kali
+  updateList();
 };
 
 // === ABOUT PAGE (STRUKTUR ORGANISASI) ===
