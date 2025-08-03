@@ -1,8 +1,39 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.0.0 (Optimized with Code Splitting & Turbo)
+ * @version 8.0.1 (Optimized with Scroll Behavior)
  */
+
+// === FUNGSI BARU UNTUK SCROLL HEADER ===
+function initHeaderScrollBehavior() {
+  const header = document.getElementById("main-header");
+  if (!header) return;
+
+  let lastScrollTop = 0;
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      // Hanya jalankan pada mode mobile (lebar layar <= 768px)
+      if (window.innerWidth > 768) {
+        header.style.top = "0"; // Pastikan header terlihat di desktop
+        return;
+      }
+
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+        // Scroll ke bawah
+        header.style.top = "-60px"; // Sembunyikan header (geser ke atas)
+      } else {
+        // Scroll ke atas
+        header.style.top = "0"; // Tampilkan kembali header
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Untuk handle scroll di paling atas
+    },
+    { passive: true }
+  );
+}
 
 const App = (() => {
   // === STATE & CACHE ===
@@ -275,7 +306,15 @@ const App = (() => {
       return;
     }
 
-    loadComponent("layout/header.html", "main-header", setActiveNavLink);
+    // Panggil fungsi scroll header
+    initHeaderScrollBehavior();
+
+    loadComponent("layout/header.html", "main-header", () => {
+      setActiveNavLink();
+      // Panggil lagi setelah header dimuat untuk memastikan event listener terpasang
+      // jika terjadi race condition saat load komponen
+      initHeaderScrollBehavior();
+    });
     loadComponent("layout/footer.html", "main-footer");
 
     if (document.getElementById("welcome-overlay")) {
