@@ -88,9 +88,11 @@ const App = (() => {
       if (isEmpty) {
         btn.disabled = true;
         msg.style.color = "rgb(218 49 49)";
-        msg.innerText = "Please fill the input fields before proceeding";
+        msg.innerText =
+          "Untuk Blog Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
       } else {
-        msg.innerText = "Great! Now you can proceed";
+        msg.innerText =
+          "Thank! Anda Bisa masuk My Blog Random Thoughts And Everything Else ";
         msg.style.color = "#92ff92";
         btn.disabled = false;
         btn.classList.add("no-shift");
