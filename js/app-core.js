@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.1.0 (Added Mobile Top Header with Scroll Behavior)
+ * @version 8.2.0 (Sync with new login)
  */
 
 const App = (() => {
@@ -50,10 +50,52 @@ const App = (() => {
     const overlay = document.getElementById("welcome-overlay");
     if (!overlay) return;
 
-    const form = document.getElementById("welcome-form");
-    const messageEl = document.getElementById("form-message");
-    const submitButton = document.getElementById("submit-button");
-    const FORMSPREE_URL = "https://formspree.io/f/myzpjnqg";
+    const uname = document.querySelector("#uname");
+    const isBanjarsari = document.querySelector("#is_banjarsari");
+    const btnContainer = document.querySelector(".btn-container");
+    const btn = document.querySelector("#login-btn");
+    const form = document.querySelector("#welcome-form");
+    const msg = document.querySelector(".msg");
+
+    if (!uname || !isBanjarsari || !btn || !form || !msg) return;
+
+    btn.disabled = true;
+
+    function shiftButton() {
+      if (btn.disabled) {
+        const positions = [
+          "shift-left",
+          "shift-top",
+          "shift-right",
+          "shift-bottom",
+        ];
+        const currentPosition = positions.find((dir) =>
+          btn.classList.contains(dir)
+        );
+        const nextPosition =
+          positions[
+            (positions.indexOf(currentPosition) + 1) % positions.length
+          ];
+        btn.classList.remove(currentPosition || "no-shift");
+        btn.classList.add(nextPosition);
+      }
+    }
+
+    function showMsg() {
+      const isEmpty = uname.value === "" || isBanjarsari.value === "";
+      btn.classList.toggle("no-shift", !isEmpty);
+
+      if (isEmpty) {
+        btn.disabled = true;
+        msg.style.color = "rgb(218 49 49)";
+        msg.innerText = "Please fill the input fields before proceeding";
+      } else {
+        msg.innerText = "Great! Now you can proceed";
+        msg.style.color = "#92ff92";
+        btn.disabled = false;
+        btn.classList.add("no-shift");
+      }
+    }
 
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -68,39 +110,21 @@ const App = (() => {
       logoutUser();
     }
 
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      messageEl.textContent = "Mengirim data...";
-      messageEl.classList.remove("hidden", "success", "error");
-      submitButton.disabled = true;
+    btnContainer.addEventListener("mouseover", shiftButton);
+    form.addEventListener("input", showMsg);
 
-      try {
-        const response = await fetch(FORMSPREE_URL, {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-        if (response.ok) {
-          messageEl.textContent = "Terima kasih! Anda akan dialihkan...";
-          messageEl.classList.add("success");
-          sessionStorage.setItem("isLoggedIn", "true");
-          setTimeout(() => {
-            overlay.classList.add("hidden");
-            startInactivityTracker();
-          }, 1500);
-        } else {
-          throw new Error("Gagal mengirim data. Coba lagi.");
-        }
-      } catch (error) {
-        messageEl.textContent = error.message;
-        messageEl.classList.add("error");
-        submitButton.disabled = false;
-      }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (btn.disabled) return;
+
+      msg.innerText = "Processing...";
+      msg.style.color = "#92ff92";
+
+      setTimeout(() => {
+        sessionStorage.setItem("isLoggedIn", "true");
+        overlay.classList.add("hidden");
+        startInactivityTracker();
+      }, 1500);
     });
   }
 

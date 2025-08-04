@@ -21,56 +21,52 @@
   </head>
   <body data-page-id="home">
     <div id="welcome-overlay" class="hidden">
-      <div id="welcome-box">
-        <img
-          src="foto/logoneutrontransparan.png"
-          alt="Logo Karang Taruna"
-          class="welcome-logo"
-        />
-        <h2>Welcome To My Blog</h2>
-        <p>Please introduce yourself to continue.</p>
-        <form id="welcome-form">
-          <div class="form-group">
-            <label for="nama"
-              >Put anything you like — name or something else, up to you.</label
-            >
-            <input
-              type="text"
-              id="nama"
-              name="nama"
-              required
-              placeholder="For example: Joko, or whoever you like."
-            />
-          </div>
-          <div class="form-group">
-            <label for="is_banjarsari">How are you feeling today?</label>
-            <select id="is_banjarsari" name="asal" required>
-              <option value="" disabled selected>-- Select Answer --</option>
-              <option value="Everything is Good">Everything is Good</option>
-              <option value="Not Good">"Not Good"</option>
-              <option value="Nothing special, just the usual.">
-                "Nothing special, just the usual."
-              </option>
-              <option value="Pretty bad">"Pretty bad"</option>
-              <option value="I don’t feel anything.">
-                "I don’t feel anything."
-              </option>
-              <option value="Such a crappy day.">
-                "Such a crappy day."
-              </option>
-              <option value="Lucky day!">"Lucky day!"</option>
-              <option value="Such an exhausting day.">
-                "Such an exhausting day."
-              </option>
-              <option value="Pretty normal day.">
-                "Pretty normal day."
-              </option>
-              <option value="A special day.">"A special day."</option>
-            </select>
-          </div>
-          <button type="submit" id="submit-button">Masuk ke Website</button>
-          <p id="form-message" class="hidden"></p>
-        </form>
+      <div class="main-container centered-flex">
+        <div class="form-container">
+          <div class="icon fa fa-user"></div>
+          <form class="centered-flex" id="welcome-form">
+            <div class="title">LOGIN</div>
+            <div class="msg"></div>
+            <div class="field">
+              <input type="text" placeholder="Nama Atau Yang Lainya Terserah Anda." id="uname" />
+              <span class="fa fa-user"></span>
+            </div>
+            <div class="field">
+              <select id="is_banjarsari" name="asal" required>
+                <option value="" disabled selected>
+                  -- Select Answer --
+                </option>
+                <option value="Everything is Good">"Everything is Good"</option>
+                <option value="Not Good">"Not Good"</option>
+                <option value="Nothing special, just the usual.">
+                  "Nothing special, just the usual."
+                </option>
+                <option value="Pretty bad">"Pretty bad"</option>
+                <option value="I don’t feel anything.">
+                  "I don’t feel anything."
+                </option>
+                <option value="Such a crappy day.">"Such a crappy day."</option>
+                <option value="Lucky day!">"Lucky day!"</option>
+                <option value="Such an exhausting day.">
+                  "Such an exhausting day."
+                </option>
+                <option value="Pretty normal day.">"Pretty normal day."</option>
+                <option value="A special day.">"A special day."</option>
+              </select>
+            </div>
+            <div class="action centered-flex">
+              <label for="remember" class="centered-flex">
+                <input type="checkbox" id="remember" /> Remember me
+              </label>
+            </div>
+            <div class="btn-container">
+              <input type="submit" id="login-btn" value="Login" />
+            </div>
+            <div class="signup">
+              Don't have an Account?<a href="#"> Sign up</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <div id="particles-js"></div>
