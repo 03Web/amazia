@@ -1380,7 +1380,7 @@ body[data-page-id="home"] main {
   font-style: normal;
 }
 
-/* ... (semua kode CSS Anda yang sudah ada) ... */
+/* ... (kode CSS lainnya tetap sama) ... */
 
 /* ========================================= */
 /* ===         GAYA HALAMAN LOGIN        === */
@@ -1388,8 +1388,11 @@ body[data-page-id="home"] main {
 
 .main-container {
   min-height: 100vh;
-  min-width: 450px;
-  font-family: "calibri", "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif; /* Menggunakan Poppins untuk konsistensi */
+  padding: 20px;
 }
 
 .centered-flex {
@@ -1399,69 +1402,77 @@ body[data-page-id="home"] main {
 }
 
 .form-container {
-  width: 400px;
-  height: 480px;
-  display: grid;
+  width: 100%;
+  max-width: 400px; /* Lebar maksimum untuk form */
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 45px; /* Memberi ruang untuk ikon di atas */
 }
 
 .icon {
   position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 85px;
-  font-size: 50px;
-  display: grid;
   height: 85px;
+  display: grid;
   place-content: center;
   border: 1px solid #2a2a2a;
-  z-index: 1;
-  justify-self: center;
+  z-index: 2;
   border-radius: 50%;
   background: #0e0e0e;
 }
 
-.fa {
+.icon .fa {
   color: #a2a2a2;
+  font-size: 50px;
 }
 
 form {
+  display: flex;
   flex-direction: column;
-  padding: 25px 25px 10px;
-  height: 440px;
+  width: 100%;
+  padding: 60px 30px 25px; /* Disesuaikan: padding atas lebih besar untuk ruang ikon */
   border-radius: 30px;
   background: rgba(19, 19, 19, 0.736);
   border: 1px solid rgba(255, 255, 255, 0.097);
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .title {
-  position: relative;
-  margin: 40px 0;
-  font-size: 20px;
+  margin: 0 0 10px 0; /* Margin disesuaikan */
+  font-size: 24px;
   font-weight: bold;
   color: white;
+  text-align: center;
 }
 
 .msg {
   color: #fa2929;
-  position: absolute;
-  top: 25%;
   font-size: 14px;
   text-align: center;
+  min-height: 20px; /* Memberi ruang agar layout tidak bergeser */
+  margin-bottom: 15px;
 }
 
 .field {
   display: flex;
   position: relative;
   width: 100%;
+  margin-bottom: 20px; /* Jarak antar field */
 }
 
 .field .fa {
   position: absolute;
   font-size: 14px;
   right: 10px;
-  bottom: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7d7d7d;
 }
 
 input:-webkit-autofill {
@@ -1477,19 +1488,21 @@ form select {
   border: none;
   font-size: 16px;
   color: #d2d2d2;
-  margin: 25px 0 5px;
-  caret-color: #cccccc;
   background: transparent;
-  padding: 10px 25px 3px 0;
+  padding: 10px 35px 10px 10px; /* Padding disesuaikan */
   border-bottom: 1px solid #404040;
+  caret-color: #cccccc;
+  transition: border-color 0.3s;
 }
-/* Specific styling for the select dropdown to match the input fields */
+
+form input:focus,
+form select:focus {
+  border-bottom-color: var(--primary-color);
+}
+
 form select {
-  appearance: none; /* Remove default dropdown arrow */
+  appearance: none;
   -webkit-appearance: none;
-  padding-right: 25px; /* Make space for custom arrow or icon */
-  background-color: transparent;
-  color: #d2d2d2;
   cursor: pointer;
 }
 form select option {
@@ -1497,15 +1510,18 @@ form select option {
 }
 
 .action {
+  display: flex;
   justify-content: space-between;
   width: 100%;
   font-size: 14px;
-  margin-top: 15px;
+  margin-top: 5px;
+  color: #7d7d7d;
 }
 
 .action label {
   cursor: pointer;
-  color: #7d7d7d;
+  display: flex;
+  align-items: center;
 }
 
 .action input[type="checkbox"] {
@@ -1517,15 +1533,22 @@ form select option {
 a {
   text-decoration: none;
   color: #9b9b9b;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--primary-color);
 }
 
 .btn-container {
-  padding: 20px;
+  width: 100%;
+  padding-top: 15px;
   transition: 0.2s linear;
 }
 
 #login-btn {
-  padding: 8px 25px;
+  width: 100%;
+  padding: 12px 25px; /* Padding disesuaikan */
   border: none;
   background: rgb(25, 62, 97);
   color: white;
@@ -1533,23 +1556,32 @@ a {
   font-size: 16px;
   border-radius: 15px;
   transition: 0.3s;
-  margin: 15px 0;
+  cursor: pointer;
 }
 
-#login-btn:hover {
-  cursor: pointer;
-  background: #00aaff;
+#login-btn:hover:not(:disabled) {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+#login-btn:disabled {
+  background-color: #333;
+  cursor: not-allowed;
 }
 
 .signup {
   color: rgb(112, 112, 112);
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 14px;
+  text-align: center;
 }
 .signup a {
-  color: #00aaff;
+  color: var(--primary-color);
   margin-left: 5px;
+  font-weight: bold;
 }
+
+/* ... (sisa kode CSS tetap sama) ... */
 
 .shift-left {
   transform: translateX(-120%);
