@@ -1598,3 +1598,85 @@ a:hover {
 .no-shift {
   transform: translate(0%, 0%);
 }
+/* --- GAYA BARU: PETUNJUK GALERI DENGAN ANIMASI DENYUT --- */
+
+.album-cover {
+  position: relative;
+  display: block;
+}
+
+/* Keyframes untuk animasi denyut/pulse */
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 20px rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.click-hint-animated {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  z-index: 2;
+
+  /* Membuatnya jadi lingkaran yang menarik */
+  background-color: rgba(
+    0,
+    170,
+    255,
+    0.85
+  ); /* Warna --primary-color dengan transparansi */
+  color: #fff;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+
+  /* Posisi & Tampilan Teks di dalam lingkaran */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  font-size: 0.9em;
+  font-style: normal;
+  font-weight: bold;
+
+  /* Menjalankan animasi */
+  animation: pulse-animation 2s infinite;
+
+  /* Agar tidak menghalangi klik pada gambar */
+  pointer-events: none;
+}
+
+.click-hint-animated i {
+  font-size: 2em; /* Ikon lebih besar */
+  margin-bottom: 5px;
+}
+
+/* Di layar kecil (mobile), buat ukurannya sedikit lebih kecil */
+@media (max-width: 768px) {
+  .click-hint-animated {
+    width: 80px;
+    height: 80px;
+    font-size: 0.8em;
+  }
+  .click-hint-animated i {
+    font-size: 1.8em;
+  }
+}
+
+/* Sembunyikan petunjuk setelah pengguna mengarahkan mouse (di desktop) */
+.album-item:hover .click-hint-animated {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
