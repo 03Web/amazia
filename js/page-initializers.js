@@ -58,47 +58,109 @@ App.initializers.kegiatan = async () => {
   updateList();
 };
 
-// === GALERI PAGE ===
+// === GALERI PAGE (USING LIGHTGALLERY) ===
 App.initializers.galeri = async () => {
   const data = await App.fetchData("galeri", "data/galeri.json");
   if (!data) return;
 
   const albumContainer = document.getElementById("album-grid");
   if (albumContainer && data.albumFoto) {
+    // Template untuk cover album, sekarang dengan data-id untuk targeting
     const createAlbumTemplate = (album) => `
-    <div class="album-item animate-on-scroll">
-        <a href="${album.foto[0].src}" data-lightbox="${
-      album.id
-    }" data-title="${album.foto[0].title || album.judul}" class="album-cover">
+    <div class="album-item">
+        <div class="album-cover" id="album-cover-${album.id}">
             <img src="${album.cover}" alt="Cover album ${
       album.judul
     }" loading="lazy">
             <div class="album-info"><h4>${album.judul}</h4><p>${
       album.deskripsi
     }</p></div>
-
             <div class="click-hint-animated">
                 <i class="fas fa-hand-pointer"></i>
                 <span>Buka Galeri</span>
             </div>
-
-        </a>
-        ${album.foto
-          .slice(1)
-          .map(
-            (foto) =>
-              `<a href="${foto.src}" data-lightbox="${album.id}" data-title="${
-                foto.title || album.judul
-              }"></a>`
-          )
-          .join("")}
+        </div>
+        <div id="lightgallery-${album.id}" style="display:none;">
+            ${album.foto
+              .map(
+                (foto) =>
+                  `<a href="${foto.src}" data-sub-html="<h4>${
+                    foto.title || album.judul
+                  }</h4>">
+                      <img src="${foto.src}" />
+                  </a>`
+              )
+              .join("")}
+        </div>
     </div>`;
-    App.renderItems(
-      albumContainer,
-      data.albumFoto,
-      createAlbumTemplate,
-      "Gagal memuat album foto."
-    );
+
+    albumContainer.innerHTML = `
+      <div class="album-carousel-wrapper">
+        <button class="carousel-nav prev" aria-label="Sebelumnya">&lt;</button>
+        <div class="album-carousel">
+          ${data.albumFoto.map(createAlbumTemplate).join("")}
+        </div>
+        <button class="carousel-nav next" aria-label="Selanjutnya">&gt;</button>
+      </div>
+    `;
+
+    // Inisialisasi lightGallery untuk setiap album
+    data.albumFoto.forEach((album) => {
+      const cover = document.getElementById(`album-cover-${album.id}`);
+      const gallery = document.getElementById(`lightgallery-${album.id}`);
+
+      const lg = lightGallery(gallery, {
+        plugins: [lgThumbnail],
+        speed: 500,
+        download: false, // Opsional: nonaktifkan tombol download
+        mobileSettings: {
+          controls: true,
+          showCloseIcon: true,
+        },
+      });
+
+      cover.addEventListener("click", () => {
+        lg.openGallery(); // Buka galeri saat cover diklik
+      });
+    });
+
+    const wrapper = albumContainer.querySelector(".album-carousel-wrapper");
+    const carousel = wrapper.querySelector(".album-carousel");
+    const prevBtn = wrapper.querySelector(".prev");
+    const nextBtn = wrapper.querySelector(".next");
+    let autoPlayInterval;
+
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(() => {
+        const firstItem = carousel.querySelector(".album-item");
+        if (!firstItem) return;
+        const scrollAmount = firstItem.offsetWidth + 25;
+        const isAtEnd =
+          carousel.scrollLeft + carousel.clientWidth >=
+          carousel.scrollWidth - 1;
+        if (isAtEnd) {
+          carousel.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      }, 3000);
+    };
+    const stopAutoPlay = () => clearInterval(autoPlayInterval);
+
+    setTimeout(() => {
+      const firstItem = carousel.querySelector(".album-item");
+      if (!firstItem) return;
+      const scrollAmount = firstItem.offsetWidth + 25;
+      nextBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" })
+      );
+      prevBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+      );
+      wrapper.addEventListener("mouseenter", stopAutoPlay);
+      wrapper.addEventListener("mouseleave", startAutoPlay);
+      startAutoPlay();
+    }, 100);
   }
 
   const videoContainer = document.getElementById("video-grid");
@@ -118,7 +180,6 @@ App.initializers.galeri = async () => {
         createVideoTemplate,
         "Gagal memuat video."
       );
-
     const sorter = document.getElementById("video-sorter");
     const updateVideos = () => {
       const sortedData = [...data.dokumentasiVideo].sort((a, b) =>
@@ -128,7 +189,6 @@ App.initializers.galeri = async () => {
       );
       renderVideos(sortedData);
     };
-
     sorter.addEventListener("change", updateVideos);
     updateVideos();
   }
@@ -139,90 +199,35 @@ App.initializers.informasi = async () => {
   const container = document.getElementById("info-list");
   if (!container) return;
 
-  const sorter = document.getElementById("informasi-sorter");
-  const kategoriFilter = document.getElementById("informasi-kategori-filter");
-
-  // Fungsi untuk memetakan 'kategori' dari JSON ke kelas CSS untuk tag
-  const getTagClass = (kategori) => {
-    switch (kategori.toLowerCase()) {
-      case "kutipan":
-        return "tag-penting"; // Merah
-      case "twets":
-        return "tag-pengumuman"; // Biru
-      case "nganu":
-        return "tag-update"; // Hijau
-      default:
-        return "";
-    }
-  };
-
   const createInformasiTemplate = (info) => `
     <div class="info-item animate-on-scroll">
       <div class="info-header">
         <h3>${info.judul}</h3>
-        <span class="info-tag ${getTagClass(info.kategori)}">${
-    info.kategori
-  }</span>
+        <span class="info-tag ${info.tag_class}">${info.tag}</span>
       </div>
-      <p class="info-meta">
-        <i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
-          info.tanggal
-        ).toLocaleDateString("id-ID", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })}
-        ${
-          info.meta_info ? `<span>| <em>${info.meta_info}</em></span>` : ""
-        } </p>
-      <div class="info-body">${info.konten_html}</div>
+      <p class="info-meta"><i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
+        info.tanggal
+      ).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })}</p>
+      <div class="info-body">${info.konten}</div>
     </div>`;
 
-  const dataObject = await App.fetchData("informasi", "data/informasi.json");
-  if (!dataObject || !dataObject.informasi) {
+  const originalData = await App.fetchData("informasi", "data/informasi.json");
+  if (!originalData || originalData.length === 0) {
     container.innerHTML = "<p>Gagal memuat atau tidak ada informasi.</p>";
     return;
   }
-
-  const originalData = dataObject.informasi; // <-- PERBAIKAN 1: Mengakses array 'informasi'
-
-  const updateList = () => {
-    let filteredData = [...originalData];
-
-    // 1. Terapkan Filter Kategori
-    const selectedKategori = kategoriFilter.value;
-    if (selectedKategori !== "semuanya") {
-      filteredData = filteredData.filter(
-        (item) => item.kategori.toLowerCase() === selectedKategori.toLowerCase()
-      );
-    }
-
-    // 2. Terapkan Urutan (Sorting)
-    const sortOrder = sorter.value;
-    filteredData.sort((a, b) =>
-      sortOrder === "terbaru"
-        ? new Date(b.tanggal) - new Date(a.tanggal)
-        : new Date(a.tanggal) - new Date(b.tanggal)
-    );
-
-    // 3. Render hasil ke halaman
-    App.renderItems(
-      container,
-      filteredData,
-      createInformasiTemplate,
-      "<p>Tidak ada informasi yang cocok dengan filter ini.</p>"
-    );
-  };
-
-  // Tambahkan event listener untuk setiap perubahan pada filter atau sorter
-  sorter.addEventListener("change", updateList);
-  kategoriFilter.addEventListener("change", updateList);
-
-  // Muat daftar untuk pertama kali
-  updateList();
+  App.renderItems(
+    container,
+    originalData,
+    createInformasiTemplate,
+    "<p>Tidak ada informasi untuk ditampilkan.</p>"
+  );
 };
 
-// === ABOUT PAGE (STRUKTUR ORGANISASI) ===
 // === ABOUT PAGE (STRUKTUR ORGANISASI) ===
 App.initializers.about = async () => {
   const container = document.getElementById("pohon-organisasi-container");
@@ -249,14 +254,12 @@ App.initializers.about = async () => {
   const ketua = pengurusInti.find((p) => p.jabatan === "Ketua");
   const sisaPengurusInti = pengurusInti.filter((p) => p.jabatan !== "Ketua");
 
-  // Ketua akan menjadi node paling atas dalam struktur
   let chartContent = `<li>${createNode(
     ketua.jabatan,
     ketua.nama,
     ketua.foto
   )}<ul>`;
 
-  // Membuat kelompok untuk sisa pengurus inti sebagai cabang pertama
   let pengurusIntiHtml = '<ul class="anggota-grid">';
   sisaPengurusInti.forEach((p) => {
     pengurusIntiHtml += `<li>${createNode(p.jabatan, p.nama, p.foto)}</li>`;
@@ -266,7 +269,6 @@ App.initializers.about = async () => {
     "Pengurus Inti"
   )}${pengurusIntiHtml}</li>`;
 
-  // Membuat kelompok untuk setiap bidang sebagai cabang berikutnya
   bidang.forEach((b) => {
     let anggotaHtml = '<ul class="anggota-grid">';
     b.anggota.forEach((a) => {
@@ -281,7 +283,6 @@ App.initializers.about = async () => {
   chartContent += `</ul></li>`;
   chart.innerHTML = chartContent;
 
-  // --- KODE KONTROL ZOOM & GESER (PAN) ---
   const zoomInBtn = document.getElementById("zoom-in-btn");
   const zoomOutBtn = document.getElementById("zoom-out-btn");
   const zoomLevelDisplay = document.getElementById("zoom-level");
@@ -324,8 +325,6 @@ App.initializers.about = async () => {
     container.scrollLeft = scrollLeft - walk;
   });
 
-  // --- BARU: MEMBUAT POSISI DI TENGAH SAAT HALAMAN DIBUKA ---
-  // Diberi sedikit jeda untuk memastikan DOM selesai dimuat
   setTimeout(() => {
     const containerWidth = container.offsetWidth;
     const chartWidth = chart.scrollWidth;
