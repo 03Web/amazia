@@ -345,7 +345,7 @@ const App = (() => {
 
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey =
-      params.get("access_key") === "artikel-amazia-kristanto";
+      params.get("access_key") === "nganu-amazia-kristanto";
 
     // Logika baru yang lebih sederhana dan benar:
     // Jika PENGGUNA TIDAK LOGIN dan DIA TIDAK DI HALAMAN INDEX...
