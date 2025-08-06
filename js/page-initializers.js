@@ -407,17 +407,16 @@ App.initializers.artikel = async () => {
 
     document.title = `${title} - Karang Taruna Banjarsari`;
     container.innerHTML = `
-            <div class="artikel-header">
-                <h2>${title}</h2>
-                <div class="artikel-meta-info">
-                    <span><i class="fas fa-calendar-alt"></i> ${date}</span>
-                    <span><i class="fas fa-clock"></i> Estimasi ${readingTime} menit baca</span>
-                </div>
+        <div class="artikel-header">
+            <h2>${title}</h2>
+            <div class="artikel-meta-info">
+                <span><i class="fas fa-calendar-alt"></i> ${date}</span>
+                <span><i class="fas fa-clock"></i> Estimasi ${readingTime} menit baca</span>
             </div>
-            ${doc.querySelector(".slideshow-container")?.outerHTML || ""}
-            <div class="artikel-konten">${contentContainer.innerHTML}</div>
-            <a href="kegiatan.html" class="tombol-kembali"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a>
-        `;
+        </div>
+        <div class="artikel-konten">${contentContainer.innerHTML}</div>
+        <a href="kegiatan.html" class="tombol-kembali"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a>
+    `;
     initSlideshow();
   } catch (error) {
     console.error("Gagal memuat artikel:", error);
