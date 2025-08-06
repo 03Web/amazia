@@ -217,33 +217,86 @@ App.initializers.informasi = async () => {
   const container = document.getElementById("info-list");
   if (!container) return;
 
+  // Mengambil elemen filter dan sorter dari HTML
+  const kategoriFilter = document.getElementById("informasi-kategori-filter");
+  const sorter = document.getElementById("informasi-sorter");
+
+  // Fungsi untuk mengubah kategori menjadi kelas CSS untuk styling
+  const getTagClass = (kategori) => {
+    switch (kategori.toLowerCase()) {
+      case "kutipan":
+        return "tag-pengumuman"; // Biru
+      case "twets": // Nama kategori di JSON adalah "Twets"
+        return "tag-update"; // Hijau
+      case "nganu":
+        return "tag-penting"; // Merah
+      default:
+        return "tag-default"; // Warna default jika ada kategori lain
+    }
+  };
+
   const createInformasiTemplate = (info) => `
     <div class="info-item animate-on-scroll">
       <div class="info-header">
         <h3>${info.judul}</h3>
-        <span class="info-tag ${info.tag_class}">${info.tag}</span>
+        <span class="info-tag ${getTagClass(info.kategori)}">${
+    info.kategori
+  }</span>
       </div>
-      <p class="info-meta"><i class="fas fa-calendar-alt"></i> Diposting pada ${new Date(
-        info.tanggal
-      ).toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })}</p>
-      <div class="info-body">${info.konten}</div>
+      <p class="info-meta">
+        <i class="fas fa-calendar-alt"></i> ${new Date(
+          info.tanggal
+        ).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
+        ${info.meta_info ? `<span>| ${info.meta_info}</span>` : ""}
+      </p>
+      <div class="info-body">${info.konten_html}</div>
     </div>`;
 
-  const originalData = await App.fetchData("informasi", "data/informasi.json");
+  const jsonData = await App.fetchData("informasi", "data/informasi.json");
+  // Mengambil array dari dalam object JSON
+  const originalData = jsonData ? jsonData.informasi : [];
+
   if (!originalData || originalData.length === 0) {
     container.innerHTML = "<p>Gagal memuat atau tidak ada informasi.</p>";
     return;
   }
-  App.renderItems(
-    container,
-    originalData,
-    createInformasiTemplate,
-    "<p>Tidak ada informasi untuk ditampilkan.</p>"
-  );
+
+  const updateList = () => {
+    const selectedKategori = kategoriFilter.value;
+    const sortOrder = sorter.value;
+
+    // 1. Filter data berdasarkan kategori
+    const filteredData =
+      selectedKategori === "semuanya"
+        ? [...originalData]
+        : originalData.filter((item) => item.kategori === selectedKategori);
+
+    // 2. Urutkan data yang sudah difilter
+    const sortedAndFilteredData = filteredData.sort((a, b) => {
+      const dateA = new Date(a.tanggal);
+      const dateB = new Date(b.tanggal);
+      return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
+    });
+
+    // 3. Tampilkan hasilnya
+    App.renderItems(
+      container,
+      sortedAndFilteredData,
+      createInformasiTemplate,
+      "<p>Tidak ada kutipan atau catatan yang cocok.</p>"
+    );
+  };
+
+  // Menambahkan event listener untuk KEDUA dropdown
+  kategoriFilter.addEventListener("change", updateList);
+  sorter.addEventListener("change", updateList);
+
+  // Panggil updateList untuk memuat konten awal
+  updateList();
 };
 
 // === ABOUT PAGE (STRUKTUR ORGANISASI) ===

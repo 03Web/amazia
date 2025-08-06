@@ -89,7 +89,7 @@ const App = (() => {
         btn.disabled = true;
         msg.style.color = "rgb(218 49 49)";
         msg.innerText =
-          "Untuk Blog Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
+          "Untuk Form Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
       } else {
         msg.innerText =
           "Thank! Anda Bisa masuk My Blog Random Thoughts And Everything Else ";
