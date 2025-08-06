@@ -338,7 +338,6 @@ const App = (() => {
   // === MAIN INITIALIZER ===
   const initPage = () => {
     // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
-
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -347,13 +346,18 @@ const App = (() => {
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey = params.get("access_key") === "BACA-ARTIKEL-INI";
 
-    // Logika baru: Izinkan jika salah satu kondisi ini terpenuhi
-    const canAccess = isLoggedIn || isIndexPage || hasAccessKey;
-
-    if (!canAccess) {
-      logoutUser(); // Hanya jalankan logout jika tidak ada izin akses sama sekali
-      return;
+    // Logika baru yang lebih sederhana dan benar:
+    // Jika PENGGUNA TIDAK LOGIN dan DIA TIDAK DI HALAMAN INDEX...
+    if (!isLoggedIn && !isIndexPage) {
+      // ...MAKA KITA CEK APAKAH DIA PUNYA KUNCI AKSES.
+      // Jika TIDAK PUNYA KUNCI AKSES, baru kita usir (logout).
+      if (!hasAccessKey) {
+        logoutUser();
+        return; // Hentikan eksekusi script lebih lanjut
+      }
     }
+    // Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
+    // maka script akan lanjut berjalan seperti biasa.
     // --- AKHIR BLOK KODE PERBAIKAN ---
 
     // Buat dan tambahkan header atas mobile secara dinamis
@@ -371,9 +375,9 @@ const App = (() => {
                     </a>
                 </div>
                 <div class="social-media">
-                     <a href="https://www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                     <a href="https://github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                     <a href="https://x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                     <a href="https.www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                     <a href="https.github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                     <a href="https.x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         `;
