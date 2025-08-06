@@ -337,15 +337,22 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
+    // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-    if (!isLoggedIn && !isIndexPage) {
+    // Cek apakah URL memiliki kunci akses
+    const params = new URLSearchParams(window.location.search);
+    const hasAccessKey = params.get("access_key") === "access-key"; // Anda bisa ganti kata rahasia ini
+
+    // Pengecekan login sekarang akan dilewati jika ada kunci akses di URL
+    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
       logoutUser();
       return;
     }
+    // --- AKHIR BLOK KODE PERBAIKAN ---
 
     // Buat dan tambahkan header atas mobile secara dinamis
     if (!document.querySelector(".mobile-top-header")) {
