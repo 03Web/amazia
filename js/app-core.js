@@ -338,18 +338,20 @@ const App = (() => {
   // === MAIN INITIALIZER ===
   const initPage = () => {
     // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
+
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-    // Cek apakah URL memiliki kunci akses
     const params = new URLSearchParams(window.location.search);
-    const hasAccessKey = params.get("access_key") === "access-key"; // Anda bisa ganti kata rahasia ini
+    const hasAccessKey = params.get("access_key") === "BACA-ARTIKEL-INI";
 
-    // Pengecekan login sekarang akan dilewati jika ada kunci akses di URL
-    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
-      logoutUser();
+    // Logika baru: Izinkan jika salah satu kondisi ini terpenuhi
+    const canAccess = isLoggedIn || isIndexPage || hasAccessKey;
+
+    if (!canAccess) {
+      logoutUser(); // Hanya jalankan logout jika tidak ada izin akses sama sekali
       return;
     }
     // --- AKHIR BLOK KODE PERBAIKAN ---
@@ -379,7 +381,6 @@ const App = (() => {
     }
 
     loadComponent("layout/header.html", "main-header", () => {
-      // Pindahkan navigasi dari header desktop ke dalam elemen nav di body untuk mobile
       const mainHeaderNav = document.querySelector("#main-header nav");
       if (mainHeaderNav && window.innerWidth <= 768) {
         document.querySelector("#main-header").append(mainHeaderNav);
@@ -395,7 +396,6 @@ const App = (() => {
       startInactivityTracker();
     }
 
-    // Tambahkan event listener untuk scroll HANYA di mobile
     if (window.innerWidth <= 768) {
       window.addEventListener("scroll", handleMobileHeaderScroll, {
         passive: true,
@@ -407,7 +407,6 @@ const App = (() => {
       setTimeout(initParticles, 500);
     }
 
-    // Jalankan inisialisasi spesifik halaman
     const pageId = document.body.dataset.pageId;
     if (pageId && typeof App.initializers[pageId] === "function") {
       App.initializers[pageId]();
