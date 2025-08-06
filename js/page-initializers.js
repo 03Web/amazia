@@ -8,6 +8,8 @@ App.initializers.kegiatan = async () => {
   const container = document.getElementById("kegiatan-list");
   if (!container) return;
 
+  // Mengambil elemen filter dan sorter dari HTML
+  const kategoriFilter = document.getElementById("kategori-filter");
   const sorter = document.getElementById("kegiatan-sorter");
 
   const createKegiatanTemplate = (item) => `
@@ -39,22 +41,38 @@ App.initializers.kegiatan = async () => {
     return;
   }
 
+  // Fungsi updateList yang sudah diperbaiki untuk menangani filter dan sort
   const updateList = () => {
+    const selectedKategori = kategoriFilter.value;
     const sortOrder = sorter.value;
-    const sortedData = [...originalData].sort((a, b) =>
+
+    // 1. Filter data berdasarkan kategori yang dipilih
+    const filteredData =
+      selectedKategori === "semuanya"
+        ? [...originalData] // Jika "Semuanya", gunakan semua data
+        : originalData.filter((item) => item.kategori === selectedKategori);
+
+    // 2. Urutkan (sort) data yang sudah difilter
+    const sortedAndFilteredData = filteredData.sort((a, b) =>
       sortOrder === "terbaru"
         ? new Date(b.tanggal) - new Date(a.tanggal)
         : new Date(a.tanggal) - new Date(b.tanggal)
     );
+
+    // 3. Tampilkan hasilnya
     App.renderItems(
       container,
-      sortedData,
+      sortedAndFilteredData,
       createKegiatanTemplate,
-      "<p>Tidak ada kegiatan untuk ditampilkan.</p>"
+      "<p>Tidak ada kegiatan yang cocok dengan kriteria Anda.</p>"
     );
   };
 
+  // Menambahkan event listener untuk KEDUA dropdown
+  kategoriFilter.addEventListener("change", updateList);
   sorter.addEventListener("change", updateList);
+
+  // Panggil updateList saat halaman pertama kali dimuat
   updateList();
 };
 
