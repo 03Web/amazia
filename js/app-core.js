@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.4 (Stable Access Control)
+ * @version 8.2.7 (Final Guest Pass Logic)
  */
 
 const App = (() => {
@@ -16,8 +16,9 @@ const App = (() => {
     lastScrollTop: 0,
   };
 
-  // === KUNCI SESI UNIK UNTUK WEBSITE INI ===
+  // === KUNCI SESI UNIK ===
   const SESSION_KEY = "isAmaziaLoggedIn";
+  const GUEST_PASS_KEY = "amaziaGuestPass"; // Kunci untuk tiket sementara
 
   // === PENGATURAN SESI & INAKTIVITAS ===
   const TIMEOUT_DURATION = 20 * 60 * 1000;
@@ -45,6 +46,7 @@ const App = (() => {
 
   function logoutUser() {
     sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(GUEST_PASS_KEY); // Hapus juga tiket jika ada
     sessionStorage.removeItem("lastActivityTimestamp");
     window.location.href = "index.html";
   }
@@ -310,40 +312,42 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // Reset flag reload jika pengguna menavigasi di dalam situs
-    sessionStorage.removeItem("amaziaPageReloaded");
-
+    // === LOGIKA KONTROL AKSES FINAL ===
     const isLoggedIn = sessionStorage.getItem(SESSION_KEY);
+    const hasGuestPass = sessionStorage.getItem(GUEST_PASS_KEY) === "true";
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
+    const isArticlePage = document.body.dataset.pageId === "artikel";
 
-    const params = new URLSearchParams(window.location.search);
-    const hasAccessKey =
-      params.get("access_key") ===
-      "5895732857248594725894725984579452749857498";
-
-    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
+    // Aturan 1: Jika pengguna ada di halaman artikel dengan tiket, mereka boleh masuk.
+    // Jika mereka pindah ke halaman LAIN (bukan artikel) tapi masih punya tiket,
+    // tiketnya hangus dan mereka dipaksa login.
+    if (hasGuestPass && !isArticlePage) {
+      sessionStorage.removeItem(GUEST_PASS_KEY);
       logoutUser();
       return;
     }
 
-    if (hasAccessKey) {
-      const newUrl =
-        window.location.protocol +
-        "//" +
-        window.location.host +
-        window.location.pathname +
-        `?slug=${params.get("slug")}`;
-      window.history.replaceState({ path: newUrl }, "", newUrl);
+    // Aturan 2: Pengguna akan dipaksa login JIKA SEMUA kondisi ini terpenuhi:
+    // - Mereka BELUM login
+    // - Mereka TIDAK di halaman index
+    // - Mereka TIDAK punya tiket (atau tiketnya sudah hangus oleh Aturan 1)
+    if (!isLoggedIn && !isIndexPage && !hasGuestPass) {
+      logoutUser();
+      return;
     }
 
+    // Jika pengguna sudah login, tiket tidak diperlukan lagi.
     if (isLoggedIn) {
+      sessionStorage.removeItem(GUEST_PASS_KEY);
       startInactivityTracker();
     } else if (isIndexPage) {
+      // Jika belum login dan di halaman index, tampilkan form.
       const overlay = document.getElementById("welcome-overlay");
       if (overlay) overlay.classList.remove("hidden");
     }
+    // === AKHIR LOGIKA KONTROL AKSES ===
 
     if (!document.querySelector(".mobile-top-header")) {
       const mobileHeader = document.createElement("header");
