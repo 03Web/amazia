@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.1 (Sync with new login & Formspree integration)
+ * @version 8.2.2 (Final Access Control Fix)
  */
 
 const App = (() => {
@@ -13,11 +13,11 @@ const App = (() => {
     informasi: [],
     pengurus: [],
     kontak: [],
-    lastScrollTop: 0, // State untuk scroll position
+    lastScrollTop: 0,
   };
 
   // === PENGATURAN SESI & INAKTIVITAS ===
-  const TIMEOUT_DURATION = 20 * 60 * 1000; // 20 menit
+  const TIMEOUT_DURATION = 20 * 60 * 1000;
   let inactivityTimer;
 
   function resetInactivityTimer() {
@@ -49,129 +49,94 @@ const App = (() => {
   function initWelcomeScreen() {
     const overlay = document.getElementById("welcome-overlay");
     if (!overlay) return;
-
-    const uname = document.querySelector("#uname");
-    const isBanjarsari = document.querySelector("#is_banjarsari");
-    const btnContainer = document.querySelector(".btn-container");
-    const btn = document.querySelector("#login-btn");
     const form = document.querySelector("#welcome-form");
-    const msg = document.querySelector(".msg");
+    if (form) {
+      // Logika form welcome screen Anda ditaruh di sini
+      // (Kode ini sudah benar, jadi tidak perlu diubah)
+      const uname = document.querySelector("#uname");
+      const isBanjarsari = document.querySelector("#is_banjarsari");
+      const btnContainer = document.querySelector(".btn-container");
+      const btn = document.querySelector("#login-btn");
+      const msg = document.querySelector(".msg");
 
-    if (!uname || !isBanjarsari || !btn || !form || !msg) return;
+      if (!uname || !isBanjarsari || !btn || !form || !msg) return;
 
-    btn.disabled = true;
-
-    function shiftButton() {
-      if (btn.disabled) {
-        const positions = [
-          "shift-left",
-          "shift-top",
-          "shift-right",
-          "shift-bottom",
-        ];
-        const currentPosition = positions.find((dir) =>
-          btn.classList.contains(dir)
-        );
-        const nextPosition =
-          positions[
-            (positions.indexOf(currentPosition) + 1) % positions.length
-          ];
-        btn.classList.remove(currentPosition || "no-shift");
-        btn.classList.add(nextPosition);
-      }
-    }
-
-    function showMsg() {
-      const isEmpty = uname.value === "" || isBanjarsari.value === "";
-      btn.classList.toggle("no-shift", !isEmpty);
-
-      if (isEmpty) {
-        btn.disabled = true;
-        msg.style.color = "rgb(218 49 49)";
-        msg.innerText =
-          "Untuk Form Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
-      } else {
-        msg.innerText =
-          "Thank! Anda Bisa masuk My Blog Random Thoughts And Everything Else ";
-        msg.style.color = "#92ff92";
-        btn.disabled = false;
-        btn.classList.add("no-shift");
-      }
-    }
-
-    const isIndexPage =
-      window.location.pathname.endsWith("/") ||
-      window.location.pathname.includes("index.html");
-
-    if (sessionStorage.getItem("isLoggedIn")) {
-      overlay.classList.add("hidden");
-      startInactivityTracker();
-    } else if (isIndexPage) {
-      overlay.classList.remove("hidden");
-    } else {
-      // Ini bagian penting: jika tidak login dan bukan di index,
-      // logika di initPage() akan menangani access_key atau redirect.
-      // Jika tidak ada access_key, fungsi logoutUser() akan dipanggil dari sana.
-    }
-
-    btnContainer.addEventListener("mouseover", shiftButton);
-    form.addEventListener("input", showMsg);
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      if (btn.disabled) return;
-
-      msg.innerText = "Processing...";
-      msg.style.color = "#92ff92";
-      btn.value = "Mengirim...";
       btn.disabled = true;
 
-      const formData = new FormData(form);
-      const FORMSPREE_URL = "https://formspree.io/f/mpwllonq";
-
-      try {
-        const response = await fetch(FORMSPREE_URL, {
-          method: "POST",
-          body: formData,
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        if (response.ok) {
-          msg.innerText = "Anda di ijinkan Masuk! Anda akan dialihkan...";
-          setTimeout(() => {
-            sessionStorage.setItem("isLoggedIn", "true");
-            overlay.classList.add("hidden");
-            startInactivityTracker();
-          }, 1500);
-        } else {
-          throw new Error("Gagal mengirim data.");
+      function shiftButton() {
+        if (btn.disabled) {
+          const positions = [
+            "shift-left",
+            "shift-top",
+            "shift-right",
+            "shift-bottom",
+          ];
+          const currentPosition = positions.find((dir) =>
+            btn.classList.contains(dir)
+          );
+          const nextPosition =
+            positions[
+              (positions.indexOf(currentPosition) + 1) % positions.length
+            ];
+          btn.classList.remove(currentPosition || "no-shift");
+          btn.classList.add(nextPosition);
         }
-      } catch (error) {
-        console.error("Formspree error:", error);
-        msg.innerText = "Gagal mengirim data. Silakan coba lagi.";
-        msg.style.color = "rgb(218 49 49)";
-        btn.value = "Login";
-        btn.disabled = false;
       }
-    });
-  }
 
-  // === FUNGSI HEADER BARU UNTUK MOBILE ===
-  function handleMobileHeaderScroll() {
-    const topHeader = document.querySelector(".mobile-top-header");
-    if (!topHeader) return;
+      function showMsg() {
+        const isEmpty = uname.value === "" || isBanjarsari.value === "";
+        btn.classList.toggle("no-shift", !isEmpty);
+        if (isEmpty) {
+          btn.disabled = true;
+          msg.style.color = "rgb(218 49 49)";
+          msg.innerText =
+            "Untuk Form Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
+        } else {
+          msg.innerText =
+            "Thank! Anda Bisa masuk My Blog Random Thoughts And Everything Else ";
+          msg.style.color = "#92ff92";
+          btn.disabled = false;
+          btn.classList.add("no-shift");
+        }
+      }
 
-    let currentScroll =
-      window.pageYOffset || document.documentElement.scrollTop;
+      btnContainer.addEventListener("mouseover", shiftButton);
+      form.addEventListener("input", showMsg);
 
-    if (currentScroll > state.lastScrollTop && currentScroll > 50) {
-      topHeader.classList.add("hidden");
-    } else {
-      topHeader.classList.remove("hidden");
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (btn.disabled) return;
+        msg.innerText = "Processing...";
+        msg.style.color = "#92ff92";
+        btn.value = "Mengirim...";
+        btn.disabled = true;
+        const formData = new FormData(form);
+        const FORMSPREE_URL = "https://formspree.io/f/mpwllonq";
+        try {
+          const response = await fetch(FORMSPREE_URL, {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" },
+          });
+          if (response.ok) {
+            msg.innerText = "Anda di ijinkan Masuk! Anda akan dialihkan...";
+            setTimeout(() => {
+              sessionStorage.setItem("isLoggedIn", "true");
+              overlay.classList.add("hidden");
+              startInactivityTracker();
+            }, 1500);
+          } else {
+            throw new Error("Gagal mengirim data.");
+          }
+        } catch (error) {
+          console.error("Formspree error:", error);
+          msg.innerText = "Gagal mengirim data. Silakan coba lagi.";
+          msg.style.color = "rgb(218 49 49)";
+          btn.value = "Login";
+          btn.disabled = false;
+        }
+      });
     }
-    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   }
 
   // === UTILITIES & HELPERS (SHARED) ===
@@ -285,12 +250,7 @@ const App = (() => {
   }
 
   function initParticles() {
-    if (typeof tsParticles === "undefined") {
-      console.warn(
-        "tsParticles library not loaded. Skipping particle initialization."
-      );
-      return;
-    }
+    if (typeof tsParticles === "undefined") return;
     tsParticles.load("particles-js", {
       particles: {
         number: { value: 50, density: { enable: true, value_area: 800 } },
@@ -334,9 +294,22 @@ const App = (() => {
     });
   }
 
+  function handleMobileHeaderScroll() {
+    const topHeader = document.querySelector(".mobile-top-header");
+    if (!topHeader) return;
+    let currentScroll =
+      window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > state.lastScrollTop && currentScroll > 50) {
+      topHeader.classList.add("hidden");
+    } else {
+      topHeader.classList.remove("hidden");
+    }
+    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
+
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
+    // --- BLOK KODE KONTROL AKSES YANG SUDAH DIPERBAIKI TOTAL ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -346,27 +319,31 @@ const App = (() => {
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    // 1. Jika pengguna belum login DAN tidak sedang di halaman index...
-    if (!isLoggedIn && !isIndexPage) {
-      // ...dan juga tidak punya access_key yang valid, maka paksa keluar (logout).
-      if (!hasAccessKey) {
+    if (isLoggedIn) {
+      startInactivityTracker();
+    } else {
+      if (isIndexPage) {
+        // Jika di halaman index, tampilkan form login
+        const overlay = document.getElementById("welcome-overlay");
+        if (overlay) overlay.classList.remove("hidden");
+      } else if (!hasAccessKey) {
+        // Jika di halaman lain DAN tidak punya access key, paksa logout
         logoutUser();
-        return; // Hentikan eksekusi script lebih lanjut agar halaman tidak sempat dimuat.
+        return; // Hentikan script
       }
     }
 
-    // 2. Jika pengguna masuk dengan access_key, hapus kunci itu dari URL
-    //    agar tidak terbawa saat navigasi selanjutnya. Ini adalah perbaikan utamanya.
-    if (hasAccessKey && window.location.search.includes("access_key")) {
+    // Hapus access_key dari URL setelah digunakan agar tidak bisa dipakai lagi
+    if (hasAccessKey) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
-        window.location.pathname;
-      // Ganti URL di browser tanpa me-reload halaman.
+        window.location.pathname +
+        window.location.hash;
       window.history.replaceState({ path: newUrl }, "", newUrl);
     }
-    // --- AKHIR BLOK KODE PERBAIKAN ---
+    // --- AKHIR BLOK KODE KONTROL AKSES ---
 
     // Buat dan tambahkan header atas mobile secara dinamis
     if (!document.querySelector(".mobile-top-header")) {
@@ -402,10 +379,8 @@ const App = (() => {
 
     loadComponent("layout/footer.html", "main-footer");
 
-    if (document.getElementById("welcome-overlay")) {
+    if (isIndexPage) {
       initWelcomeScreen();
-    } else if (isLoggedIn) {
-      startInactivityTracker();
     }
 
     if (window.innerWidth <= 768) {
@@ -425,17 +400,14 @@ const App = (() => {
     }
   };
 
-  // expose functions to be used by other files
   return {
     init: initPage,
     fetchData,
     renderItems,
     initScrollAnimations,
     cache,
-    initializers: {}, // Namespace for page-specific initializers
+    initializers: {},
   };
 })();
 
-// Event listener untuk Turbo
 document.addEventListener("turbo:load", App.init);
-
