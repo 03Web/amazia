@@ -345,8 +345,8 @@ const App = (() => {
 
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey =
-      params.get("access_key") === "5895732857248594725894725984579452749857498";
-
+    params.get("access_key") === "5895732857248594725894725984579452749857498";
+    
     // Logika baru yang lebih sederhana dan benar:
     // Jika PENGGUNA TIDAK LOGIN dan DIA TIDAK DI HALAMAN INDEX...
     if (!isLoggedIn && !isIndexPage) {
