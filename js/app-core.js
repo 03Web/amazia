@@ -338,7 +338,6 @@ const App = (() => {
   // === MAIN INITIALIZER ===
   const initPage = () => {
     // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
-    // --- LOGIKA PENGENDALIAN AKSES YANG LEBIH ROBUST ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -348,32 +347,26 @@ const App = (() => {
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    // Jika pengguna tidak login DAN bukan di halaman index, kita periksa izinnya.
+    // 1. Jika pengguna belum login dan tidak berada di halaman index...
     if (!isLoggedIn && !isIndexPage) {
-      // Izinkan akses jika ada access_key di URL saat ini.
-      // Jika tidak ada access_key, paksa logout.
+      // ...dan juga tidak punya access_key yang valid, maka paksa keluar.
       if (!hasAccessKey) {
         logoutUser();
-        return;
+        return; // Hentikan eksekusi script lebih lanjut
       }
     }
 
-    // Jika pengguna memiliki access_key TAPI belum login, kita ingin access_key ini tidak dibawa ke halaman lain.
-    // Kita akan hapus access_key dari URL setelah halaman dimuat untuk mencegah navigasi bebas.
-    if (
-      !isLoggedIn &&
-      hasAccessKey &&
-      window.location.search.includes("access_key")
-    ) {
+    // 2. Jika pengguna masuk dengan access_key, hapus kunci itu dari URL
+    //    agar tidak terbawa saat navigasi selanjutnya.
+    if (hasAccessKey && window.location.search.includes("access_key")) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
         window.location.pathname;
-      window.history.replaceState({}, document.title, newUrl);
+      // Ganti URL di browser tanpa me-reload halaman
+      window.history.replaceState({ path: newUrl }, "", newUrl);
     }
-    // --- AKHIR LOGIKA PENGENDALIAN AKSES ROBUST ---Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
-    // maka script akan lanjut berjalan seperti biasa.
     // --- AKHIR BLOK KODE PERBAIKAN ---
 
     // Buat dan tambahkan header atas mobile secara dinamis
@@ -391,9 +384,9 @@ const App = (() => {
                     </a>
                 </div>
                 <div class="social-media">
-                     <a href="https.www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                     <a href="https.github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                     <a href="https.x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                     <a href="https://www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                     <a href="https://github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                     <a href="https://x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         `;
