@@ -1,25 +1,8 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.6 (Forced Reload for Cross-Site Access)
+ * @version 8.2.4 (Stable Access Control)
  */
-
-// --- FUNGSI RELOAD OTOMATIS (DITARUH DI PALING ATAS) ---
-(() => {
-  const params = new URLSearchParams(window.location.search);
-  const hasAccessKey =
-    params.get("access_key") === "5895732857248594725894725984579452749857498";
-  const hasBeenReloaded = sessionStorage.getItem("amaziaPageReloaded");
-
-  if (hasAccessKey && !hasBeenReloaded) {
-    sessionStorage.setItem("amaziaPageReloaded", "true");
-    window.location.reload();
-  } else if (!hasAccessKey) {
-    // Reset flag jika pengguna sudah bernavigasi normal di dalam web
-    sessionStorage.removeItem("amaziaPageReloaded");
-  }
-})();
-// --- AKHIR FUNGSI RELOAD ---
 
 const App = (() => {
   // === STATE & CACHE ===
@@ -326,10 +309,9 @@ const App = (() => {
   }
 
   // === MAIN INITIALIZER ===
-  const initPage = (event) => {
-    if (event && event.detail && event.detail.action === "restore") {
-      return;
-    }
+  const initPage = () => {
+    // Reset flag reload jika pengguna menavigasi di dalam situs
+    sessionStorage.removeItem("amaziaPageReloaded");
 
     const isLoggedIn = sessionStorage.getItem(SESSION_KEY);
     const isIndexPage =
@@ -427,4 +409,4 @@ const App = (() => {
   };
 })();
 
-document.addEventListener("turbo:load", (event) => App.init(event));
+document.addEventListener("turbo:load", App.init);

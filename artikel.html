@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="foto/logoneutronltrblkhitam.png" />
     <title>Memuat Artikel... - Reading</title>
+
+    <script>
+      (() => {
+        const params = new URLSearchParams(window.location.search);
+        const hasAccessKey =
+          params.get("access_key") ===
+          "5895732857248594725894725984579452749857498";
+        const hasBeenReloaded = sessionStorage.getItem("amaziaPageReloaded");
+
+        if (hasAccessKey && !hasBeenReloaded) {
+          sessionStorage.setItem("amaziaPageReloaded", "true");
+          // Ganti URL agar tidak mengandung access_key saat reload
+          const newUrl =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            window.location.pathname +
+            `?slug=${params.get("slug")}`;
+          window.location.href = newUrl; // Lakukan reload ke URL yang bersih
+        }
+      })();
+    </script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
