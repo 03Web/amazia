@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.2 (Final Access Control Fix)
+ * @version 8.2.3 (Final Access Control & Duplication Fix)
  */
 
 const App = (() => {
@@ -51,8 +51,6 @@ const App = (() => {
     if (!overlay) return;
     const form = document.querySelector("#welcome-form");
     if (form) {
-      // Logika form welcome screen Anda ditaruh di sini
-      // (Kode ini sudah benar, jadi tidak perlu diubah)
       const uname = document.querySelector("#uname");
       const isBanjarsari = document.querySelector("#is_banjarsari");
       const btnContainer = document.querySelector(".btn-container");
@@ -309,7 +307,7 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- BLOK KODE KONTROL AKSES YANG SUDAH DIPERBAIKI TOTAL ---
+    // --- KODE KONTROL AKSES FINAL ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -319,31 +317,32 @@ const App = (() => {
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    if (isLoggedIn) {
-      startInactivityTracker();
-    } else {
+    if (!isLoggedIn) {
       if (isIndexPage) {
-        // Jika di halaman index, tampilkan form login
+        // Pengguna di halaman index dan belum login, tampilkan form.
         const overlay = document.getElementById("welcome-overlay");
         if (overlay) overlay.classList.remove("hidden");
       } else if (!hasAccessKey) {
-        // Jika di halaman lain DAN tidak punya access key, paksa logout
+        // Pengguna di halaman lain dan tidak punya kunci, paksa kembali ke index.
         logoutUser();
-        return; // Hentikan script
+        return; // Hentikan eksekusi script.
       }
     }
 
-    // Hapus access_key dari URL setelah digunakan agar tidak bisa dipakai lagi
+    // Jika pengguna punya kunci akses, segera hapus dari URL.
     if (hasAccessKey) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
-        window.location.pathname +
-        window.location.hash;
-      window.history.replaceState({ path: newUrl }, "", newUrl);
+        window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
     }
-    // --- AKHIR BLOK KODE KONTROL AKSES ---
+
+    if (isLoggedIn) {
+      startInactivityTracker();
+    }
+    // --- AKHIR KODE KONTROL AKSES ---
 
     // Buat dan tambahkan header atas mobile secara dinamis
     if (!document.querySelector(".mobile-top-header")) {
@@ -354,7 +353,7 @@ const App = (() => {
                 <div class="logo">
                     <a href="index.html">
                         <img src="foto/logoneutrontransparan.png" alt="Logo The Great Apes" />
-                        <div class="logo-text">
+                        <div class.logo-text">
                             <h1>The Great Apes</h1>
                         </div>
                     </a>
@@ -379,7 +378,7 @@ const App = (() => {
 
     loadComponent("layout/footer.html", "main-footer");
 
-    if (isIndexPage) {
+    if (document.getElementById("welcome-overlay")) {
       initWelcomeScreen();
     }
 
