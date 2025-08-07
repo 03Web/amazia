@@ -438,3 +438,4 @@ const App = (() => {
 
 // Event listener untuk Turbo
 document.addEventListener("turbo:load", App.init);
+
