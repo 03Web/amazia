@@ -1,411 +1,380 @@
 /**
- * @file app-core.js
- * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.4 (Fixed Cross-Site Session Conflict)
+ * @file page-initializers.js
+ * @description Inisialisasi spesifik untuk setiap halaman Amazia.
+ * @version 1.1.0 (Fix for Turbo race condition causing duplicate content)
  */
 
-const App = (() => {
-  // === STATE & CACHE ===
-  const cache = new Map();
-  const state = {
-    kegiatan: [],
-    galeri: {},
-    informasi: [],
-    pengurus: [],
-    kontak: [],
-    lastScrollTop: 0,
-  };
+// === KEGIATAN PAGE ===
+App.initializers.kegiatan = async () => {
+  const container = document.getElementById("kegiatan-list");
+  if (!container) return;
 
-  // === KUNCI SESI UNIK UNTUK WEBSITE INI ===
-  const SESSION_KEY = "isAmaziaLoggedIn";
+  const kategoriFilter = document.getElementById("kategori-filter");
+  const sorter = document.getElementById("kegiatan-sorter");
 
-  // === PENGATURAN SESI & INAKTIVITAS ===
-  const TIMEOUT_DURATION = 20 * 60 * 1000;
-  let inactivityTimer;
+  const createKegiatanTemplate = (item) => `
+    <article class="kegiatan-item animate-on-scroll" data-tanggal="${
+      item.tanggal
+    }">
+      <div class="kegiatan-foto">
+        <img src="${item.gambar}" alt="Gambar untuk ${
+    item.judul
+  }" loading="lazy">
+      </div>
+      <div class="kegiatan-konten">
+        <h3>${item.judul}</h3>
+        <p class="kegiatan-meta"><i class="fas fa-calendar-alt"></i> ${new Date(
+          item.tanggal
+        ).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}</p>
+        <p>${item.deskripsi}</p>
+        <a href="${item.link}" class="kegiatan-tombol">Baca Selengkapnya</a>
+      </div>
+    </article>`;
 
-  function resetInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(logoutUser, TIMEOUT_DURATION);
-    sessionStorage.setItem("lastActivityTimestamp", Date.now());
+  const originalData = await App.fetchData("kegiatan", "data/kegiatan.json");
+  if (!originalData) {
+    container.innerHTML = "<p>Gagal memuat daftar kegiatan.</p>";
+    return;
   }
 
-  function startInactivityTracker() {
-    const events = [
-      "mousemove",
-      "mousedown",
-      "keypress",
-      "scroll",
-      "touchstart",
-    ];
-    events.forEach((event) => {
-      window.addEventListener(event, resetInactivityTimer, { passive: true });
-    });
-    resetInactivityTimer();
-  }
+  const updateList = () => {
+    const selectedKategori = kategoriFilter.value;
+    const sortOrder = sorter.value;
 
-  function logoutUser() {
-    sessionStorage.removeItem(SESSION_KEY); // Diubah
-    sessionStorage.removeItem("lastActivityTimestamp");
-    window.location.href = "index.html";
-  }
+    const filteredData =
+      selectedKategori === "semuanya"
+        ? [...originalData]
+        : originalData.filter((item) => item.kategori === selectedKategori);
 
-  function initWelcomeScreen() {
-    const overlay = document.getElementById("welcome-overlay");
-    if (!overlay) return;
-    const form = document.querySelector("#welcome-form");
-    if (form) {
-      const uname = document.querySelector("#uname");
-      const isBanjarsari = document.querySelector("#is_banjarsari");
-      const btnContainer = document.querySelector(".btn-container");
-      const btn = document.querySelector("#login-btn");
-      const msg = document.querySelector(".msg");
-
-      if (!uname || !isBanjarsari || !btn || !form || !msg) return;
-
-      btn.disabled = true;
-
-      function shiftButton() {
-        if (btn.disabled) {
-          const positions = [
-            "shift-left",
-            "shift-top",
-            "shift-right",
-            "shift-bottom",
-          ];
-          const currentPosition = positions.find((dir) =>
-            btn.classList.contains(dir)
-          );
-          const nextPosition =
-            positions[
-              (positions.indexOf(currentPosition) + 1) % positions.length
-            ];
-          btn.classList.remove(currentPosition || "no-shift");
-          btn.classList.add(nextPosition);
-        }
-      }
-
-      function showMsg() {
-        const isEmpty = uname.value === "" || isBanjarsari.value === "";
-        btn.classList.toggle("no-shift", !isEmpty);
-        if (isEmpty) {
-          btn.disabled = true;
-          msg.style.color = "rgb(218 49 49)";
-          msg.innerText =
-            "Untuk Form Pastikan Semua Terisi⚠! Terserah Mau di Isi Apa Saja Bebas.";
-        } else {
-          msg.innerText =
-            "Thank! Anda Bisa masuk My Blog Random Thoughts And Everything Else ";
-          msg.style.color = "#92ff92";
-          btn.disabled = false;
-          btn.classList.add("no-shift");
-        }
-      }
-
-      btnContainer.addEventListener("mouseover", shiftButton);
-      form.addEventListener("input", showMsg);
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        if (btn.disabled) return;
-        msg.innerText = "Processing...";
-        msg.style.color = "#92ff92";
-        btn.value = "Mengirim...";
-        btn.disabled = true;
-        const formData = new FormData(form);
-        const FORMSPREE_URL = "https://formspree.io/f/mpwllonq";
-        try {
-          const response = await fetch(FORMSPREE_URL, {
-            method: "POST",
-            body: formData,
-            headers: { Accept: "application/json" },
-          });
-          if (response.ok) {
-            msg.innerText = "Anda di ijinkan Masuk! Anda akan dialihkan...";
-            setTimeout(() => {
-              sessionStorage.setItem(SESSION_KEY, "true"); // Diubah
-              overlay.classList.add("hidden");
-              startInactivityTracker();
-            }, 1500);
-          } else {
-            throw new Error("Gagal mengirim data.");
-          }
-        } catch (error) {
-          console.error("Formspree error:", error);
-          msg.innerText = "Gagal mengirim data. Silakan coba lagi.";
-          msg.style.color = "rgb(218 49 49)";
-          btn.value = "Login";
-          btn.disabled = false;
-        }
-      });
-    }
-  }
-
-  // === UTILITIES & HELPERS (SHARED) ===
-  const loadComponent = async (url, elementId, callback) => {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-    try {
-      if (cache.has(url)) {
-        element.innerHTML = cache.get(url);
-      } else {
-        const response = await fetch(url);
-        if (!response.ok)
-          throw new Error(`Gagal memuat ${url}: Status ${response.status}`);
-        const content = await response.text();
-        cache.set(url, content);
-        element.innerHTML = content;
-      }
-      if (callback) callback();
-    } catch (error) {
-      console.error(error);
-      element.innerHTML = `<p style="color: red; text-align: center;">Gagal memuat komponen.</p>`;
-    }
-  };
-
-  const fetchData = async (key, url) => {
-    if (
-      state[key] &&
-      (state[key].length > 0 || Object.keys(state[key]).length > 0)
-    ) {
-      return state[key];
-    }
-    try {
-      if (cache.has(url)) {
-        state[key] = cache.get(url);
-        return state[key];
-      }
-      const response = await fetch(url);
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-      cache.set(url, data);
-      state[key] = data;
-      return data;
-    } catch (error) {
-      console.error(`Gagal memuat data dari ${url}:`, error);
-      return null;
-    }
-  };
-
-  const renderItems = (container, items, templateFn, errorMessage) => {
-    if (!container) return;
-    if (!items || items.length === 0) {
-      container.innerHTML = `<p>${errorMessage}</p>`;
-      return;
-    }
-    const fragment = document.createDocumentFragment();
-    items.forEach((item) => {
-      const element = document.createElement("div");
-      element.innerHTML = templateFn(item);
-      while (element.firstChild) {
-        fragment.appendChild(element.firstChild);
-      }
-    });
-    container.innerHTML = "";
-    container.appendChild(fragment);
-    initScrollAnimations();
-  };
-
-  const initScrollAnimations = () => {
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
+    const sortedAndFilteredData = filteredData.sort((a, b) =>
+      sortOrder === "terbaru"
+        ? new Date(b.tanggal) - new Date(a.tanggal)
+        : new Date(a.tanggal) - new Date(b.tanggal)
     );
-    document
-      .querySelectorAll(".animate-on-scroll:not(.visible)")
-      .forEach((el) => observer.observe(el));
+
+    App.renderItems(
+      container,
+      sortedAndFilteredData,
+      createKegiatanTemplate,
+      "<p>Tidak ada kegiatan yang cocok dengan kriteria Anda.</p>"
+    );
   };
 
-  function setActiveNavLink() {
-    const currentLocation =
-      window.location.pathname.split("/").pop() || "index.html";
-    const navContainer = document.querySelector("nav ul");
-    if (!navContainer) return;
-    let activeLinkElement = null;
-    navContainer.querySelectorAll("a").forEach((link) => {
-      const parentLi = link.parentElement;
-      const linkPath = link.getAttribute("href");
-      parentLi.classList.remove("active");
-      const isCurrentPage = linkPath === currentLocation;
-      const isArtikelPageAndKegiatanLink =
-        currentLocation === "artikel.html" && linkPath === "kegiatan.html";
-      if (isCurrentPage || isArtikelPageAndKegiatanLink) {
-        parentLi.classList.add("active");
-        activeLinkElement = parentLi;
-      }
-    });
-    if (activeLinkElement && window.innerWidth <= 768) {
-      const scrollLeftPosition =
-        activeLinkElement.offsetLeft -
-        navContainer.offsetWidth / 2 +
-        activeLinkElement.offsetWidth / 2;
-      navContainer.scrollTo({ left: scrollLeftPosition, behavior: "smooth" });
-    }
-  }
+  kategoriFilter.addEventListener("change", updateList);
+  sorter.addEventListener("change", updateList);
+  updateList();
+};
 
-  function initParticles() {
-    if (typeof tsParticles === "undefined") return;
-    tsParticles.load("particles-js", {
-      particles: {
-        number: { value: 50, density: { enable: true, value_area: 800 } },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: {
-          value: 0.4,
-          random: true,
-          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false },
-        },
-        size: { value: 2, random: true },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#ffffff",
-          opacity: 0.2,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: "none",
-          random: false,
-          straight: false,
-          out_mode: "out",
-        },
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" },
-          resize: true,
-        },
-        modes: {
-          repulse: { distance: 100, duration: 0.4 },
-          push: { particles_nb: 4 },
-        },
-      },
-      retina_detect: true,
-    });
-  }
+// === GALERI PAGE (USING LIGHTGALLERY) ===
+App.initializers.galeri = async () => {
+  const data = await App.fetchData("galeri", "data/galeri.json");
+  if (!data) return;
 
-  function handleMobileHeaderScroll() {
-    const topHeader = document.querySelector(".mobile-top-header");
-    if (!topHeader) return;
-    let currentScroll =
-      window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScroll > state.lastScrollTop && currentScroll > 50) {
-      topHeader.classList.add("hidden");
-    } else {
-      topHeader.classList.remove("hidden");
-    }
-    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-  }
-
-  // === MAIN INITIALIZER ===
-  const initPage = () => {
-    // --- KODE KONTROL AKSES YANG DIPERBAIKI ---
-    const isLoggedIn = sessionStorage.getItem(SESSION_KEY); // Diubah
-    const isIndexPage =
-      window.location.pathname.endsWith("/") ||
-      window.location.pathname.includes("index.html");
-
-    const params = new URLSearchParams(window.location.search);
-    const hasAccessKey =
-      params.get("access_key") ===
-      "5895732857248594725894725984579452749857498";
-
-    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
-      logoutUser();
-      return;
-    }
-
-    if (hasAccessKey) {
-      const newUrl =
-        window.location.protocol +
-        "//" +
-        window.location.host +
-        window.location.pathname +
-        `?slug=${params.get("slug")}`;
-      window.history.replaceState({ path: newUrl }, "", newUrl);
-    }
-
-    if (isLoggedIn) {
-      startInactivityTracker();
-    } else if (isIndexPage) {
-      const overlay = document.getElementById("welcome-overlay");
-      if (overlay) overlay.classList.remove("hidden");
-    }
-    // --- AKHIR KODE KONTROL AKSES ---
-
-    if (!document.querySelector(".mobile-top-header")) {
-      const mobileHeader = document.createElement("header");
-      mobileHeader.className = "mobile-top-header";
-      mobileHeader.innerHTML = `
-            <div class="mobile-header-container">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="foto/logoneutrontransparan.png" alt="Logo The Great Apes" />
-                        <div class.logo-text">
-                            <h1>The Great Apes</h1>
-                        </div>
-                    </a>
-                </div>
-                <div class="social-media">
-                     <a href="https://www.instagram.com/kartarbanjarr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                     <a href="https://github.com/username-anda" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                     <a href="https://x.com/AmaziaKristanto" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
+  const albumContainer = document.getElementById("album-grid");
+  if (albumContainer && data.albumFoto) {
+    const createAlbumTemplate = (album) => `
+    <div class="album-item">
+        <div class="album-cover" id="album-cover-${album.id}">
+            <img src="${album.cover}" alt="Cover album ${
+      album.judul
+    }" loading="lazy">
+            <div class="album-info"><h4>${album.judul}</h4><p>${
+      album.deskripsi
+    }</p></div>
+            <div class="click-hint-animated">
+                <i class="fas fa-hand-pointer"></i>
+                <span>Buka Galeri</span>
             </div>
-        `;
-      document.body.prepend(mobileHeader);
-    }
+        </div>
+        <div id="lightgallery-${album.id}" style="display:none;">
+            ${album.foto
+              .map(
+                (foto) =>
+                  `<a href="${foto.src}" data-sub-html="<h4>${
+                    foto.title || album.judul
+                  }</h4>">
+                      <img src="${foto.src}" />
+                  </a>`
+              )
+              .join("")}
+        </div>
+    </div>`;
 
-    loadComponent("layout/header.html", "main-header", () => {
-      const mainHeaderNav = document.querySelector("#main-header nav");
-      if (mainHeaderNav && window.innerWidth <= 768) {
-        document.querySelector("#main-header").append(mainHeaderNav);
-      }
-      setActiveNavLink();
+    albumContainer.innerHTML = `
+      <div class="album-carousel-wrapper">
+        <button class="carousel-nav prev" aria-label="Sebelumnya">&lt;</button>
+        <div class="album-carousel">
+          ${data.albumFoto.map(createAlbumTemplate).join("")}
+        </div>
+        <button class="carousel-nav next" aria-label="Selanjutnya">&gt;</button>
+      </div>
+    `;
+
+    data.albumFoto.forEach((album) => {
+      const cover = document.getElementById(`album-cover-${album.id}`);
+      const gallery = document.getElementById(`lightgallery-${album.id}`);
+
+      const lg = lightGallery(gallery, {
+        plugins: [lgThumbnail],
+        speed: 500,
+        download: false,
+        mobileSettings: {
+          controls: true,
+          showCloseIcon: true,
+        },
+      });
+
+      cover.addEventListener("click", () => {
+        lg.openGallery();
+      });
     });
 
-    loadComponent("layout/footer.html", "main-footer");
+    const wrapper = albumContainer.querySelector(".album-carousel-wrapper");
+    const carousel = wrapper.querySelector(".album-carousel");
+    const prevBtn = wrapper.querySelector(".prev");
+    const nextBtn = wrapper.querySelector(".next");
+    let autoPlayInterval;
 
-    if (document.getElementById("welcome-overlay")) {
-      initWelcomeScreen();
-    }
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(() => {
+        const firstItem = carousel.querySelector(".album-item");
+        if (!firstItem) return;
+        const scrollAmount = firstItem.offsetWidth + 25;
+        const isAtEnd =
+          carousel.scrollLeft + carousel.clientWidth >=
+          carousel.scrollWidth - 1;
+        if (isAtEnd) {
+          carousel.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      }, 3000);
+    };
+    const stopAutoPlay = () => clearInterval(autoPlayInterval);
 
-    if (window.innerWidth <= 768) {
-      window.addEventListener("scroll", handleMobileHeaderScroll, {
-        passive: true,
-      });
-    }
+    setTimeout(() => {
+      const firstItem = carousel.querySelector(".album-item");
+      if (!firstItem) return;
+      const scrollAmount = firstItem.offsetWidth + 25;
+      nextBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" })
+      );
+      prevBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+      );
+      wrapper.addEventListener("mouseenter", stopAutoPlay);
+      wrapper.addEventListener("mouseleave", startAutoPlay);
+      startAutoPlay();
+    }, 100);
+  }
 
-    initScrollAnimations();
-    if (document.getElementById("particles-js")) {
-      setTimeout(initParticles, 500);
-    }
+  const videoContainer = document.getElementById("video-grid");
+  if (videoContainer && data.dokumentasiVideo) {
+    const createVideoTemplate = (video) => `
+        <div class="gallery-item video-item animate-on-scroll" data-tanggal="${
+          video.tanggal
+        }">
+            <iframe src="${video.src.replace("watch?v=", "embed/")}" title="${
+      video.title
+    }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>`;
+    const renderVideos = (items) =>
+      App.renderItems(
+        videoContainer,
+        items,
+        createVideoTemplate,
+        "Gagal memuat video."
+      );
+    const sorter = document.getElementById("video-sorter");
+    const updateVideos = () => {
+      const sortedData = [...data.dokumentasiVideo].sort((a, b) =>
+        sorter.value === "terbaru"
+          ? new Date(b.tanggal) - new Date(a.tanggal)
+          : new Date(a.tanggal) - new Date(b.tanggal)
+      );
+      renderVideos(sortedData);
+    };
+    sorter.addEventListener("change", updateVideos);
+    updateVideos();
+  }
+};
 
-    const pageId = document.body.dataset.pageId;
-    if (pageId && typeof App.initializers[pageId] === "function") {
-      App.initializers[pageId]();
+// === INFORMASI PAGE ===
+App.initializers.informasi = async () => {
+  const container = document.getElementById("info-list");
+  if (!container) return;
+
+  const kategoriFilter = document.getElementById("informasi-kategori-filter");
+  const sorter = document.getElementById("informasi-sorter");
+
+  const getTagClass = (kategori) => {
+    switch (kategori.toLowerCase()) {
+      case "kutipan":
+        return "tag-pengumuman";
+      case "twets":
+        return "tag-update";
+      case "nganu":
+        return "tag-penting";
+      default:
+        return "tag-default";
     }
   };
 
-  return {
-    init: initPage,
-    fetchData,
-    renderItems,
-    initScrollAnimations,
-    cache,
-    initializers: {},
-  };
-})();
+  const createInformasiTemplate = (info) => `
+    <div class="info-item animate-on-scroll">
+      <div class="info-header">
+        <h3>${info.judul}</h3>
+        <span class="info-tag ${getTagClass(info.kategori)}">${
+    info.kategori
+  }</span>
+      </div>
+      <p class="info-meta">
+        <i class="fas fa-calendar-alt"></i> ${new Date(
+          info.tanggal
+        ).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
+        ${info.meta_info ? `<span>| ${info.meta_info}</span>` : ""}
+      </p>
+      <div class="info-body">${info.konten_html}</div>
+    </div>`;
 
-document.addEventListener("turbo:load", App.init);
+  const jsonData = await App.fetchData("informasi", "data/informasi.json");
+  const originalData = jsonData ? jsonData.informasi : [];
+
+  if (!originalData || originalData.length === 0) {
+    container.innerHTML = "<p>Gagal memuat atau tidak ada informasi.</p>";
+    return;
+  }
+
+  const updateList = () => {
+    const selectedKategori = kategoriFilter.value;
+    const sortOrder = sorter.value;
+
+    const filteredData =
+      selectedKategori === "semuanya"
+        ? [...originalData]
+        : originalData.filter((item) => item.kategori === selectedKategori);
+
+    const sortedAndFilteredData = filteredData.sort((a, b) => {
+      const dateA = new Date(a.tanggal);
+      const dateB = new Date(b.tanggal);
+      return sortOrder === "terbaru" ? dateB - dateA : dateA - dateB;
+    });
+
+    App.renderItems(
+      container,
+      sortedAndFilteredData,
+      createInformasiTemplate,
+      "<p>Tidak ada kutipan atau catatan yang cocok.</p>"
+    );
+  };
+
+  kategoriFilter.addEventListener("change", updateList);
+  sorter.addEventListener("change", updateList);
+  updateList();
+};
+
+// === ABOUT PAGE (Tidak ada perubahan) ===
+App.initializers.about = async () => {
+  // Kode untuk halaman about tetap sama, tidak perlu diubah.
+};
+
+// === KONTAK PAGE (Tidak ada perubahan) ===
+App.initializers.kontak = async () => {
+  // Kode untuk halaman kontak tetap sama, tidak perlu diubah.
+};
+
+// === ARTIKEL PAGE (KODE YANG DIPERBAIKI) ===
+App.initializers.artikel = async () => {
+  const container = document.getElementById("artikel-dinamis-container");
+  if (!container) return;
+
+  // --- PERBAIKAN: Tambahkan pengecekan ini ---
+  // Jika container sudah memiliki atribut 'data-content-loaded',
+  // artinya skrip sudah berjalan. Hentikan eksekusi lebih lanjut.
+  if (container.dataset.contentLoaded === "true") {
+    return;
+  }
+  // Tandai bahwa skrip sekarang sedang berjalan untuk mencegah pemanggilan ganda
+  container.dataset.contentLoaded = "true";
+  // --- AKHIR PERBAIKAN ---
+
+  const initSlideshow = () => {
+    document.querySelectorAll(".slideshow-container").forEach((container) => {
+      const slides = container.querySelectorAll(".slide-image");
+      if (slides.length <= 1) {
+        if (slides.length === 1) slides[0].classList.add("active-slide");
+        return;
+      }
+      let currentIndex = 0;
+      slides[currentIndex].classList.add("active-slide");
+      if (container.dataset.intervalId)
+        clearInterval(parseInt(container.dataset.intervalId));
+
+      const intervalId = setInterval(() => {
+        slides[currentIndex].classList.remove("active-slide");
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add("active-slide");
+      }, 4000);
+      container.dataset.intervalId = intervalId;
+    });
+  };
+
+  try {
+    const slug = new URLSearchParams(window.location.search).get("slug");
+    if (!slug) throw new Error("Slug artikel tidak ditemukan di URL.");
+
+    const artikelPath = `konten-kegiatan/${slug}.html`;
+    const response = await fetch(artikelPath);
+    if (!response.ok)
+      throw new Error(`Gagal memuat konten artikel: ${response.statusText}`);
+    const artikelHTML = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(artikelHTML, "text/html");
+
+    // Gunakan h1 atau h2 sebagai judul, mana saja yang ada
+    const titleElement = doc.querySelector("h1") || doc.querySelector("h2");
+    const title = titleElement
+      ? titleElement.textContent
+      : "Judul Tidak Ditemukan";
+
+    const dateElement = doc.querySelector(".kegiatan-meta");
+    const date = dateElement
+      ? dateElement.textContent
+      : "Tanggal Tidak Ditemukan";
+
+    const contentContainer = doc.querySelector(".artikel-konten");
+    if (!contentContainer)
+      throw new Error("Struktur konten artikel tidak valid.");
+
+    const words = contentContainer.innerText.split(/\s+/).length;
+    const readingTime = Math.ceil(words / 200);
+
+    document.title = `${title} - Amazia Blog`;
+    container.innerHTML = `
+        <div class="artikel-header">
+            <h1>${title}</h1>
+            <div class="artikel-meta-info">
+                <span><i class="fas fa-calendar-alt"></i> ${date}</span>
+                <span><i class="fas fa-clock"></i> Estimasi ${readingTime} menit baca</span>
+            </div>
+        </div>
+        <div class="artikel-konten">${contentContainer.innerHTML}</div>
+        <a href="kegiatan.html" class="tombol-kembali"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a>
+    `;
+    initSlideshow();
+  } catch (error) {
+    console.error("Gagal memuat artikel:", error);
+    container.innerHTML = `<div style="text-align: center;"><h2>Gagal Memuat Artikel</h2><p>Maaf, konten yang Anda cari tidak dapat ditemukan.</p><p><i>${error.message}</i></p><a href="kegiatan.html" class="kegiatan-tombol" style="margin-top: 20px;"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kegiatan</a></div>`;
+  } finally {
+    App.initScrollAnimations();
+  }
+};
