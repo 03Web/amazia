@@ -1,8 +1,25 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.5 (Fixed Turbo Drive cache issue)
+ * @version 8.2.6 (Forced Reload for Cross-Site Access)
  */
+
+// --- FUNGSI RELOAD OTOMATIS (DITARUH DI PALING ATAS) ---
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const hasAccessKey =
+    params.get("access_key") === "5895732857248594725894725984579452749857498";
+  const hasBeenReloaded = sessionStorage.getItem("amaziaPageReloaded");
+
+  if (hasAccessKey && !hasBeenReloaded) {
+    sessionStorage.setItem("amaziaPageReloaded", "true");
+    window.location.reload();
+  } else if (!hasAccessKey) {
+    // Reset flag jika pengguna sudah bernavigasi normal di dalam web
+    sessionStorage.removeItem("amaziaPageReloaded");
+  }
+})();
+// --- AKHIR FUNGSI RELOAD ---
 
 const App = (() => {
   // === STATE & CACHE ===
@@ -310,16 +327,10 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = (event) => {
-    // Terima 'event' dari Turbo
-    // --- PENAMBAHAN KODE PENTING UNTUK MENGATASI MASALAH TURBO ---
-    // Turbo 'restore' berarti halaman dimuat dari cache saat pengguna menekan tombol 'back'/'forward'.
-    // Jika ini adalah kunjungan 'restore', jangan jalankan kembali seluruh logika inisialisasi.
     if (event && event.detail && event.detail.action === "restore") {
       return;
     }
-    // --- AKHIR PENAMBAHAN KODE ---
 
-    // --- KODE KONTROL AKSES YANG DIPERBAIKI ---
     const isLoggedIn = sessionStorage.getItem(SESSION_KEY);
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -351,7 +362,6 @@ const App = (() => {
       const overlay = document.getElementById("welcome-overlay");
       if (overlay) overlay.classList.remove("hidden");
     }
-    // --- AKHIR KODE KONTROL AKSES ---
 
     if (!document.querySelector(".mobile-top-header")) {
       const mobileHeader = document.createElement("header");
@@ -417,5 +427,4 @@ const App = (() => {
   };
 })();
 
-// Modifikasi event listener untuk Turbo
-document.addEventListener("turbo:load", App.init);
+document.addEventListener("turbo:load", (event) => App.init(event));
