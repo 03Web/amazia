@@ -3,32 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="turbo-visit-control" content="reload" />
+
     <link rel="icon" type="image/png" href="foto/logoneutronltrblkhitam.png" />
     <title>Memuat Artikel... - Reading</title>
-
-    <script>
-      (() => {
-        const params = new URLSearchParams(window.location.search);
-        const GUEST_PASS_KEY = "amaziaGuestPass"; // Nama tiket kita
-        const hasAccessKey =
-          params.get("access_key") ===
-          "5895732857248594725894725984579452749857498";
-        const hasGuestPass = sessionStorage.getItem(GUEST_PASS_KEY) === "true";
-
-        // Jika ada kunci akses tapi belum punya tiket, ini kunjungan pertama.
-        // Beri tiket dan langsung reload ke URL yang bersih.
-        if (hasAccessKey && !hasGuestPass) {
-          sessionStorage.setItem(GUEST_PASS_KEY, "true");
-          const newUrl =
-            window.location.protocol +
-            "//" +
-            window.location.host +
-            window.location.pathname +
-            `?slug=${params.get("slug")}`;
-          window.location.replace(newUrl); // Gunakan replace agar tidak masuk histori browser
-        }
-      })();
-    </script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"

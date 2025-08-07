@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.7 (Final Guest Pass Logic)
+ * @version 8.2.8 (Final Stable with Turbo Meta Control)
  */
 
 const App = (() => {
@@ -18,7 +18,6 @@ const App = (() => {
 
   // === KUNCI SESI UNIK ===
   const SESSION_KEY = "isAmaziaLoggedIn";
-  const GUEST_PASS_KEY = "amaziaGuestPass"; // Kunci untuk tiket sementara
 
   // === PENGATURAN SESI & INAKTIVITAS ===
   const TIMEOUT_DURATION = 20 * 60 * 1000;
@@ -46,7 +45,6 @@ const App = (() => {
 
   function logoutUser() {
     sessionStorage.removeItem(SESSION_KEY);
-    sessionStorage.removeItem(GUEST_PASS_KEY); // Hapus juga tiket jika ada
     sessionStorage.removeItem("lastActivityTimestamp");
     window.location.href = "index.html";
   }
@@ -314,33 +312,23 @@ const App = (() => {
   const initPage = () => {
     // === LOGIKA KONTROL AKSES FINAL ===
     const isLoggedIn = sessionStorage.getItem(SESSION_KEY);
-    const hasGuestPass = sessionStorage.getItem(GUEST_PASS_KEY) === "true";
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
-    const isArticlePage = document.body.dataset.pageId === "artikel";
 
-    // Aturan 1: Jika pengguna ada di halaman artikel dengan tiket, mereka boleh masuk.
-    // Jika mereka pindah ke halaman LAIN (bukan artikel) tapi masih punya tiket,
-    // tiketnya hangus dan mereka dipaksa login.
-    if (hasGuestPass && !isArticlePage) {
-      sessionStorage.removeItem(GUEST_PASS_KEY);
+    const params = new URLSearchParams(window.location.search);
+    const hasAccessKey =
+      params.get("access_key") ===
+      "5895732857248594725894725984579452749857498";
+
+    // Kondisi untuk memaksa login: JIKA BELUM LOGIN, DAN TIDAK DI HALAMAN INDEX, DAN TIDAK PUNYA KUNCI AKSES
+    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
       logoutUser();
       return;
     }
 
-    // Aturan 2: Pengguna akan dipaksa login JIKA SEMUA kondisi ini terpenuhi:
-    // - Mereka BELUM login
-    // - Mereka TIDAK di halaman index
-    // - Mereka TIDAK punya tiket (atau tiketnya sudah hangus oleh Aturan 1)
-    if (!isLoggedIn && !isIndexPage && !hasGuestPass) {
-      logoutUser();
-      return;
-    }
-
-    // Jika pengguna sudah login, tiket tidak diperlukan lagi.
+    // Jika sudah login, jalankan timer
     if (isLoggedIn) {
-      sessionStorage.removeItem(GUEST_PASS_KEY);
       startInactivityTracker();
     } else if (isIndexPage) {
       // Jika belum login dan di halaman index, tampilkan form.
