@@ -1,7 +1,7 @@
 /**
  * @file app-core.js
  * @description Script inti untuk fungsionalitas website. Mengelola state, komponen, dan inisialisasi dasar.
- * @version 8.2.3 (Final Access Control & Duplication Fix)
+ * @version 8.2.4 (Fixed Cross-Site Session Conflict)
  */
 
 const App = (() => {
@@ -15,6 +15,9 @@ const App = (() => {
     kontak: [],
     lastScrollTop: 0,
   };
+
+  // === KUNCI SESI UNIK UNTUK WEBSITE INI ===
+  const SESSION_KEY = "isAmaziaLoggedIn";
 
   // === PENGATURAN SESI & INAKTIVITAS ===
   const TIMEOUT_DURATION = 20 * 60 * 1000;
@@ -41,7 +44,7 @@ const App = (() => {
   }
 
   function logoutUser() {
-    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem(SESSION_KEY); // Diubah
     sessionStorage.removeItem("lastActivityTimestamp");
     window.location.href = "index.html";
   }
@@ -119,7 +122,7 @@ const App = (() => {
           if (response.ok) {
             msg.innerText = "Anda di ijinkan Masuk! Anda akan dialihkan...";
             setTimeout(() => {
-              sessionStorage.setItem("isLoggedIn", "true");
+              sessionStorage.setItem(SESSION_KEY, "true"); // Diubah
               overlay.classList.add("hidden");
               startInactivityTracker();
             }, 1500);
@@ -307,48 +310,40 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- KODE KONTROL AKSES BARU ---
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    // --- KODE KONTROL AKSES YANG DIPERBAIKI ---
+    const isLoggedIn = sessionStorage.getItem(SESSION_KEY); // Diubah
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
 
-    // Cek apakah ada kunci akses di URL
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey =
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    // Logika utama: paksa login JIKA...
-    // 1. Pengguna BELUM login DAN
-    // 2. Pengguna TIDAK di halaman index DAN
-    // 3. Pengguna TIDAK punya kunci akses yang valid
     if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
       logoutUser();
-      return; // Hentikan eksekusi script lebih lanjut
+      return;
     }
 
-    // Jika pengguna punya kunci akses, segera hapus dari URL agar tidak bisa di-bookmark/copy
     if (hasAccessKey) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
         window.location.pathname +
-        `?slug=${params.get("slug")}`; // Pertahankan slug, hapus access_key
+        `?slug=${params.get("slug")}`;
       window.history.replaceState({ path: newUrl }, "", newUrl);
     }
 
     if (isLoggedIn) {
       startInactivityTracker();
     } else if (isIndexPage) {
-      // Hanya tampilkan overlay jika di halaman index dan belum login
       const overlay = document.getElementById("welcome-overlay");
       if (overlay) overlay.classList.remove("hidden");
     }
     // --- AKHIR KODE KONTROL AKSES ---
 
-    // Buat dan tambahkan header atas mobile secara dinamis
     if (!document.querySelector(".mobile-top-header")) {
       const mobileHeader = document.createElement("header");
       mobileHeader.className = "mobile-top-header";
