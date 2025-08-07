@@ -337,27 +337,27 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
+    // --- LOGIKA PENGENDALIAN AKSES BARU ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
-
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey =
-    params.get("access_key") === "5895732857248594725894725984579452749857498";
-    
-    // Logika baru yang lebih sederhana dan benar:
-    // Jika PENGGUNA TIDAK LOGIN dan DIA TIDAK DI HALAMAN INDEX...
-    if (!isLoggedIn && !isIndexPage) {
-      // ...MAKA KITA CEK APAKAH DIA PUNYA KUNCI AKSES.
-      // Jika TIDAK PUNYA KUNCI AKSES, baru kita usir (logout).
-      if (!hasAccessKey) {
+      params.get("access_key") ===
+      "5895732857248594725894725984579452749857498";
+
+    // Cek apakah pengguna berada di halaman non-indeks dan belum login.
+    if (!isIndexPage && !isLoggedIn) {
+      // Pengecualian hanya untuk halaman 'artikel.html' jika access_key ada.
+      // Jika pengguna ada di halaman lain, mereka akan dikeluarkan.
+      const isArtikelPage = window.location.pathname.includes("artikel.html");
+      if (!isArtikelPage || !hasAccessKey) {
         logoutUser();
-        return; // Hentikan eksekusi script lebih lanjut
+        return;
       }
     }
-    // Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
+    // --- AKHIR LOGIKA PENGENDALIAN AKSES BARU ---Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
     // maka script akan lanjut berjalan seperti biasa.
     // --- AKHIR BLOK KODE PERBAIKAN ---
 
