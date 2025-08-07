@@ -109,7 +109,9 @@ const App = (() => {
     } else if (isIndexPage) {
       overlay.classList.remove("hidden");
     } else {
-      logoutUser();
+      // Ini bagian penting: jika tidak login dan bukan di index,
+      // logika di initPage() akan menangani access_key atau redirect.
+      // Jika tidak ada access_key, fungsi logoutUser() akan dipanggil dari sana.
     }
 
     btnContainer.addEventListener("mouseover", shiftButton);
@@ -125,7 +127,6 @@ const App = (() => {
       btn.disabled = true;
 
       const formData = new FormData(form);
-      // !!! PENTING: Ganti dengan URL Formspree Anda yang sebenarnya untuk web ini !!!
       const FORMSPREE_URL = "https://formspree.io/f/mpwllonq";
 
       try {
@@ -166,13 +167,11 @@ const App = (() => {
       window.pageYOffset || document.documentElement.scrollTop;
 
     if (currentScroll > state.lastScrollTop && currentScroll > 50) {
-      // Scroll Down
       topHeader.classList.add("hidden");
     } else {
-      // Scroll Up
       topHeader.classList.remove("hidden");
     }
-    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    state.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   }
 
   // === UTILITIES & HELPERS (SHARED) ===
@@ -347,24 +346,24 @@ const App = (() => {
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    // 1. Jika pengguna belum login dan tidak berada di halaman index...
+    // 1. Jika pengguna belum login DAN tidak sedang di halaman index...
     if (!isLoggedIn && !isIndexPage) {
-      // ...dan juga tidak punya access_key yang valid, maka paksa keluar.
+      // ...dan juga tidak punya access_key yang valid, maka paksa keluar (logout).
       if (!hasAccessKey) {
         logoutUser();
-        return; // Hentikan eksekusi script lebih lanjut
+        return; // Hentikan eksekusi script lebih lanjut agar halaman tidak sempat dimuat.
       }
     }
 
     // 2. Jika pengguna masuk dengan access_key, hapus kunci itu dari URL
-    //    agar tidak terbawa saat navigasi selanjutnya.
+    //    agar tidak terbawa saat navigasi selanjutnya. Ini adalah perbaikan utamanya.
     if (hasAccessKey && window.location.search.includes("access_key")) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
         window.location.pathname;
-      // Ganti URL di browser tanpa me-reload halaman
+      // Ganti URL di browser tanpa me-reload halaman.
       window.history.replaceState({ path: newUrl }, "", newUrl);
     }
     // --- AKHIR BLOK KODE PERBAIKAN ---
