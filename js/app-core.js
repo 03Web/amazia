@@ -337,7 +337,8 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- LOGIKA PENGENDALIAN AKSES BARU ---
+    // --- BLOK KODE PENGECEKAN LOGIN YANG DIPERBAIKI ---
+    // --- LOGIKA PENGENDALIAN AKSES YANG LEBIH ROBUST ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
@@ -347,17 +348,31 @@ const App = (() => {
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    // Cek apakah pengguna berada di halaman non-indeks dan belum login.
-    if (!isIndexPage && !isLoggedIn) {
-      // Pengecualian hanya untuk halaman 'artikel.html' jika access_key ada.
-      // Jika pengguna ada di halaman lain, mereka akan dikeluarkan.
-      const isArtikelPage = window.location.pathname.includes("artikel.html");
-      if (!isArtikelPage || !hasAccessKey) {
+    // Jika pengguna tidak login DAN bukan di halaman index, kita periksa izinnya.
+    if (!isLoggedIn && !isIndexPage) {
+      // Izinkan akses jika ada access_key di URL saat ini.
+      // Jika tidak ada access_key, paksa logout.
+      if (!hasAccessKey) {
         logoutUser();
         return;
       }
     }
-    // --- AKHIR LOGIKA PENGENDALIAN AKSES BARU ---Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
+
+    // Jika pengguna memiliki access_key TAPI belum login, kita ingin access_key ini tidak dibawa ke halaman lain.
+    // Kita akan hapus access_key dari URL setelah halaman dimuat untuk mencegah navigasi bebas.
+    if (
+      !isLoggedIn &&
+      hasAccessKey &&
+      window.location.search.includes("access_key")
+    ) {
+      const newUrl =
+        window.location.protocol +
+        "//" +
+        window.location.host +
+        window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+    // --- AKHIR LOGIKA PENGENDALIAN AKSES ROBUST ---Jika salah satu kondisi di atas tidak terpenuhi (sudah login, atau di halaman index, atau punya kunci akses),
     // maka script akan lanjut berjalan seperti biasa.
     // --- AKHIR BLOK KODE PERBAIKAN ---
 
