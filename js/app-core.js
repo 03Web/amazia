@@ -307,40 +307,44 @@ const App = (() => {
 
   // === MAIN INITIALIZER ===
   const initPage = () => {
-    // --- KODE KONTROL AKSES FINAL ---
+    // --- KODE KONTROL AKSES BARU ---
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     const isIndexPage =
       window.location.pathname.endsWith("/") ||
       window.location.pathname.includes("index.html");
+
+    // Cek apakah ada kunci akses di URL
     const params = new URLSearchParams(window.location.search);
     const hasAccessKey =
       params.get("access_key") ===
       "5895732857248594725894725984579452749857498";
 
-    if (!isLoggedIn) {
-      if (isIndexPage) {
-        // Pengguna di halaman index dan belum login, tampilkan form.
-        const overlay = document.getElementById("welcome-overlay");
-        if (overlay) overlay.classList.remove("hidden");
-      } else if (!hasAccessKey) {
-        // Pengguna di halaman lain dan tidak punya kunci, paksa kembali ke index.
-        logoutUser();
-        return; // Hentikan eksekusi script.
-      }
+    // Logika utama: paksa login JIKA...
+    // 1. Pengguna BELUM login DAN
+    // 2. Pengguna TIDAK di halaman index DAN
+    // 3. Pengguna TIDAK punya kunci akses yang valid
+    if (!isLoggedIn && !isIndexPage && !hasAccessKey) {
+      logoutUser();
+      return; // Hentikan eksekusi script lebih lanjut
     }
 
-    // Jika pengguna punya kunci akses, segera hapus dari URL.
+    // Jika pengguna punya kunci akses, segera hapus dari URL agar tidak bisa di-bookmark/copy
     if (hasAccessKey) {
       const newUrl =
         window.location.protocol +
         "//" +
         window.location.host +
-        window.location.pathname;
-      window.history.replaceState({}, document.title, newUrl);
+        window.location.pathname +
+        `?slug=${params.get("slug")}`; // Pertahankan slug, hapus access_key
+      window.history.replaceState({ path: newUrl }, "", newUrl);
     }
 
     if (isLoggedIn) {
       startInactivityTracker();
+    } else if (isIndexPage) {
+      // Hanya tampilkan overlay jika di halaman index dan belum login
+      const overlay = document.getElementById("welcome-overlay");
+      if (overlay) overlay.classList.remove("hidden");
     }
     // --- AKHIR KODE KONTROL AKSES ---
 
