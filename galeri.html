@@ -55,10 +55,32 @@
     </main>
 
     <footer id="main-footer"></footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <div id="chatbot-container">
+      <div id="chatbot-header">
+        <span>Chat with AmaBot</span><button id="close-chatbot">-</button>
+      </div>
+      <div id="chatbot-body">
+        <div id="chat-window">
+          <div class="bot-message">
+            Hello! Ada yang bisa saya bantu seputar blog ini?
+          </div>
+        </div>
+        <div id="chat-input-container">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ketik pertanyaanmu..."
+          /><button id="send-chat-btn">Kirim</button>
+        </div>
+      </div>
+    </div>
+    <button id="open-chatbot-btn"><i class="fas fa-comments"></i></button>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="js/app-core.js"></script>
     <script src="js/page-initializers.js"></script>
+    <script src="js/chatbot_amazia.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
   </body>
 </html>
