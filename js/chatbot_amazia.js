@@ -179,32 +179,54 @@ Tujuan akhir Anda adalah mengubah setiap interaksi dari sekadar sesi tanya-jawab
     }
   }
 
+  // File: js/chatbot_sederhana.js
+
+  // ... (kode Anda yang lain)
+
   const handleSendMessage = async () => {
     const question = chatInput.value.trim();
     if (!question) return;
 
     addMessageToWindow(question, "user-message");
     chatInput.value = "";
-    addMessageToWindow("Sedang mengetik...", "bot-message", true);
+    // Panggil indicator loading tanpa teks
+    addMessageToWindow("", "bot-message", true);
 
     const answer = await getAiResponse(question);
 
+    // Hapus indicator loading sebelum menampilkan jawaban
     document.getElementById("loading-indicator")?.remove();
     addMessageToWindow(answer, "bot-message");
   };
 
   const addMessageToWindow = (message, className, isLoading = false) => {
     const messageDiv = document.createElement("div");
-    messageDiv.className = className;
-    // Menggunakan innerHTML untuk merender Markdown sederhana
-    messageDiv.innerHTML = message.replace(/\n/g, "<br>");
+    // Jangan tambahkan kelas 'bot-message' ke container indicator
+    // agar tidak ada background dan padding default
+    messageDiv.className = isLoading ? "loading-container" : className;
+
     if (isLoading) {
+      // Jika loading, buat struktur HTML untuk animasi titik-titik
       messageDiv.id = "loading-indicator";
+      messageDiv.innerHTML = `
+      <div class="bot-message" style="display: inline-block; padding: 8px 12px;">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    `;
+    } else {
+      // Jika bukan loading, tampilkan pesan seperti biasa
+      messageDiv.textContent = message;
     }
+
     chatWindow.appendChild(messageDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   };
 
+  // ... (sisa kode Anda)
   sendBtn.addEventListener("click", handleSendMessage);
   chatInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
