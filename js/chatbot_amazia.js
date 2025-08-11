@@ -1,7 +1,7 @@
 document.addEventListener("turbo:load", () => {
   // --- PENGATURAN DASAR (Menggunakan Google Gemini API) ---
-  const GOOGLE_AI_API_KEY = "MASUKKAN_API_KEY_GEMINI_ANDA_DI_SINI"; // Ganti dengan Kunci API Google Gemini Anda
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GOOGLE_AI_API_KEY}`;
+  const GOOGLE_AI_API_KEY = "AIzaSyCWyZjSkC_q--L08cCt6qdHmP0pdF96CZ8"; // Ganti dengan Kunci API Google Gemini Anda
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_AI_API_KEY}`;
 
   // --- "PENGETAHUAN" KHUSUS UNTUK BLOG AMAZIA ---
   const KNOWLEDGE_BASE = `
@@ -207,7 +207,7 @@ Tujuan akhir Anda adalah mengubah setiap interaksi dari sekadar sesi tanya-jawab
         </div>
       </div>
     `;
-    } else {git 
+    } else {
       messageDiv.textContent = message;
     }
 
@@ -222,12 +222,6 @@ Tujuan akhir Anda adalah mengubah setiap interaksi dari sekadar sesi tanya-jawab
     }
   });
 });
-
-
-
-
-
-
 
 // //____________________________________________________________________________________________________________________________________
 
@@ -245,7 +239,6 @@ Tujuan akhir Anda adalah mengubah setiap interaksi dari sekadar sesi tanya-jawab
 //         - Deskripsi Blog: Blog ini adalah kumpulan pemikiran acak, analisis, dan eksplorasi tentang berbagai topik. Ini adalah tempat untuk menuangkan ide-ide liar dan mencoba memahami dunia dari berbagai sudut pandang, seringkali dengan lensa kritis terhadap sejarah, kekuasaan, dan pengetahuan itu sendiri.
 
 //         ---
-        
 
 //         TENTANG BLOG DAN PENULIS (DARI HALAMAN 'ABOUT'):
 //         - Siapa Amazia Kristanto?: Seorang warga sipil biasa, mahasiswa Teknik Informatika, dan pengamat paruh waktu. Ia mendeskripsikan dirinya sering terjebak dalam pengamatan absurd terhadap hal-hal di sekitarnya.
@@ -257,7 +250,7 @@ Tujuan akhir Anda adalah mengubah setiap interaksi dari sekadar sesi tanya-jawab
 //         - Ajakan untuk Pembaca: "Selamat Datang di Warung Kopi Digital Saya. Ambil kursi. Mari kita bingung bersama-sama."
 
 //         ---
-        
+
 //         TEMA DAN KATEGORI KONTEN UTAMA DI BLOG:
 //         - Share Education: Membahas konsep dasar dan fundamental dari ekonomi, uang fiat, dan distribusi kekayaan.
 //         - History (Sejarah): Menganalisis topik seperti pemikiran Tan Malaka (Madilog), pentingnya belajar sejarah, dan dekonstruksi kebencian era Nazi.
