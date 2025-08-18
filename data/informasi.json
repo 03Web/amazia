@@ -3,7 +3,7 @@
     {
       "id": "nganu1",
       "judul": "Nganu",
-      "kategori": "nganu", 
+      "kategori": "nganu",
       "tanggal": "2025-02-03",
       "meta_info": "",
       "konten_html": "<p>Lagipula, setiap orang adalah pahlawan dalam kisahnya masing-masing.</p>"
@@ -71,6 +71,14 @@
       "tanggal": "1988-10-15",
       "meta_info": "(1918-1988)",
       "konten_html": "<p>Saya tidak suka penghargaan.</p>"
+    },
+    {
+      "id": "Richard-Feynman3",
+      "judul": "Richard Feynman",
+      "kategori": "kutipan",
+      "tanggal": "2025-08-18",
+      "meta_info": "(1918-1988)",
+      "konten_html": "<p>I don't like honours.</p>"
     },
     {
       "id": "carlsagan1",
@@ -247,6 +255,14 @@
       "tanggal": "1949-01-01",
       "meta_info": "(1903-1950)",
       "konten_html": "<p>Bahasa politik dirancang untuk membuat kebohongan terdengar benar.</p>"
+    },
+    {
+      "id": "Haruki Murakami",
+      "judul": "Haruki Murakami",
+      "kategori": "kutipan",
+      "tanggal": "2025-08-01",
+      "meta_info": "(2025-08-01)",
+      "konten_html": "<p>Orang-orang selalu berusaha memaksakan sesuatu padaku. Begitu mereka melihatku, mereka langsung mulai menyuruh-nyuruhku. Setidaknya, kau tidak mencoba memaksakan sesuatu padaku. Aku tidak cukup mengenalmu untuk memaksakan sesuatu padamu. Maksudmu, jika kau mengenalku lebih baik, kau akan memaksakan sesuatu padaku seperti orang lain pada umumnya? Bisa jadi, kataku. <strong>Begitulah cara orang hidup di dunia nyata: saling memaksakan kehendak satu sama lain.</strong> </p>"
     },
     {
       "id": "Isaac-Asimov1",
